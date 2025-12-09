@@ -8,6 +8,7 @@ import time
 import sys
 
 # --- CONFIGURATION ---
+# Use your specific path
 ENGINE_PATH = r"C:\Users\benmc\Documents\stockfish\stockfish-windows-x86-64-avx2.exe"
 
 # --- CRITERIA ---
@@ -15,6 +16,13 @@ MIN_TOTAL_POINTS = 10
 MAX_TOTAL_POINTS = 20
 MIN_SIDE_POINTS = 3
 EVAL_WINDOW = 0.6
+
+# --- GLOBAL STATE FOR PROGRESS BAR ---
+g_start_time = 0
+g_total_games = 0
+g_games_processed = 0
+g_scenarios_found = 0
+g_current_file = ""
 
 def get_material_score(board):
     values = {chess.PAWN: 1, chess.KNIGHT: 3, chess.BISHOP: 3, chess.ROOK: 5, chess.QUEEN: 9}
@@ -25,29 +33,20 @@ def get_material_score(board):
         b_score += len(board.pieces(piece_type, chess.BLACK)) * value
     return w_score, b_score, w_score + b_score
 
-# --- TAGGING LOGIC (STRICT) ---
+# --- TAGGING LOGIC ---
 def is_rook_endgame(board):
-    # 1. Must have at least one Rook
-    if not (board.pieces(chess.ROOK, chess.WHITE) or board.pieces(chess.ROOK, chess.BLACK)):
-        return False
-    # 2. Must NOT have Knights, Bishops, Queens
     for piece_type in [chess.KNIGHT, chess.BISHOP, chess.QUEEN]:
         if board.pieces(piece_type, chess.WHITE) or board.pieces(piece_type, chess.BLACK):
             return False
     return True
 
 def is_bishop_endgame(board):
-    # 1. Must have at least one Bishop
-    if not (board.pieces(chess.BISHOP, chess.WHITE) or board.pieces(chess.BISHOP, chess.BLACK)):
-        return False
-    # 2. Must NOT have Knights, Rooks, Queens
     for piece_type in [chess.KNIGHT, chess.ROOK, chess.QUEEN]:
         if board.pieces(piece_type, chess.WHITE) or board.pieces(piece_type, chess.BLACK):
             return False
     return True
 
 def is_pawn_endgame(board):
-    # Must NOT have any major/minor pieces
     for piece_type in [chess.KNIGHT, chess.BISHOP, chess.ROOK, chess.QUEEN]:
         if board.pieces(piece_type, chess.WHITE) or board.pieces(piece_type, chess.BLACK):
             return False
@@ -65,24 +64,53 @@ def analyze_position(board, engine, depth=15):
     try:
         info = engine.analyse(board, chess.engine.Limit(depth=depth))
         score_obj = info["score"].relative
-        
-        if score_obj.is_mate(): return None, True, None
+        if score_obj.is_mate(): return None, True, []
         
         score_cp = score_obj.score()
         eval_decimal = score_cp / 100.0
-        if abs(eval_decimal) > EVAL_WINDOW: return None, True, None
+        if abs(eval_decimal) > EVAL_WINDOW: return None, True, []
         
-        best_move = info.get("pv", [])[0] if "pv" in info and len(info["pv"]) > 0 else None
+        pv_line = info.get("pv", [])
+        best_moves = pv_line[:2] if len(pv_line) >= 1 else []
         
-        return eval_decimal, False, best_move
+        return eval_decimal, False, best_moves
     except Exception:
-        return None, True, None
+        return None, True, []
 
-# --- UTILS ---
+# --- CONSOLE UI HELPERS ---
 def format_time(seconds):
     if seconds < 60: return f"{int(seconds)}s"
     elif seconds < 3600: return f"{int(seconds // 60)}m {int(seconds % 60)}s"
     else: return f"{int(seconds // 3600)}h {int((seconds % 3600) // 60)}m"
+
+def draw_progress_bar():
+    elapsed = time.time() - g_start_time
+    rate = g_games_processed / elapsed if elapsed > 0 else 0
+    remaining = g_total_games - g_games_processed
+    eta = remaining / rate if rate > 0 else 0
+    
+    percent = (g_games_processed / g_total_games) * 100 if g_total_games > 0 else 0
+    bar_length = 25
+    filled_length = int(bar_length * g_games_processed // g_total_games) if g_total_games > 0 else 0
+    bar = "█" * filled_length + "-" * (bar_length - filled_length)
+    
+    display_file = (g_current_file[:15] + '..') if len(g_current_file) > 15 else g_current_file
+    
+    # \r goes to start of line. We print the bar without a newline.
+    status = f"\r[{bar}] {percent:.1f}% | {g_games_processed}/{g_total_games} | {rate:.0f} g/s | Found: {g_scenarios_found} | File: {display_file}"
+    
+    # Pad with spaces to clear any previous longer lines
+    sys.stdout.write(f"{status:<120}") 
+    sys.stdout.flush()
+
+def log_to_console(message):
+    """Clears the progress bar, prints a message, then redraws the bar."""
+    # 1. Clear current line
+    sys.stdout.write("\r" + " " * 120 + "\r")
+    # 2. Print message
+    print(message)
+    # 3. Redraw bar immediately
+    draw_progress_bar()
 
 def count_total_games(pgn_files):
     print("🔍 Pre-scanning files to count total games (this is fast)...")
@@ -95,22 +123,8 @@ def count_total_games(pgn_files):
     print(f"✅ Total Games Detected: {total}\n")
     return total
 
-def draw_progress_bar(processed, total, start_time, found_count):
-    elapsed = time.time() - start_time
-    rate = processed / elapsed if elapsed > 0 else 0
-    remaining = total - processed
-    eta = remaining / rate if rate > 0 else 0
-    
-    percent = (processed / total) * 100
-    bar_length = 30
-    filled_length = int(bar_length * processed // total)
-    bar = "█" * filled_length + "-" * (bar_length - filled_length)
-    
-    status = f"\r[{bar}] {percent:.1f}% | {processed}/{total} | {rate:.0f} g/s | ETA: {format_time(eta)} | Found: {found_count}"
-    sys.stdout.write(f"{status:<120}") 
-    sys.stdout.flush()
-
 def mine_games():
+    global g_start_time, g_total_games, g_games_processed, g_scenarios_found, g_current_file
     scenarios = []
     
     if not os.path.exists(ENGINE_PATH):
@@ -122,28 +136,30 @@ def mine_games():
         print("❌ ERROR: No PGN files found in the current directory")
         return
     
-    total_games = count_total_games(pgn_files)
-    if total_games == 0:
+    g_total_games = count_total_games(pgn_files)
+    if g_total_games == 0:
         print("❌ No games found in PGN files.")
         return
 
     print(f"🚀 Starting Miner...")
-    start_time = time.time()
-    games_processed = 0
+    g_start_time = time.time()
     
     try:
         engine = chess.engine.SimpleEngine.popen_uci(ENGINE_PATH)
         
         for pgn_file in pgn_files:
+            g_current_file = pgn_file
+            
             with open(pgn_file) as pgn:
                 while True:
                     game = chess.pgn.read_game(pgn)
                     if game is None: break
                     
-                    games_processed += 1
+                    g_games_processed += 1
                     
-                    if games_processed % 50 == 0:
-                        draw_progress_bar(games_processed, total_games, start_time, len(scenarios))
+                    # Update progress bar periodically
+                    if g_games_processed % 50 == 0:
+                        draw_progress_bar()
 
                     white_player = game.headers.get("White", "Unknown")
                     black_player = game.headers.get("Black", "Unknown")
@@ -155,13 +171,15 @@ def mine_games():
                     for move in game.mainline_moves():
                         board.push(move)
                         
+                        # --- FAST FILTERS ---
                         if board.pieces(chess.QUEEN, chess.WHITE) or board.pieces(chess.QUEEN, chess.BLACK): continue
                         w_score, b_score, total = get_material_score(board)
                         if not (MIN_TOTAL_POINTS <= total <= MAX_TOTAL_POINTS): continue
                         if w_score < MIN_SIDE_POINTS or b_score < MIN_SIDE_POINTS: continue
                         if (len(board.pieces(chess.PAWN, chess.WHITE)) + len(board.pieces(chess.PAWN, chess.BLACK))) < 2: continue
 
-                        eval_score, is_boring, best_move = analyze_position(board, engine)
+                        # --- ENGINE FILTER ---
+                        eval_score, is_boring, best_moves = analyze_position(board, engine)
 
                         if not is_boring and eval_score is not None:
                             fen = board.fen()
@@ -169,19 +187,23 @@ def mine_games():
 
                             current_tags = get_tags_for_board(board)
                             future_tags = []
-                            if best_move:
-                                board.push(best_move) 
-                                future_tags = get_tags_for_board(board)
-                                board.pop() 
+                            if best_moves:
+                                moves_pushed = 0
+                                for next_move in best_moves:
+                                    board.push(next_move)
+                                    moves_pushed += 1
+                                    future_tags += get_tags_for_board(board)
+                                
+                                for _ in range(moves_pushed):
+                                    board.pop()
                             
                             all_tags = list(set(current_tags + future_tags))
-
-                            sys.stdout.write("\r" + " " * 120 + "\r")
-                            print(f"✅ Found #{len(scenarios)+1}: {fen} | Tags: {all_tags}")
-                            draw_progress_bar(games_processed, total_games, start_time, len(scenarios)+1)
+                            
+                            g_scenarios_found += 1 # Update counter before logging
+                            log_to_console(f"✅ Found #{g_scenarios_found}: {fen} | Tags: {all_tags}")
                             
                             scenarios.append({
-                                "id": len(scenarios) + 1,
+                                "id": g_scenarios_found,
                                 "fen": fen,
                                 "eval": eval_score,
                                 "turn": "white" if board.turn == chess.WHITE else "black",
@@ -193,10 +215,13 @@ def mine_games():
                             })
                             break 
             
+            # Use our helper for this too so it doesn't break the bar
+            log_to_console(f"   ✓ Completed file: {pgn_file}")
+        
         engine.quit()
-        sys.stdout.write("\n")
+        sys.stdout.write("\n") # Move to next line cleanly
         with open("scenarios.json", "w") as f: json.dump(scenarios, f, indent=2)
-        print(f"💾 Done! Saved {len(scenarios)} scenarios from {total_games} games.")
+        print(f"💾 Done! Saved {len(scenarios)} scenarios from {g_total_games} games.")
 
     except KeyboardInterrupt:
         sys.stdout.write("\n")
