@@ -1,0 +1,4160 @@
+[
+  {
+    "id": 1,
+    "fen": "7k/2K5/3P3p/2N3p1/2P5/8/p6P/3r4 w - - 0 54",
+    "eval": -0.08,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Corzo y Prinzipe, Juan",
+    "year": "1901",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 2,
+    "fen": "6k1/p7/1b1p3p/1pp1p3/4Pp2/2PP1P2/PP2KNP1/8 w - - 0 34",
+    "eval": -0.24,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Corzo y Prinzipe, Juan vs Capablanca, Jose Raul",
+    "year": "1901",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 3,
+    "fen": "6k1/pp1n2pp/2p5/3p1p2/3P4/5BPP/PPP3P1/4K3 b - - 0 19",
+    "eval": 0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Corzo y Prinzipe, Juan",
+    "year": "1901",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 4,
+    "fen": "8/5p2/2r2k2/p5p1/P7/4P1KP/3R1P2/8 b - - 1 37",
+    "eval": -0.56,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1909",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 5,
+    "fen": "8/5k2/Rp3P2/6p1/2p3P1/6PK/P2P1r2/8 w - - 0 40",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Marshall, Frank James",
+    "year": "1909",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 6,
+    "fen": "8/1p3kpp/p7/3b4/p7/P1P5/3r1KPP/4B3 w - - 0 43",
+    "eval": -0.14,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Marshall, Frank James",
+    "year": "1909",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 7,
+    "fen": "8/5k1p/4p3/3p4/1n2P3/2pPN3/2P1K1PP/8 w - - 0 32",
+    "eval": 0.48,
+    "turn": "white",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1909",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 8,
+    "fen": "1r4k1/4Rpp1/p5p1/2p5/8/2P4P/P4PP1/6K1 w - - 0 30",
+    "eval": 0.21,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1909",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 9,
+    "fen": "8/8/p3R2p/1p1p1k1P/2pP1p1K/2P2P2/P1P5/8 b - - 0 40",
+    "eval": -0.47,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "pawn_endgame",
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Rivas Costa, Santiago",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 10,
+    "fen": "8/2k2p2/5p2/3pp3/r1bP4/2P1K1P1/5P2/3B4 w - - 0 44",
+    "eval": 0.22,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Jaffe, Charles vs Capablanca, Jose Raul",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 11,
+    "fen": "8/7p/p1k1B3/1p1p1p2/1P1PnP2/4P2P/4K3/4b3 w - - 0 59",
+    "eval": 0.34,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Chajes, Oscar vs Capablanca, Jose Raul",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 12,
+    "fen": "8/1p1k2B1/4p1p1/5p1p/3P3P/4PP2/b4KP1/8 w - - 0 32",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 13,
+    "fen": "4r1k1/5p2/R7/3p2p1/8/5pP1/1P3P1P/5K2 w - - 0 36",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tarrasch, Siegbert vs Capablanca, Jose Raul",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 14,
+    "fen": "8/7p/B3k1p1/4bp2/1P5P/8/3K1Bb1/8 w - - 4 36",
+    "eval": -0.36,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Leonhardt, Paul Saladin vs Capablanca, Jose Raul",
+    "year": "1911",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 15,
+    "fen": "r7/1kp3Rp/4p3/1KPp1p1P/3P1P2/8/5P2/8 b - - 0 48",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Kupchik, Abraham",
+    "year": "1913",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 16,
+    "fen": "8/5kb1/p4ppp/1pBp4/3P4/1PP4P/P3K1P1/8 b - - 0 40",
+    "eval": 0.04,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Marshall, Frank James",
+    "year": "1913",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 17,
+    "fen": "8/8/1r5p/1p1n1k2/1p1R1P2/7P/2P5/2K5 w - - 0 41",
+    "eval": 0.03,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Chajes, Oscar vs Capablanca, Jose Raul",
+    "year": "1913",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 18,
+    "fen": "3r4/p7/1p2k3/3p1p1p/1P5P/2R1PK2/P4P2/8 b - - 0 37",
+    "eval": -0.07,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Jaffe, Charles vs Capablanca, Jose Raul",
+    "year": "1913",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 19,
+    "fen": "1r3k2/5pp1/R3p2p/8/1N6/7P/5PP1/6K1 b - - 0 37",
+    "eval": 0.15,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Duras, Oldrich vs Capablanca, Jose Raul",
+    "year": "1913",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 20,
+    "fen": "8/p1pn4/3p1pk1/2pPp1p1/4P3/1PP2PP1/P4B2/5K2 w - - 2 34",
+    "eval": 0.6,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1914",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 21,
+    "fen": "6k1/5ppp/8/2N5/8/1r3P2/3B2PP/6K1 b - - 0 32",
+    "eval": -0.23,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1914",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 22,
+    "fen": "8/1p3ppp/8/2k1p3/2P5/3K1P2/P5PP/8 w - - 0 33",
+    "eval": -0.6,
+    "turn": "white",
+    "description": "Balanced Ending (10 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Lasker, Edward vs Capablanca, Jose Raul",
+    "year": "1915",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 23,
+    "fen": "k7/pp3p1p/5p2/8/3r4/3P4/RP3PPP/6K1 w - - 0 25",
+    "eval": -0.39,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Bernstein, Jacob vs Capablanca, Jose Raul",
+    "year": "1915",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 24,
+    "fen": "r7/p4Rpk/7p/8/2p5/2P1p3/PP4P1/6K1 w - - 0 32",
+    "eval": -0.02,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Kupchik, Abraham vs Capablanca, Jose Raul",
+    "year": "1915",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 25,
+    "fen": "8/5k2/2p3p1/1p1p1pP1/3P1P2/P1P5/1Kp5/8 w - - 0 42",
+    "eval": 0.05,
+    "turn": "white",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Kostic, Boris",
+    "year": "1916",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 26,
+    "fen": "4k3/1p5r/5b2/1R6/1p4P1/1P4B1/6K1/8 b - - 2 52",
+    "eval": -0.25,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Janowsky, Dawid Markelowicz",
+    "year": "1916",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 27,
+    "fen": "8/p2r2pp/1p3k2/5P2/8/5Pp1/PP2K2P/2R5 w - - 0 33",
+    "eval": -0.03,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Kostic, Boris vs Capablanca, Jose Raul",
+    "year": "1918",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 28,
+    "fen": "6k1/5p2/3B1b1p/1p4n1/8/7p/PP3P2/1B5K b - - 0 36",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Black, Roy Turnbull vs Capablanca, Jose Raul",
+    "year": "1918",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 29,
+    "fen": "6k1/5p2/p3r1p1/6p1/8/1P3PP1/P1R3K1/8 w - - 0 39",
+    "eval": 0.43,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1921",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 30,
+    "fen": "8/R7/1p1n2k1/2p5/2P5/4NK2/2r2P2/8 b - - 0 65",
+    "eval": -0.05,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1924",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 31,
+    "fen": "1r3k2/p1p2p2/6p1/8/2PRP3/8/P3K1PP/8 b - - 0 36",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Alekhine, Alexander",
+    "year": "1924",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 32,
+    "fen": "4rk2/pp4p1/7p/4P3/3pR3/3P4/PP3K1P/8 b - - 0 28",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Reti, Richard",
+    "year": "1924",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 33,
+    "fen": "8/8/5k2/3p4/2pP2pP/2N2rP1/R5K1/8 b - - 0 70",
+    "eval": 0.41,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Spielmann, Rudolf vs Capablanca, Jose Raul",
+    "year": "1925",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 34,
+    "fen": "8/1pk2pp1/p3p2p/4b3/4B3/1P2P2P/P3KPP1/8 w - - 0 30",
+    "eval": 0.31,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1925",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 35,
+    "fen": "8/pp1bkp2/4p1pp/3pP3/1P1P3P/P1N5/3K1PP1/8 b - - 0 25",
+    "eval": -0.47,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Torre Repetto, Carlos",
+    "year": "1925",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 36,
+    "fen": "6k1/5pp1/p3p2p/1pn5/8/P3P2P/1P2NPP1/6K1 w - - 0 31",
+    "eval": -0.05,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 37,
+    "fen": "2r5/5p1p/2pk2p1/8/p1R5/P3P2P/4KPP1/8 b - - 0 33",
+    "eval": -0.49,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Alekhine, Alexander",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 38,
+    "fen": "8/p3k1pp/4p3/3r4/4R3/5P2/1P1K2PP/8 w - - 0 38",
+    "eval": 0.04,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 39,
+    "fen": "8/6pp/r3kp2/pp6/4RP2/1P2K3/P5PP/8 b - - 0 33",
+    "eval": -0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 40,
+    "fen": "8/4k1p1/pp5p/3B4/P7/1P6/1b3PPP/2R3K1 b - - 0 29",
+    "eval": -0.24,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Alekhine, Alexander",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 41,
+    "fen": "8/1b3p2/5p2/b2p3k/2pN1P2/2N1P3/1P4KP/8 b - - 0 39",
+    "eval": -0.24,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Alekhine, Alexander",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 42,
+    "fen": "5r2/3k4/4n2P/R3P3/2P3p1/P5p1/5KP1/8 w - - 0 49",
+    "eval": 0.29,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 43,
+    "fen": "8/5pk1/6p1/3P3p/8/2b2NPP/5PK1/8 w - - 0 49",
+    "eval": 0.47,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Alekhine, Alexander",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 44,
+    "fen": "8/6p1/p4k1p/1p1R1N1P/1n4P1/1P3K2/1P6/8 b - - 0 39",
+    "eval": 0.2,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 45,
+    "fen": "3r1k2/8/1p1p1Pp1/p7/P1PR2K1/1P6/8/8 b - - 0 44",
+    "eval": -0.28,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Vidmar, Milan Sr",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 46,
+    "fen": "3n2k1/pp3p1p/2p3p1/8/8/4N3/PPP2PPP/2K5 w - - 0 22",
+    "eval": 0.02,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Alekhine, Alexander vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 47,
+    "fen": "5k2/3R4/3P2p1/1Bp2p2/1r3P1P/8/2K5/8 b - - 0 51",
+    "eval": -0.16,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Marshall, Frank James",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 48,
+    "fen": "6k1/pp3pp1/4p3/7p/3n1P2/P1N5/1PP3PP/7K w - - 0 29",
+    "eval": -0.59,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1927",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 49,
+    "fen": "8/p5p1/1p1kpp2/3n2p1/3P4/P2K2PP/1P1N1P2/8 w - - 0 32",
+    "eval": 0.13,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Capablanca, Jose Raul",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 50,
+    "fen": "6k1/p1r3p1/4R2p/1p6/6PP/8/PK4P1/8 w - - 0 29",
+    "eval": 0.2,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tarrasch, Siegbert vs Capablanca, Jose Raul",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 51,
+    "fen": "3k4/p3pp1p/1pp2bp1/8/2P5/2N3P1/PP2PPKP/8 w - - 0 18",
+    "eval": -0.2,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Euwe, Max vs Capablanca, Jose Raul",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 52,
+    "fen": "8/5pk1/4p1p1/4P2p/1PR4P/4P1K1/1r3P2/8 b - - 2 34",
+    "eval": -0.58,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Spielmann, Rudolf",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 53,
+    "fen": "5nk1/1p3p1p/p1p3p1/4B3/8/P1P2P2/1P4PP/6K1 b - - 0 28",
+    "eval": -0.22,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Tarrasch, Siegbert vs Capablanca, Jose Raul",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 54,
+    "fen": "2r3k1/5p2/4pp1p/1p6/1P6/4PP1P/3R1KP1/8 b - - 0 32",
+    "eval": 0.21,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Marshall, Frank James",
+    "year": "1928",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 55,
+    "fen": "2r2k2/5ppp/1R2p3/P7/4P3/1p6/4KPPP/8 b - - 0 32",
+    "eval": -0.03,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Monticelli, Mario",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 56,
+    "fen": "6k1/5p1p/5p2/p1NB4/2Pp4/r5P1/5PKP/8 w - - 0 30",
+    "eval": -0.08,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Canal, Esteban vs Capablanca, Jose Raul",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 57,
+    "fen": "8/1p2r1p1/2p2k2/2P2p2/1P1Rp1P1/4P3/5PK1/8 w - - 0 39",
+    "eval": 0.08,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 58,
+    "fen": "3r2k1/pp4pp/2p5/8/3PR3/1P6/1PK3PP/8 b - - 0 25",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Tartakower, Saviely",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 59,
+    "fen": "8/1p3p2/p2kp3/4np1p/3N4/PP2PPPP/4K3/8 b - - 0 32",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Przepiorka, Dawid vs Capablanca, Jose Raul",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 60,
+    "fen": "8/8/5Rpk/8/1P2pPK1/1r2P3/8/8 b - - 0 42",
+    "eval": -0.56,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Menchik, Vera",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 61,
+    "fen": "2R5/4r1p1/1p2p2p/3k4/4p3/4P1KP/P4PP1/8 w - - 0 37",
+    "eval": 0.33,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Thomas, George Alan",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 62,
+    "fen": "8/8/3r1p2/7R/p2kPK2/8/5PPP/8 b - - 1 43",
+    "eval": -0.55,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Euwe, Max vs Capablanca, Jose Raul",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 63,
+    "fen": "8/b3k3/4p2p/pp5K/4NP2/2P1R1P1/1P6/8 b - - 0 38",
+    "eval": 0.31,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Canal, Esteban vs Capablanca, Jose Raul",
+    "year": "1929",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 64,
+    "fen": "6k1/5p1p/p5p1/3R4/pP6/4P1P1/2r2P1P/6K1 w - - 0 31",
+    "eval": 0.26,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Yates, Frederick",
+    "year": "1930",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 65,
+    "fen": "8/p4k1p/nn3p2/2p5/8/P1P5/2K3PP/2B1N3 b - - 0 33",
+    "eval": 0.1,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Euwe, Max vs Capablanca, Jose Raul",
+    "year": "1931",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 66,
+    "fen": "8/8/1p4p1/5k1p/8/R3P2P/3K4/6n1 b - - 5 47",
+    "eval": -0.23,
+    "turn": "black",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [],
+    "players": "Euwe, Max vs Capablanca, Jose Raul",
+    "year": "1931",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 67,
+    "fen": "8/p4B2/2b4p/1pP3p1/k1K1p3/4P1P1/4P2P/8 w - b6 0 44",
+    "eval": -0.45,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Dake, Arthur William",
+    "year": "1931",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 68,
+    "fen": "5k2/8/p3P1p1/8/5P2/2b3P1/r7/2R3K1 w - - 0 41",
+    "eval": -0.04,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Turover, Isador Samuel",
+    "year": "1931",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 69,
+    "fen": "6k1/5ppp/p7/1p1bpB2/1P6/P3PP2/6PP/6K1 b - - 0 28",
+    "eval": -0.07,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Goglidze, Victor Arsentievich",
+    "year": "1935",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 70,
+    "fen": "3nb3/5k2/2p2pp1/3p4/BN1P4/4P1P1/5PK1/8 w - - 0 61",
+    "eval": 0.06,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Bohatirchuk, Fedor Parfenovich",
+    "year": "1935",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 71,
+    "fen": "6k1/1p3pbp/1p2p1p1/3p4/P2P1P2/4P3/1P1B2PP/6K1 b - - 0 26",
+    "eval": 0.04,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Lilienthal, Andor",
+    "year": "1935",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 72,
+    "fen": "5k2/1p3ppp/p3b3/3p4/3N4/4P3/PP3PPP/2K5 b - - 0 23",
+    "eval": -0.23,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Flohr, Salo vs Capablanca, Jose Raul",
+    "year": "1935",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 73,
+    "fen": "8/1pp2k1p/5bp1/p3p3/P3B3/1P3P2/2P3PP/5K2 b - - 0 27",
+    "eval": -0.21,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Spielmann, Rudolf vs Capablanca, Jose Raul",
+    "year": "1935",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 74,
+    "fen": "1B4k1/4bpp1/4p2p/3n4/3P4/5N2/5PPP/6K1 b - - 0 32",
+    "eval": 0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Levenfish, Grigory vs Capablanca, Jose Raul",
+    "year": "1936",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 75,
+    "fen": "8/3k1pp1/1p2p2p/p1n5/4P3/2N2P2/PP2K1PP/8 w - - 0 32",
+    "eval": 0.07,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Eliskases, Erich Gottlieb vs Capablanca, Jose Raul",
+    "year": "1936",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 76,
+    "fen": "R7/p1r2k1p/1p4p1/5p2/3K4/2P2PP1/P6P/8 b - - 0 37",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Kan, Ilia Abramovich",
+    "year": "1936",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 77,
+    "fen": "6k1/1b4pp/5p2/1p1p4/p6P/1P2PPP1/PN3K2/8 b - - 0 36",
+    "eval": -0.46,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Reshevsky, Samuel Herman",
+    "year": "1936",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 78,
+    "fen": "8/7k/PR1B3p/2p3P1/4b3/5r2/7K/8 b - - 0 45",
+    "eval": 0.06,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Bogoljubow, Efim",
+    "year": "1936",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 79,
+    "fen": "8/5k1p/8/3NR3/3r1Pp1/3b3P/7K/8 w - - 0 55",
+    "eval": 0.36,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Fine, Reuben",
+    "year": "1937",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 80,
+    "fen": "6k1/7p/8/5RP1/pP6/8/KP4r1/8 b - - 1 45",
+    "eval": -0.27,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Keres, Paul vs Capablanca, Jose Raul",
+    "year": "1937",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 81,
+    "fen": "6k1/p4p1p/1p3p2/1b2p3/8/1N2P3/PP2KPPP/8 w - - 0 24",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Petrovs, Vladimirs",
+    "year": "1937",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 82,
+    "fen": "8/2k1P2B/p1p4p/2K5/1P4bP/8/8/8 b - - 0 46",
+    "eval": -0.59,
+    "turn": "black",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Eliskases, Erich Gottlieb vs Capablanca, Jose Raul",
+    "year": "1937",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 83,
+    "fen": "8/B4kp1/8/n7/1Pr3p1/6P1/5PKP/8 w - - 0 39",
+    "eval": -0.01,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Reshevsky, Samuel Herman",
+    "year": "1937",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 84,
+    "fen": "4r3/R7/8/1p2p3/1B4k1/P5n1/1P6/4K3 w - - 0 43",
+    "eval": -0.04,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Reshevsky, Samuel Herman vs Capablanca, Jose Raul",
+    "year": "1938",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 85,
+    "fen": "8/5pkp/4p3/1r6/4pK1P/4P3/5PP1/5R2 w - - 0 33",
+    "eval": 0.09,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Fine, Reuben",
+    "year": "1938",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 86,
+    "fen": "R7/7k/7p/3pN2P/3P4/2K1b3/6r1/8 w - - 0 42",
+    "eval": 0.23,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Keres, Paul",
+    "year": "1938",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 87,
+    "fen": "6k1/p4p1p/2p3p1/2P1P3/8/1r3PK1/5P1P/3R4 w - - 0 28",
+    "eval": 0.23,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Reshevsky, Samuel Herman",
+    "year": "1938",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 88,
+    "fen": "4R3/1p4Bp/p1b5/7k/8/P1P2p2/1P3K1P/8 b - - 0 30",
+    "eval": -0.14,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Tartakower, Saviely",
+    "year": "1939",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 89,
+    "fen": "8/4k3/1p2p2p/p1r2P2/5p2/P4KPP/1P1R4/8 b - - 0 32",
+    "eval": 0.1,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Flores Alvarez, Rodrigo vs Capablanca, Jose Raul",
+    "year": "1939",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 90,
+    "fen": "8/1p2k2p/p1pp2p1/8/2P5/1P1n1PPP/P3NK2/8 w - - 0 33",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Keres, Paul vs Capablanca, Jose Raul",
+    "year": "1939",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 91,
+    "fen": "5rk1/5p1p/6p1/8/8/R5PP/5Pb1/6K1 w - - 0 25",
+    "eval": 0.08,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Petrovs, Vladimirs",
+    "year": "1939",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 92,
+    "fen": "2r5/5k2/6p1/2B5/1P3P2/5K2/4r2P/8 w - - 0 42",
+    "eval": -0.6,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Najdorf, Miguel",
+    "year": "1939",
+    "source_file": "Capablanca.pgn"
+  },
+  {
+    "id": 93,
+    "fen": "8/8/p7/1p1k4/3r1K2/8/P2R4/8 w - - 0 51",
+    "eval": -0.43,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Mieses, Jacques vs Lasker, Emanuel",
+    "year": "1889",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 94,
+    "fen": "7k/7p/p4p2/7P/1P3N2/4rp2/8/5K1R b - - 1 43",
+    "eval": -0.35,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Mieses, Jacques",
+    "year": "1889",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 95,
+    "fen": "6k1/6p1/7p/8/p2p3P/1r3PP1/1P1R2K1/8 w - - 0 42",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Von Bardeleben, Curt",
+    "year": "1890",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 96,
+    "fen": "8/6kp/p7/1p2N3/1P3p2/2P1nP2/5KPP/8 b - - 0 41",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Miniati, NT.",
+    "year": "1890",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 97,
+    "fen": "8/pp4p1/3bk3/8/2NP3p/2P2Pp1/PP4K1/8 w - - 0 38",
+    "eval": -0.17,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Moriau",
+    "year": "1891",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 98,
+    "fen": "8/6N1/k7/3p2p1/P2r4/5pKP/5P2/8 w - - 0 55",
+    "eval": -0.58,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Blackburne, Joseph Henry",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 99,
+    "fen": "8/1p3pp1/2pkr2p/8/1P1P2P1/3K1P2/6P1/2R5 b - - 0 34",
+    "eval": -0.02,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Blackburne, Joseph Henry vs Lasker, Emanuel",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 100,
+    "fen": "5k2/1pp2ppp/2b5/8/1pP5/1P3P2/P2K2PP/5B2 w - - 0 30",
+    "eval": 0.36,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Blackmar, Armand Edward",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 101,
+    "fen": "8/3N1bk1/7p/1p3p2/p1pPpP2/P1P1P2P/1P4K1/8 b - - 4 39",
+    "eval": -0.47,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Richhelm, G.",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 102,
+    "fen": "8/8/6p1/8/5p2/4kB1P/1r4PK/8 w - - 8 72",
+    "eval": -0.27,
+    "turn": "white",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [],
+    "players": "Voigt, HG. vs Lasker, Emanuel",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 103,
+    "fen": "6k1/3p1p1p/3p2p1/3P4/1pb5/8/5PPP/5RK1 w - - 0 31",
+    "eval": 0.09,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Showalter, Jackson Whipps",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 104,
+    "fen": "8/p7/2p1k3/P7/2K5/3N3p/7P/6b1 w - - 2 51",
+    "eval": -0.39,
+    "turn": "white",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [],
+    "players": "Showalter, Jackson Whipps vs Lasker, Emanuel",
+    "year": "1892",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 105,
+    "fen": "5k2/2p1np2/p1p5/2PpPNp1/1P4P1/P3K2P/8/8 b - - 10 45",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Ponce, A.",
+    "year": "1893",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 106,
+    "fen": "6k1/pp3pp1/8/8/5N2/5K2/PP1r4/4R3 b - - 0 37",
+    "eval": -0.12,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Golmayo, DC.",
+    "year": "1893",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 107,
+    "fen": "4R3/6p1/7p/2k5/P7/2p1K2P/r4PP1/8 b - - 0 46",
+    "eval": 0.46,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Helms, H.",
+    "year": "1893",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 108,
+    "fen": "4R3/5k2/2p5/P1Pp4/5P2/P1B4P/2r5/5K2 b - - 0 40",
+    "eval": 0.23,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Tinsley, Samuel vs Lasker, Emanuel",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 109,
+    "fen": "5k2/1b4pp/1BR5/8/P7/6P1/7P/5K2 b - - 0 36",
+    "eval": -0.33,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Frere, W.",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 110,
+    "fen": "8/3k2p1/4P2p/1K1P4/p6P/8/1P2r2P/1R6 b - - 0 45",
+    "eval": -0.55,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Steinitz, William vs Lasker, Emanuel",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 111,
+    "fen": "6k1/1p4p1/6p1/7p/p1P4R/P4P2/1P3K1P/2r5 w - - 0 37",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Steinitz, William",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 112,
+    "fen": "8/1B3kp1/4p3/p7/3n1P1P/4p1K1/P7/2R5 b - - 0 39",
+    "eval": 0.41,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Steinitz, William vs Lasker, Emanuel",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 113,
+    "fen": "8/3n3p/p2k2p1/1p1b4/3N1PB1/PP2K3/7P/8 b - - 0 53",
+    "eval": 0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Steinitz, William vs Lasker, Emanuel",
+    "year": "1894",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 114,
+    "fen": "2k5/2p4p/5p2/5n2/5B2/6PP/5K2/4r3 w - - 0 38",
+    "eval": -0.48,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Gledhill, W.",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 115,
+    "fen": "7k/6p1/5p2/R3pK2/4P2P/8/1r6/8 w - - 0 59",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Mason, James vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 116,
+    "fen": "8/pp2pk2/5p1r/3pP3/6P1/P5R1/5PK1/8 w - - 0 38",
+    "eval": -0.29,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Albin, Adolf vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 117,
+    "fen": "3N3k/p7/6pp/4bp2/3p1P1P/6P1/P1P3K1/8 b - - 0 38",
+    "eval": -0.56,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Mieses, Jacques vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 118,
+    "fen": "3b4/pp6/8/8/1kp3P1/8/P3N1KP/8 w - - 0 39",
+    "eval": -0.6,
+    "turn": "white",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [],
+    "players": "Tarrasch, Siegbert vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 119,
+    "fen": "4k3/3b1ppp/2pp4/p7/P1PN4/1P6/5PPP/5K2 w - - 0 24",
+    "eval": -0.23,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Pillsbury, Harry Nelson vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 120,
+    "fen": "8/5p2/2p1k1p1/1p1bP1Pp/p1p2P1P/P1P1K3/1P1B4/8 b - - 0 44",
+    "eval": 0.36,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Chigorin, Mikhail",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 121,
+    "fen": "2k5/ppp2ppp/4b3/8/8/P1N5/1PP2PPP/3K4 b - - 0 26",
+    "eval": 0.04,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Pillsbury, Harry Nelson",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 122,
+    "fen": "8/5k2/1p4rp/3b4/1PP1pK2/8/P3R3/8 w - - 0 46",
+    "eval": 0.17,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Pillsbury, Harry Nelson",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 123,
+    "fen": "8/6pp/1R2pk2/p1p5/5PP1/5K2/PPP4r/8 b - - 0 29",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Pillsbury, Harry Nelson vs Lasker, Emanuel",
+    "year": "1895",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 124,
+    "fen": "8/5p2/p1k3p1/6Kp/2b1PP1P/P7/8/2N5 w - - 0 55",
+    "eval": 0.45,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Steinitz, William vs Lasker, Emanuel",
+    "year": "1896",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 125,
+    "fen": "3R4/8/8/4rp2/1k6/1P6/2r3P1/2K5 w - - 0 54",
+    "eval": 0.15,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Steinitz, William",
+    "year": "1896",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 126,
+    "fen": "2r2k2/7R/4b1Kp/4N3/1p6/5p2/5P2/8 w - - 0 44",
+    "eval": 0.34,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Schiffers, Emanuel Stepanovich",
+    "year": "1896",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 127,
+    "fen": "4r3/p1p3kp/2N3p1/8/2P1p2P/4K3/P1B5/8 b - - 0 33",
+    "eval": -0.2,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Parnall, GG.",
+    "year": "1898",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 128,
+    "fen": "8/pp3k1p/4p1p1/3pP2n/3P4/2PB3P/PP6/6K1 w - - 0 30",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Showalter, Jackson Whipps vs Lasker, Emanuel",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 129,
+    "fen": "8/1pb1k3/p1p5/3p1P2/3P1PPn/7P/PP2NK2/8 b - - 0 45",
+    "eval": -0.43,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Janowsky, Dawid Markelowicz",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 130,
+    "fen": "5k2/4bppp/p3p3/1p6/1P2K3/P3P2P/1B3PP1/8 b - - 0 28",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Maroczy, Geza",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 131,
+    "fen": "6k1/5p1p/p1p1r3/P3P1p1/5P2/8/6PP/2R3K1 w - - 0 33",
+    "eval": 0.15,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Mason, James",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 132,
+    "fen": "8/p4k1r/1pR5/2p4P/3n2P1/6K1/P7/8 w - - 4 44",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Goncharov, Alexey",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 133,
+    "fen": "5r2/pp4k1/2p1R1p1/4p3/8/2P5/P1P3PP/6K1 w - - 0 23",
+    "eval": 0.2,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Bobrov",
+    "year": "1899",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 134,
+    "fen": "8/8/5N1p/1k3P2/4K1Nn/8/8/8 b - - 3 53",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs NN",
+    "year": "1900",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 135,
+    "fen": "6k1/5ppp/4p3/N2b4/2N2P2/1n4PP/1P6/6K1 w - - 0 40",
+    "eval": 0.42,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Marco, Georg",
+    "year": "1900",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 136,
+    "fen": "5K2/2p2B2/3k3n/1p6/3p1r2/1P6/8/7R w - - 0 44",
+    "eval": -0.26,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Marco, Georg vs Lasker, Emanuel",
+    "year": "1900",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 137,
+    "fen": "8/5p1k/7p/P3P3/6pP/6r1/7K/4R3 b - - 0 50",
+    "eval": -0.14,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Janowsky, Dawid Markelowicz",
+    "year": "1901",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 138,
+    "fen": "8/6kp/3pr1p1/5p2/5P2/3R3P/P5K1/8 w - - 0 38",
+    "eval": -0.09,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Janowsky, Dawid Markelowicz vs Lasker, Emanuel",
+    "year": "1901",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 139,
+    "fen": "4R3/1r6/2p2kB1/3p4/6bP/5P2/5K2/8 b - - 0 40",
+    "eval": 0.02,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lovegrove, WR. vs Lasker, Emanuel",
+    "year": "1902",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 140,
+    "fen": "8/2p3pp/2p2p2/8/1P6/1kPbBPbP/3K2P1/8 w - - 0 42",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Martinez, CS. vs Lasker, Emanuel",
+    "year": "1902",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 141,
+    "fen": "8/7p/6p1/p1n1pp2/2k1P3/5P1P/P2KN1P1/8 w - - 0 45",
+    "eval": -0.33,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Roething, O. vs Lasker, Emanuel",
+    "year": "1902",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 142,
+    "fen": "2r5/5pkp/6p1/p4p2/8/2R5/PP3PPP/5K2 b - - 0 33",
+    "eval": -0.35,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Robinson",
+    "year": "1902",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 143,
+    "fen": "8/8/1p6/3p3R/1pkP4/p4rB1/P1K4P/8 b - - 0 37",
+    "eval": 0.5,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Schultz, K.",
+    "year": "1903",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 144,
+    "fen": "8/p7/1p4N1/6p1/1kp5/4R3/Pr4PP/6K1 w - - 0 34",
+    "eval": 0.38,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Wainwright, George vs Lasker, Emanuel",
+    "year": "1903",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 145,
+    "fen": "8/p1p4k/3p4/5P2/1P4B1/4n1K1/P7/8 w - - 0 50",
+    "eval": -0.09,
+    "turn": "white",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [],
+    "players": "Barry, JF. vs Lasker, Emanuel",
+    "year": "1904",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 146,
+    "fen": "8/5pkp/p5p1/8/3rP3/7P/P4PP1/1R4K1 w - - 0 30",
+    "eval": 0.16,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Lawrence, Thomas Francis",
+    "year": "1904",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 147,
+    "fen": "3kb3/5p2/p1p3p1/1pp1PPPp/2P5/1P2N1P1/P4K2/8 b - - 0 32",
+    "eval": -0.6,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Showalter, Jackson Whipps",
+    "year": "1904",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 148,
+    "fen": "8/p1KR2k1/2P5/6P1/3P4/1P6/r7/3r4 b - - 1 44",
+    "eval": -0.47,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Barry, JF. vs Lasker, Emanuel",
+    "year": "1904",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 149,
+    "fen": "8/3R1k1p/6p1/2p4r/1p2P1K1/1P5P/1P6/8 b - - 0 40",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Kemeny, Emil vs Lasker, Emanuel",
+    "year": "1905",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 150,
+    "fen": "6k1/5p1p/2p1pnp1/8/2KP4/6P1/1B3P1P/8 w - - 6 31",
+    "eval": -0.29,
+    "turn": "white",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Lutton, BH.",
+    "year": "1906",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 151,
+    "fen": "6r1/pp2k3/2p1P3/8/8/3K3R/PPP5/8 b - - 0 34",
+    "eval": -0.21,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Crohn, RS.",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 152,
+    "fen": "5b2/R7/7p/1p1k4/b1p5/P7/1P2P2P/1K6 w - - 3 42",
+    "eval": -0.52,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Dixon, B. vs Lasker, Emanuel",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 153,
+    "fen": "8/5p2/1k2p1pp/1p2P3/1R6/P2r4/5PPP/4K3 w - - 0 37",
+    "eval": -0.01,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Marshall, Frank James",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 154,
+    "fen": "r7/1ppk4/1p2p3/7R/P2P3p/2P5/5PP1/6K1 b - - 0 28",
+    "eval": 0.21,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Lasker, Emanuel",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 155,
+    "fen": "8/5k1N/p7/3p1N2/4n3/1P2P2P/P5P1/3n2K1 b - - 0 35",
+    "eval": -0.21,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Lasker, Emanuel",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 156,
+    "fen": "8/6p1/N1p2p2/4bk1p/8/Pb2BP2/5KPP/8 w - - 0 35",
+    "eval": -0.08,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Lasker, Emanuel",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 157,
+    "fen": "8/k2r4/pp6/2p5/6R1/1P6/K1P5/8 w - - 0 38",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Marshall, Frank James",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 158,
+    "fen": "8/3R4/5pk1/2Np4/3P4/1p6/1rbK4/8 w - - 0 44",
+    "eval": -0.32,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Lasker, Emanuel",
+    "year": "1907",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 159,
+    "fen": "6k1/R1p1r2p/2p3p1/1p2P3/1P2K2P/8/2P5/8 b - - 0 35",
+    "eval": -0.1,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Dyckhoff, Eduard",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 160,
+    "fen": "6k1/p6p/1p5r/3p4/1P2p3/P3P1P1/4R1P1/6K1 w - - 0 34",
+    "eval": 0.18,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Krejcik, J. vs Lasker, Emanuel",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 161,
+    "fen": "8/k7/2R4p/1p2P3/1PB2K2/8/8/2r5 b - - 0 45",
+    "eval": -0.46,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tarrasch, Siegbert vs Lasker, Emanuel",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 162,
+    "fen": "4b3/4k1pp/5p2/4p3/2B5/1NK2PPP/P7/6b1 b - - 0 41",
+    "eval": 0.59,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Tarrasch, Siegbert",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 163,
+    "fen": "8/1k3r2/1P3Pp1/5P2/4b3/2R1B1K1/8/8 b - - 0 60",
+    "eval": -0.24,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Tarrasch, Siegbert vs Lasker, Emanuel",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 164,
+    "fen": "4k3/R4ppp/8/8/8/8/P2r1PPP/5K2 w - - 0 27",
+    "eval": 0.39,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Tarrasch, Siegbert",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 165,
+    "fen": "8/1p1n2pk/p3p2p/2p5/1p2P3/4BP2/PPP3PP/1K6 w - - 0 27",
+    "eval": 0.2,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Wood, CE.",
+    "year": "1908",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 166,
+    "fen": "8/p1p2Rkp/3p4/2p2p2/8/7P/PPP2PP1/6K1 b - - 0 29",
+    "eval": 0.04,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "pawn_endgame",
+      "rook_endgame"
+    ],
+    "players": "Bernstein, Ossip vs Lasker, Emanuel",
+    "year": "1909",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 167,
+    "fen": "6k1/2p2ppp/1p6/8/2Pn4/3P1B2/P4KPP/8 w - - 0 26",
+    "eval": 0.41,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Spielmann, Rudolf vs Lasker, Emanuel",
+    "year": "1909",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 168,
+    "fen": "8/6k1/p6p/1p6/2p1r3/P5KP/1P1R4/8 w - - 2 47",
+    "eval": -0.54,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Schlechter, Carl vs Lasker, Emanuel",
+    "year": "1909",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 169,
+    "fen": "6k1/p5pp/8/3p1R1P/8/1P1rP3/5KP1/8 b - - 0 37",
+    "eval": -0.17,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Janowsky, Dawid Markelowicz vs Lasker, Emanuel",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 170,
+    "fen": "8/3r3p/p5pk/8/5P2/5P2/6P1/5RK1 b - - 0 53",
+    "eval": 0.07,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Janowsky, Dawid Markelowicz vs Lasker, Emanuel",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 171,
+    "fen": "R7/3k1ppp/3p4/8/P1p1P3/4K3/r4P1P/8 w - - 0 39",
+    "eval": -0.52,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lynch, Julio vs Lasker, Emanuel",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 172,
+    "fen": "8/2r4k/2R5/p4p2/r6P/6P1/2P3K1/8 w - - 0 52",
+    "eval": 0.35,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Schlechter, Carl vs Lasker, Emanuel",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 173,
+    "fen": "8/8/1Rp3k1/1P5p/1r3b2/5KPP/8/8 w - - 0 41",
+    "eval": -0.11,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Schlechter, Carl",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 174,
+    "fen": "8/1p6/p2n1R1p/7k/2r5/6P1/P1PK4/8 w - - 0 65",
+    "eval": -0.16,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Schlechter, Carl vs Lasker, Emanuel",
+    "year": "1910",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 175,
+    "fen": "1k1r4/3P1p1p/1p3p2/4p3/8/6P1/P2R1P1P/6K1 w - - 0 33",
+    "eval": 0.41,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Shipley, Walter P",
+    "year": "1911",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 176,
+    "fen": "8/pRp4p/2r4k/6p1/5p2/2P2P1P/P5PK/8 w - - 0 48",
+    "eval": 0.01,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Rosebault, FD.",
+    "year": "1911",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 177,
+    "fen": "8/p1pn4/3p2k1/2pPppp1/4P3/1PP2PP1/P3KB2/8 w - - 0 35",
+    "eval": 0.58,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1914",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 178,
+    "fen": "6k1/6rp/p3R3/1p6/2p5/7P/P4PP1/5K2 b - - 0 36",
+    "eval": 0.13,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Lasker, Emanuel",
+    "year": "1914",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 179,
+    "fen": "5B2/6pB/p4bK1/1ppk4/5P2/1P6/1P4bP/8 b - - 6 34",
+    "eval": 0.3,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Tarrasch, Siegbert",
+    "year": "1914",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 180,
+    "fen": "6k1/5ppp/8/2n5/4N3/1r3P2/3B2PP/6K1 w - - 0 32",
+    "eval": 0.35,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1914",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 181,
+    "fen": "8/3k4/p1R2p1p/1bPp2p1/3B2P1/P7/5K1P/8 b - - 0 43",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Szavay",
+    "year": "1917",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 182,
+    "fen": "6k1/5pp1/6p1/4P3/2R1b2P/r1P5/6P1/7K w - - 0 33",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Feuerstein, J.",
+    "year": "1917",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 183,
+    "fen": "3N2b1/6k1/p4ppp/NnP5/4PPP1/8/4K3/8 b - - 0 51",
+    "eval": 0.01,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Rubinstein, Akiba",
+    "year": "1918",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 184,
+    "fen": "8/6p1/R1p1r2p/8/P3p3/4K1k1/2P3P1/8 w - - 1 50",
+    "eval": -0.4,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Schlechter, Carl vs Lasker, Emanuel",
+    "year": "1918",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 185,
+    "fen": "8/p5p1/3R1p1p/r4k2/3P3P/6P1/5K2/8 w - - 1 43",
+    "eval": -0.55,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tarrasch, Siegbert vs Lasker, Emanuel",
+    "year": "1918",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 186,
+    "fen": "4b1k1/6pp/pp6/2pP1p2/2P5/2N5/P4PPP/6K1 w - - 0 33",
+    "eval": -0.45,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Naegeli/Voellmy vs Lasker, Emanuel",
+    "year": "1919",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 187,
+    "fen": "6k1/5p2/p2r2p1/6p1/8/1P2KPP1/P1R5/8 b - - 3 40",
+    "eval": -0.53,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Capablanca, Jose Raul vs Lasker, Emanuel",
+    "year": "1921",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 188,
+    "fen": "1k6/7r/p7/1p1N4/1P3P2/6P1/6K1/8 w - - 0 70",
+    "eval": -0.22,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Lasker, Edward",
+    "year": "1924",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 189,
+    "fen": "8/1p2k1p1/2b4n/8/P3PP1P/3R1K2/8/8 b - - 0 44",
+    "eval": -0.52,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Bogoljubow, Efim vs Lasker, Emanuel",
+    "year": "1925",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 190,
+    "fen": "r4k2/5p2/4p1p1/p3P3/R4PpP/5K2/8/8 w - - 0 45",
+    "eval": -0.58,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Levenfish, Grigory",
+    "year": "1925",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 191,
+    "fen": "1nk5/5pp1/pp2p2p/3p4/P2P4/3KP3/NP3PPP/8 w - - 0 31",
+    "eval": 0.02,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Saemisch, Fritz",
+    "year": "1925",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 192,
+    "fen": "8/3k2p1/2p1p2p/R7/prPP3P/3K1P2/6P1/8 b - - 2 30",
+    "eval": -0.39,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Spielmann, Rudolf",
+    "year": "1925",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 193,
+    "fen": "6k1/3r4/5B2/p6p/1p3N2/3pP1P1/3P1P1P/6K1 w - - 1 35",
+    "eval": -0.2,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Torre, Carlos vs Lasker, Emanuel",
+    "year": "1926",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 194,
+    "fen": "4r1k1/5ppp/3p4/p2P4/P7/4P2P/6P1/2R3K1 w - - 0 37",
+    "eval": 0.43,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Van Zante, J. vs Lasker, Emanuel",
+    "year": "1926",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 195,
+    "fen": "8/1pB2kpp/p7/3p4/1P1P4/P7/5PPP/1b4K1 w - - 0 24",
+    "eval": 0.54,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Zirn, S.",
+    "year": "1926",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 196,
+    "fen": "8/p2p1kpp/1p6/1b6/7B/2P5/PPK4P/5R2 b - - 0 30",
+    "eval": 0.16,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Hage, Poul vs Lasker, Emanuel",
+    "year": "1927",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 197,
+    "fen": "5k2/2R5/5N2/2p2K2/5P2/1r6/r7/8 w - - 0 50",
+    "eval": 0.19,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Norman Hansen, Holger",
+    "year": "1927",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 198,
+    "fen": "4n3/p1p1P3/2K3p1/7p/2P2k1P/1P6/P7/8 w - - 1 49",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Andersen, Erik Sr",
+    "year": "1927",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 199,
+    "fen": "8/p4b1p/2pk2p1/4R3/N7/1P6/P4KPP/8 b - - 0 29",
+    "eval": 0.24,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Bernstein, Sidney Norman",
+    "year": "1928",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 200,
+    "fen": "3k4/7p/2p5/2p5/p4PP1/6KP/r1N5/5R2 b - - 0 33",
+    "eval": -0.2,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Kahn, J.",
+    "year": "1928",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 201,
+    "fen": "6k1/pp5p/8/8/3nr3/5P2/PP6/1K4N1 w - - 0 35",
+    "eval": -0.57,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Nimzowitsch, Aaron ",
+    "year": "1934",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 202,
+    "fen": "2n3k1/pp3p2/6pp/5p2/3N4/4P3/PP3PPP/5K2 w - - 0 26",
+    "eval": 0.29,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Stahlberg, Gideon vs Lasker, Emanuel",
+    "year": "1935",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 203,
+    "fen": "8/pp5p/2p1k1p1/2b1p3/1P2B2P/P1P2KP1/5P2/8 b - - 0 27",
+    "eval": -0.15,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Lasker, Emanuel vs Riumin, Nikolay Nikolaevich",
+    "year": "1935",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 204,
+    "fen": "8/p1r5/6R1/8/2pnkP2/P1K5/8/2B5 b - - 0 52",
+    "eval": 0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Botvinnik, Mikhail vs Lasker, Emanuel",
+    "year": "1935",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 205,
+    "fen": "8/p5kp/2p3p1/4R3/8/2P4P/PP1r2P1/6K1 b - - 0 32",
+    "eval": -0.09,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Riumin, Nikolay Nikolaevich vs Lasker, Emanuel",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 206,
+    "fen": "8/5ppp/R1pk4/4p3/8/5KP1/PP2PP1r/8 b - - 0 32",
+    "eval": -0.32,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Levenfish, Grigory vs Lasker, Emanuel",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 207,
+    "fen": "8/p4kpp/1p3p2/3P4/3P4/P2n1PBP/6P1/5K2 w - - 0 31",
+    "eval": -0.11,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Botvinnik, Mikhail",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 208,
+    "fen": "8/8/p2k3p/1p1nppp1/3P4/PN2P1P1/2K2P1P/8 w - - 0 36",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Kan, Ilia Abramovich vs Lasker, Emanuel",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 209,
+    "fen": "8/7R/3n2p1/p4k2/3K1N2/1r2PP2/8/8 w - - 0 38",
+    "eval": 0.24,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Eliskases, Erich Gottlieb vs Lasker, Emanuel",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 210,
+    "fen": "6k1/8/2p3p1/1p1p1b2/3P1N2/3B4/3b1PPP/6K1 w - - 0 42",
+    "eval": -0.19,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Botvinnik, Mikhail",
+    "year": "1936",
+    "source_file": "Lasker.pgn"
+  },
+  {
+    "id": 211,
+    "fen": "8/2r3p1/7p/p3k3/2P5/R3K1P1/P6P/8 b - - 1 38",
+    "eval": -0.59,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Lebedev, Sergey Fedorovich",
+    "year": "1903",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 212,
+    "fen": "6k1/1b4pp/4p3/p2pP3/2pPp1P1/2P1P2P/P2B3K/8 w - - 0 40",
+    "eval": 0.04,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Salwe, Georg vs Rubinstein, Akiba",
+    "year": "1903",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 213,
+    "fen": "6k1/pp3p1p/2p5/3p4/3P1n1P/3B4/P1P2PPK/8 w - - 0 28",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Duras, Oldrich vs Rubinstein, Akiba",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 214,
+    "fen": "8/1p6/8/p1p1kpp1/P1B4P/1PP2p2/8/4K3 b - - 0 38",
+    "eval": -0.2,
+    "turn": "black",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Middleton, E E. vs Rubinstein, Akiba",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 215,
+    "fen": "4bk2/7r/R7/4p1p1/P3P3/2K5/2B5/8 b - - 0 56",
+    "eval": 0.14,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Cohn, Erich",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 216,
+    "fen": "8/pp1nkpp1/2p4p/4PP2/4B1PP/P4K2/1P6/8 w - - 0 38",
+    "eval": 0.03,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Maliutin, Boris Evgenievich",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 217,
+    "fen": "1B6/5kp1/p1b1p1p1/1p3pP1/1P1P1P1P/5B2/3K4/8 b - - 0 50",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Znosko Borovsky, Eugene ",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 218,
+    "fen": "4n1k1/1R4pp/4K3/5r2/3B4/6PP/8/8 w - - 0 57",
+    "eval": 0.46,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Omeliansky, Vasily",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 219,
+    "fen": "8/pp3r2/4p1k1/3pP1p1/3P4/6P1/PPR5/6K1 w - - 0 39",
+    "eval": 0.09,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Alapin, Simon vs Rubinstein, Akiba",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 220,
+    "fen": "8/7k/3b2p1/2pP3p/1pP5/4P1P1/6K1/1B6 w - - 1 51",
+    "eval": -0.48,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Levitsky, Stepan M",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 221,
+    "fen": "6k1/3r4/5p2/2N1pP2/2n1P1p1/6P1/8/4K3 w - - 0 82",
+    "eval": 0.17,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Salwe, Georg",
+    "year": "1905",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 222,
+    "fen": "6k1/3r1p1p/P5p1/8/2pB3P/4PP2/3K2P1/8 b - - 0 34",
+    "eval": 0.3,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Bernstein, Ossip vs Rubinstein, Akiba",
+    "year": "1906",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 223,
+    "fen": "6k1/p5p1/8/2pR4/8/2P3p1/PP3r2/6K1 b - - 0 43",
+    "eval": 0.05,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Oskam, Gerard vs Rubinstein, Akiba",
+    "year": "1906",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 224,
+    "fen": "8/pp4kp/2b3p1/3p1p2/P2P4/1P2N2P/5PP1/6K1 b - - 0 28",
+    "eval": 0.01,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Balla, Zoltan",
+    "year": "1906",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 225,
+    "fen": "5n2/8/1p6/p3P2p/P3Kpk1/1P6/8/5B2 w - - 16 59",
+    "eval": -0.22,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [],
+    "players": "Chigorin, Mikhail vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 226,
+    "fen": "8/5k2/3R4/2B5/1P2pp1P/5b2/4r3/6K1 w - - 0 47",
+    "eval": -0.39,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Johner, Paul F vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 227,
+    "fen": "6k1/pp2b1p1/7p/8/8/6BP/PP4PK/8 w - - 0 37",
+    "eval": 0.06,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Maroczy, Geza vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 228,
+    "fen": "8/4k1pp/p7/Ppr1p3/3R4/2P1K3/1P4PP/8 w - - 0 37",
+    "eval": 0.04,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Cohn, Erich",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 229,
+    "fen": "6k1/1b4p1/7p/B7/r1P5/5NP1/5PPK/8 w - - 0 34",
+    "eval": -0.56,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Mieses, Jacques",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 230,
+    "fen": "8/1p1k2p1/p4pb1/2p4p/P3P2P/1P4N1/2P3P1/6K1 w - - 0 29",
+    "eval": -0.57,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Kuczynski, Robert vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 231,
+    "fen": "8/7k/2p3pP/1p6/pP4p1/2P1K3/1P4P1/8 b - - 1 46",
+    "eval": -0.41,
+    "turn": "black",
+    "description": "Balanced Ending (10 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Blackburne, Joseph Henry vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 232,
+    "fen": "8/1p1k1p2/4b3/2Bpn2p/5p2/2K1P2P/2B3P1/8 w - - 0 38",
+    "eval": 0.09,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Mieses, Jacques",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 233,
+    "fen": "2b5/3N2kp/p7/2pP1p2/2P2Pp1/3BK2P/6P1/8 b - - 0 37",
+    "eval": -0.03,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Tartakower, Saviely",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 234,
+    "fen": "8/5pkp/4pp2/3b4/5P2/6P1/R6P/5BK1 b - - 0 37",
+    "eval": 0.12,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Perlis, Julius",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 235,
+    "fen": "8/4k1pp/R7/4pp2/7r/1B1K4/5PP1/8 b - - 3 43",
+    "eval": -0.07,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Teichmann, Richard vs Rubinstein, Akiba",
+    "year": "1907",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 236,
+    "fen": "6k1/6p1/2p4p/pp1b4/3B1p2/1PP2P1P/P5PK/8 w - - 0 33",
+    "eval": -0.05,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Salwe, Georg vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 237,
+    "fen": "8/8/5pK1/4pp2/2b2PkP/R5n1/8/8 w - - 0 48",
+    "eval": -0.31,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Salwe, Georg",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 238,
+    "fen": "8/8/7B/7p/4k2P/3r4/6K1/8 w - - 6 63",
+    "eval": -0.33,
+    "turn": "white",
+    "description": "Balanced Ending (10 pts)",
+    "tags": [],
+    "players": "Salwe, Georg vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 239,
+    "fen": "8/p4p1k/6p1/8/2PR3K/7P/r7/8 b - - 0 48",
+    "eval": 0.53,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Von Bardeleben, Curt vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 240,
+    "fen": "2b5/B5k1/4pb2/3p4/3P1N1p/5K2/8/8 w - - 16 56",
+    "eval": -0.27,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 241,
+    "fen": "6k1/5p1p/2B3p1/1p1P4/4r3/6P1/P4PKP/8 w - - 0 37",
+    "eval": -0.32,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Kvicala, Jan",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 242,
+    "fen": "8/2B5/4k3/5p2/6Pp/8/3rnRPK/8 b - - 0 57",
+    "eval": 0.59,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Alapin, Simon vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 243,
+    "fen": "8/r4k2/P3p3/R3P1p1/4B1b1/2K5/8/8 b - - 1 55",
+    "eval": -0.29,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Cohn, Erich",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 244,
+    "fen": "3k4/6pp/p2b1p2/1p2p3/1P2P3/P5P1/3BKP1P/8 b - - 0 29",
+    "eval": 0.15,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Maroczy, Geza",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 245,
+    "fen": "8/4k2p/p3p3/3r1p2/P7/1P3P1P/3p2P1/3R2K1 w - - 0 31",
+    "eval": -0.26,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Rubinstein, Akiba",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 246,
+    "fen": "3b4/1R6/2r1p3/3p4/2k2PK1/8/7P/2B5 w - - 0 57",
+    "eval": -0.01,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Marshall, Frank James",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 247,
+    "fen": "2R5/5pk1/4B2p/4r3/4P1p1/5PP1/7P/5K2 b - - 0 35",
+    "eval": -0.2,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Marshall, Frank James",
+    "year": "1908",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 248,
+    "fen": "6k1/2p2ppp/8/Bp1pP3/3P4/b2P3P/P5P1/7K w - - 0 32",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Mieses, Jacques vs Rubinstein, Akiba",
+    "year": "1909",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 249,
+    "fen": "R7/7k/p4rp1/1p3p2/1P2p2P/4P2K/1P3P2/8 w - - 0 44",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Mieses, Jacques",
+    "year": "1909",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 250,
+    "fen": "4R3/r4pp1/3k2p1/6P1/B7/7P/5PK1/8 b - - 0 41",
+    "eval": 0.01,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tartakower, Saviely vs Rubinstein, Akiba",
+    "year": "1909",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 251,
+    "fen": "1r3k2/5pp1/3p2p1/8/3P4/P6P/2R2P1K/8 b - - 0 40",
+    "eval": 0.32,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Spielmann, Rudolf vs Rubinstein, Akiba",
+    "year": "1909",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 252,
+    "fen": "1r6/7p/6p1/R2pk3/8/5PP1/2N2K1P/8 b - - 0 37",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Kostic, Boris vs Rubinstein, Akiba",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 253,
+    "fen": "6k1/1p2np2/4p1p1/p3P3/3Pp1P1/1P3N2/P4PK1/8 w - - 0 36",
+    "eval": 0.51,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Nimzowitsch, Aaron  vs Rubinstein, Akiba",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 254,
+    "fen": "8/p2k4/1p4p1/1P1p2K1/3P1P2/2R1P3/8/7r b - - 2 56",
+    "eval": -0.38,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Alekhine, Alexander",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 255,
+    "fen": "8/8/6k1/6p1/1P4R1/P4r2/K7/8 b - - 0 52",
+    "eval": -0.4,
+    "turn": "black",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Chajes, Oscar",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 256,
+    "fen": "r5k1/5pp1/7p/3p4/1P2p3/6P1/P4P1P/4R1K1 w - - 0 39",
+    "eval": -0.15,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Dus Chotimirsky, Fedor Ivanovich",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 257,
+    "fen": "8/5p2/1pBP3p/pPk5/5PK1/P2b4/7P/8 b - - 0 38",
+    "eval": -0.43,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Teichmann, Richard",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 258,
+    "fen": "8/pR1N4/1n6/1kp5/r7/1K6/8/8 w - - 0 43",
+    "eval": -0.51,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Marshall, Frank James vs Rubinstein, Akiba",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 259,
+    "fen": "2r5/p2R1k1p/1p6/5p2/4p3/2P5/PP3P1P/5K2 b - - 0 31",
+    "eval": -0.56,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tarrasch, Siegbert vs Rubinstein, Akiba",
+    "year": "1911",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 260,
+    "fen": "8/6b1/6p1/p1k2p2/P1p2P2/2P1N1P1/bN1K4/8 w - - 0 47",
+    "eval": -0.02,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Salwe, Georg vs Rubinstein, Akiba",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 261,
+    "fen": "8/8/pkp2pp1/2R5/2PP2pP/r4P2/4K3/8 w - - 0 49",
+    "eval": -0.22,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Burn, Amos vs Rubinstein, Akiba",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 262,
+    "fen": "8/p5k1/1p4p1/6P1/5R1P/1PK5/1P5r/8 b - - 4 49",
+    "eval": -0.51,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Duras, Oldrich",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 263,
+    "fen": "8/5p1k/4pP1p/p6P/P1PR1PK1/2r5/8/8 b - - 1 52",
+    "eval": -0.52,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Przepiorka, Dawid vs Rubinstein, Akiba",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 264,
+    "fen": "8/p1p1kpp1/7p/P7/1P1R3P/4r3/2P3P1/2K5 w - - 0 34",
+    "eval": 0.03,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Perlis, Julius",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 265,
+    "fen": "8/8/2pn2pk/pp6/4Pp1P/1PP3N1/1P4K1/8 w - - 0 40",
+    "eval": 0.13,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Perlis, Julius vs Rubinstein, Akiba",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 266,
+    "fen": "8/1b5k/1R6/7p/7K/5r1P/1P2NP2/8 b - - 4 44",
+    "eval": -0.46,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Teichmann, Richard vs Rubinstein, Akiba",
+    "year": "1912",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 267,
+    "fen": "8/6p1/2p1k1p1/pp3pP1/2p2P1P/P1P2K2/1P6/2B3b1 w - - 0 47",
+    "eval": -0.31,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Blackburne, Joseph Henry vs Rubinstein, Akiba",
+    "year": "1914",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 268,
+    "fen": "8/8/1pk3p1/3p3p/p6P/P2PpKP1/1P6/8 w - - 0 81",
+    "eval": -0.28,
+    "turn": "white",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Bernstein, Ossip vs Rubinstein, Akiba",
+    "year": "1914",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 269,
+    "fen": "6k1/2R5/1p4pK/p7/P4rP1/4p2P/8/8 w - - 0 46",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Tarrasch, Siegbert",
+    "year": "1914",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 270,
+    "fen": "8/3k4/1R2p1p1/1p5p/6p1/P4n1P/1P2KP2/8 b - - 0 47",
+    "eval": -0.44,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Janowsky, Dawid Markelowicz vs Rubinstein, Akiba",
+    "year": "1914",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 271,
+    "fen": "8/7p/3kb3/2pp4/4p3/7P/2BK1N2/8 w - - 0 49",
+    "eval": -0.56,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Gottesdiener, I. vs Rubinstein, Akiba",
+    "year": "1917",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 272,
+    "fen": "8/5p1p/2kp1p2/p4P2/2K1P1P1/P1R4P/7r/8 w - - 0 54",
+    "eval": 0.34,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Mieses, Jacques vs Rubinstein, Akiba",
+    "year": "1918",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 273,
+    "fen": "2k5/1p6/p7/P2R4/1b6/1P1K1N2/1r6/8 b - - 0 41",
+    "eval": 0.25,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Schlechter, Carl vs Rubinstein, Akiba",
+    "year": "1918",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 274,
+    "fen": "3N2b1/6k1/p4pp1/NnP4p/4PPP1/8/4K3/8 w - - 0 52",
+    "eval": 0.07,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Lasker, Emanuel vs Rubinstein, Akiba",
+    "year": "1918",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 275,
+    "fen": "5k2/p7/1p2bp1p/2p3p1/P4P2/1PKN2P1/2P4P/8 w - - 0 37",
+    "eval": -0.16,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Tarrasch, Siegbert",
+    "year": "1918",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 276,
+    "fen": "6k1/1pp3p1/1p2Nn1p/3p4/8/3P4/PPP3PP/6K1 b - - 0 24",
+    "eval": -0.25,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Schlechter, Carl vs Rubinstein, Akiba",
+    "year": "1918",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 277,
+    "fen": "8/6p1/5RKp/r7/1k3P1P/p7/R7/8 b - - 0 57",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Bogoljubow, Efim vs Rubinstein, Akiba",
+    "year": "1919",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 278,
+    "fen": "3r4/p6p/1p6/4kpp1/1PR5/3K2P1/P4P1P/8 w - - 0 37",
+    "eval": 0.18,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Selezniev, Alexey Sergeevich",
+    "year": "1920",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 279,
+    "fen": "8/p5pp/1p2kp2/2pp4/b4P2/2PPK1P1/P1P4P/4N3 w - - 4 31",
+    "eval": -0.58,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Reti, Richard vs Rubinstein, Akiba",
+    "year": "1920",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 280,
+    "fen": "8/p3kp1p/6p1/6P1/P2R4/4PK2/r4P1P/8 w - - 1 35",
+    "eval": 0.36,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Nimzowitsch, Aaron ",
+    "year": "1920",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 281,
+    "fen": "8/2kn2N1/2p5/1p1pn1P1/7P/8/6BK/8 w - - 0 63",
+    "eval": -0.39,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Bogoljubow, Efim",
+    "year": "1920",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 282,
+    "fen": "r6k/6pp/p7/1p1p3P/1P1P4/P5R1/2P2K2/8 b - - 0 38",
+    "eval": -0.27,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Maroczy, Geza",
+    "year": "1921",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 283,
+    "fen": "8/p1R3pk/p4p2/r6P/P6P/1P2PK2/8/8 b - - 1 34",
+    "eval": -0.21,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Bogoljubow, Efim vs Rubinstein, Akiba",
+    "year": "1921",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 284,
+    "fen": "8/2p5/1pPpP1k1/3P1n1p/2P5/5N2/6K1/8 b - - 0 102",
+    "eval": 0.28,
+    "turn": "black",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Thomas, George Alan",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 285,
+    "fen": "8/3bk3/1p3p2/p1p3p1/P1P5/2P2P2/1NP3P1/6K1 w - - 0 48",
+    "eval": -0.43,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Tarrasch, Siegbert vs Rubinstein, Akiba",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 286,
+    "fen": "8/1k4N1/6R1/8/P4ppP/4b3/1r6/5K2 w - - 0 55",
+    "eval": -0.17,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Znosko Borovsky, Eugene  vs Rubinstein, Akiba",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 287,
+    "fen": "1R6/5kp1/2r1p2p/4P3/8/7P/6PK/8 b - - 0 57",
+    "eval": 0.27,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Bogoljubow, Efim vs Rubinstein, Akiba",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 288,
+    "fen": "8/6k1/5p2/4pP1p/1pB1n3/1P4P1/3R1PK1/8 b - - 0 50",
+    "eval": 0.47,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Alekhine, Alexander",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 289,
+    "fen": "8/7k/3pR3/4b1pN/7P/1P3r2/8/4K3 w - - 0 49",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Yates, Frederick vs Rubinstein, Akiba",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 290,
+    "fen": "3B2k1/5p1p/8/6p1/p7/5r2/7P/2R4K b - - 0 40",
+    "eval": -0.1,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Gruenfeld, Ernst",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 291,
+    "fen": "6k1/pp3ppp/2pp4/5b2/8/1PP5/P1P2PPP/4N1K1 b - - 0 18",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Maroczy, Geza vs Rubinstein, Akiba",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 292,
+    "fen": "8/3r1k2/3Bb3/6p1/p3p3/3RK1P1/8/8 w - - 0 40",
+    "eval": -0.37,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Tartakower, Saviely",
+    "year": "1922",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 293,
+    "fen": "6k1/5Pp1/p2p2Pp/1p6/2p5/8/PP5P/5K2 b - - 0 41",
+    "eval": 0.14,
+    "turn": "black",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Yates, Frederick vs Rubinstein, Akiba",
+    "year": "1923",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 294,
+    "fen": "3r4/6pp/3k4/8/P1R1pP2/8/P6P/6K1 b - - 0 34",
+    "eval": -0.06,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Tartakower, Saviely vs Rubinstein, Akiba",
+    "year": "1923",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 295,
+    "fen": "7k/1B4pp/p7/Pbb5/5P2/1P4P1/7P/6NK b - - 0 38",
+    "eval": -0.24,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Pokorny, Amos",
+    "year": "1923",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 296,
+    "fen": "8/1p3k2/4R3/p2p1p2/P2P1N2/1r6/5K2/8 b - - 0 48",
+    "eval": -0.2,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Mieses, Jacques",
+    "year": "1924",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 297,
+    "fen": "4r3/7R/1k4p1/1p1NPn2/1P3K2/8/8/8 b - - 0 35",
+    "eval": -0.54,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Miliani, Luigi vs Rubinstein, Akiba",
+    "year": "1924",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 298,
+    "fen": "8/3r4/4kr2/2p1P3/2K5/3P4/8/5R2 w - - 0 40",
+    "eval": 0.24,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Rosselli del Turco, Stefano",
+    "year": "1924",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 299,
+    "fen": "8/1p2kp2/2b1p3/p6p/P3P3/1PN2P2/3K3P/8 b - - 0 32",
+    "eval": 0.08,
+    "turn": "black",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Gruenfeld, Ernst vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 300,
+    "fen": "8/7r/p5k1/1p1p4/P2P1Pp1/1P6/3K1P2/5R2 b - - 0 58",
+    "eval": 0.13,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rosselli del Turco, Stefano vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 301,
+    "fen": "B5k1/5p2/4pp1p/8/3n1P2/6P1/5P1P/2R3K1 b - - 0 27",
+    "eval": -0.28,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Nimzowitsch, Aaron ",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 302,
+    "fen": "8/p4pkp/1p4p1/8/rP6/4P2P/2KR1PP1/8 w - - 0 38",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Rabinovich, Ilya Leontievich",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 303,
+    "fen": "8/6p1/Pk3p1p/n2B4/1p3P2/b7/3K2PP/B7 b - - 0 37",
+    "eval": 0.18,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Becker, Albert vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 304,
+    "fen": "3r4/8/5p1p/1ppk1p1P/P4B2/2P3P1/2K2P2/8 w - - 0 37",
+    "eval": -0.16,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Nimzowitsch, Aaron  vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 305,
+    "fen": "8/1p6/1K6/P1P3rp/4p2P/4Rb2/2P2k2/8 w - - 0 47",
+    "eval": -0.06,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Reti, Richard vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 306,
+    "fen": "8/3N1pbk/7p/2pb4/4pB2/2P5/5PPP/6K1 b - - 0 39",
+    "eval": 0.1,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Ilyin Zhenevsky, Alexander vs Rubinstein, Akiba",
+    "year": "1925",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 307,
+    "fen": "2bk4/b7/2B2p2/3Pp1p1/2P1P1P1/1K3P2/1P6/8 b - - 0 72",
+    "eval": -0.35,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Bogoljubow, Efim vs Rubinstein, Akiba",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 308,
+    "fen": "8/8/7k/2p1pp2/2Pb4/5P2/6K1/5B2 w - - 0 91",
+    "eval": -0.39,
+    "turn": "white",
+    "description": "Balanced Ending (11 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Saemisch, Fritz",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 309,
+    "fen": "8/pp3k1p/2pn1p2/3p2p1/3P4/1PP5/P1K1NPPP/8 b - - 0 29",
+    "eval": -0.08,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Saemisch, Fritz vs Rubinstein, Akiba",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 310,
+    "fen": "6k1/6p1/p6p/8/2p5/5N1P/Pb3PP1/6K1 w - - 0 46",
+    "eval": -0.44,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Gilg, Karl vs Rubinstein, Akiba",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 311,
+    "fen": "8/7p/4k1p1/1R1nr3/1PB5/8/7P/6K1 w - - 0 51",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Davidson, Jacques",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 312,
+    "fen": "8/1p6/p3kp2/3n3p/P3K3/2B4P/1P6/8 w - - 3 47",
+    "eval": -0.54,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Janowsky, Dawid Markelowicz",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 313,
+    "fen": "r5k1/pp3p1p/2p5/5p2/8/8/PP1R2PP/6K1 w - - 0 24",
+    "eval": -0.57,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Vidmar, Milan Sr",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 314,
+    "fen": "8/5kpp/p1b2p2/1p6/8/2N5/PPP3PP/6K1 w - - 0 31",
+    "eval": -0.28,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Tartakower, Saviely vs Rubinstein, Akiba",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 315,
+    "fen": "8/8/pb2N3/8/1p4kp/1P1K4/2N3P1/8 b - - 0 48",
+    "eval": -0.22,
+    "turn": "black",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Vajda, Arpad vs Rubinstein, Akiba",
+    "year": "1926",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 316,
+    "fen": "3k4/p4ppp/p7/8/1P1p4/P5P1/4PP1P/6K1 w - - 0 28",
+    "eval": 0.45,
+    "turn": "white",
+    "description": "Balanced Ending (12 pts)",
+    "tags": [
+      "pawn_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Regedzinski, Teodor",
+    "year": "1927",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 317,
+    "fen": "8/6k1/2r3pp/1pPp1p2/p2P3P/2K1P3/8/6R1 w - - 0 65",
+    "eval": 0.49,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Yates, Frederick",
+    "year": "1928",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 318,
+    "fen": "8/8/4k1p1/1p1p2P1/p1p5/P1P1B1b1/1PP3P1/1K6 b - - 1 61",
+    "eval": 0.58,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Brinckmann, Alfred vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 319,
+    "fen": "8/4kp2/1R5p/p4PpP/P7/2r2P2/5K2/8 b - - 0 37",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Maroczy, Geza vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 320,
+    "fen": "6k1/1p4p1/p1p5/5P2/3r3p/P7/1P2R1PP/6K1 w - - 0 35",
+    "eval": 0.05,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Marshall, Frank James vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 321,
+    "fen": "3r4/8/p2p4/1pp2k1p/2P1R3/1PK2PP1/P7/8 b - - 0 30",
+    "eval": 0.15,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Matisons, Hermanis vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 322,
+    "fen": "3k4/8/2p3n1/1p2p1p1/1P2P2p/4KP1P/6PB/8 w - - 0 36",
+    "eval": -0.21,
+    "turn": "white",
+    "description": "Balanced Ending (16 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Bogoljubow, Efim",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 323,
+    "fen": "1k6/7p/1p2p2r/4Ppp1/2P5/4P1P1/R5KP/8 b - - 0 42",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Colle, Edgar",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 324,
+    "fen": "8/8/3k2p1/2p1p1PP/Pb2P3/8/4B3/3K4 b - - 0 55",
+    "eval": -0.5,
+    "turn": "black",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Gruenfeld, Ernst",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 325,
+    "fen": "3k4/5p1p/1np1p3/p3p3/4P3/PPK2P2/6PP/5B2 w - - 0 30",
+    "eval": 0.57,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Johner, Paul F",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 326,
+    "fen": "8/6pp/p3k3/1bK1P3/2p2BP1/2P4P/P7/8 b - - 0 42",
+    "eval": -0.43,
+    "turn": "black",
+    "description": "Balanced Ending (15 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Treybal, Karel",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 327,
+    "fen": "4b2k/6pp/1pn2p2/1B1p4/N5P1/5P2/5K1P/8 b - - 0 35",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Yates, Frederick",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 328,
+    "fen": "8/5k2/3Bp2p/1p1b4/2p5/4P2P/6P1/6K1 w - - 0 39",
+    "eval": -0.52,
+    "turn": "white",
+    "description": "Balanced Ending (13 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Winter, William vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 329,
+    "fen": "8/2k5/8/1p3p2/pPb3pP/P1N1P3/3K2Bb/8 w - - 0 51",
+    "eval": -0.06,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Michell, Reginald Pryce vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 330,
+    "fen": "6k1/6p1/5p1p/ppn1p3/8/4P3/PP1NKPPP/8 w - - 0 31",
+    "eval": -0.04,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Rozic, E. vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 331,
+    "fen": "8/3r1pb1/4p1k1/5p1p/5P1P/3R2PK/8/8 w - - 0 58",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Konig, I.",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 332,
+    "fen": "3r4/5p2/3kp3/p6p/2P1KPp1/6P1/PR5P/8 b - - 0 36",
+    "eval": -0.12,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Pirc, Vasja vs Rubinstein, Akiba",
+    "year": "1929",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 333,
+    "fen": "8/5k2/3Pp1pb/7p/5P1P/5BKN/5P2/4n3 b - - 0 41",
+    "eval": -0.1,
+    "turn": "black",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Nimzowitsch, Aaron ",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 334,
+    "fen": "8/8/8/2r2pkp/PP6/4PB1P/3r2PK/8 w - - 0 38",
+    "eval": -0.25,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Soultanbeieff, Victor Ivanovich vs Rubinstein, Akiba",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 335,
+    "fen": "8/p5pk/1p5p/6r1/1P6/P1R5/6PK/8 b - - 0 43",
+    "eval": 0.39,
+    "turn": "black",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Ahues, Carl Oscar",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 336,
+    "fen": "8/8/1R4P1/1r5R/p1p5/1kP5/1P5K/8 b - - 0 76",
+    "eval": -0.16,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Sultan Khan, Mir",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 337,
+    "fen": "6k1/p7/1pp3p1/4np2/7p/1P2P2P/P1P1K1P1/3N4 w - - 0 26",
+    "eval": 0.16,
+    "turn": "white",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [],
+    "players": "Tartakower, Saviely vs Rubinstein, Akiba",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 338,
+    "fen": "8/8/8/3nkpp1/1p5p/1P2P2P/5KP1/3N4 w - - 0 38",
+    "eval": -0.06,
+    "turn": "white",
+    "description": "Balanced Ending (14 pts)",
+    "tags": [],
+    "players": "Landau, Salo vs Rubinstein, Akiba",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 339,
+    "fen": "4k3/2p5/p1b5/4P3/8/2P1K3/PP4r1/6R1 w - - 0 30",
+    "eval": -0.54,
+    "turn": "white",
+    "description": "Balanced Ending (19 pts)",
+    "tags": [],
+    "players": "Ahues, Carl Oscar vs Rubinstein, Akiba",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 340,
+    "fen": "8/2rk1pp1/R7/1p2pPp1/8/P7/1P4PP/6K1 w - - 0 37",
+    "eval": 0.01,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Yates, Frederick",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 341,
+    "fen": "4b3/1p2kppp/p7/4p3/4P3/5P2/PPB2KPP/8 b - - 0 25",
+    "eval": 0.22,
+    "turn": "black",
+    "description": "Balanced Ending (18 pts)",
+    "tags": [
+      "bishop_endgame"
+    ],
+    "players": "Menchik, Vera vs Rubinstein, Akiba",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 342,
+    "fen": "2r5/5p2/4pk2/p2p2p1/R7/6P1/PP2PP2/6K1 w - - 0 25",
+    "eval": 0.0,
+    "turn": "white",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [
+      "rook_endgame"
+    ],
+    "players": "Rubinstein, Akiba vs Gruenfeld, Ernst",
+    "year": "1930",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 343,
+    "fen": "8/5k2/4pn2/1KB3R1/Pp6/1r5P/8/8 b - - 0 52",
+    "eval": -0.22,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Rosselli del Turco, Stefano",
+    "year": "1931",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 344,
+    "fen": "8/2kn2p1/p7/Pp1BpPB1/1P2P3/6b1/4K3/8 b - - 0 58",
+    "eval": 0.0,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Golmayo de la Torriente, Manuel",
+    "year": "1931",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 345,
+    "fen": "8/1b5p/p4pk1/1pPp1pp1/1P3P2/2P3PP/P4N2/4K3 b - - 0 32",
+    "eval": -0.42,
+    "turn": "black",
+    "description": "Balanced Ending (20 pts)",
+    "tags": [],
+    "players": "Rubinstein, Akiba vs Stahlberg, Gideon",
+    "year": "1931",
+    "source_file": "Rubinstein.pgn"
+  },
+  {
+    "id": 346,
+    "fen": "8/4R1pp/8/pp1b4/2p2P2/1k6/1P1K2PP/8 w - - 8 39",
+    "eval": 0.35,
+    "turn": "white",
+    "description": "Balanced Ending (17 pts)",
+    "tags": [],
+    "players": "Vidmar, Milan Sr vs Rubinstein, Akiba",
+    "year": "1931",
+    "source_file": "Rubinstein.pgn"
+  }
+]
