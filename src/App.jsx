@@ -23,25 +23,37 @@ export default function App() {
   // Options
   const [includeRooks, setIncludeRooks] = useState(true);
   const [includeBishops, setIncludeBishops] = useState(true);
-  const [includePawns, setIncludePawns] = useState(true); // NEW
+  const [includePawns, setIncludePawns] = useState(true);
   const [jumpId, setJumpId] = useState("");
   
   // Sidebar
   const [sidebarHistory, setSidebarHistory] = useState([]);
+
+  // Responsive State
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
   const chessRef = useRef(new Chess()); 
   const boardRef = useRef(null);
   const apiRef = useRef(null);
   const engine = useRef(null);
 
+  // REFS
   const playerColorRef = useRef(playerColor);
   const historyIndexRef = useRef(historyIndex); 
   const gameHistoryRef = useRef(gameHistory);
+  
   const isReplayingRef = useRef(false);
 
   useEffect(() => { playerColorRef.current = playerColor; }, [playerColor]);
   useEffect(() => { historyIndexRef.current = historyIndex; }, [historyIndex]);
   useEffect(() => { gameHistoryRef.current = gameHistory; }, [gameHistory]);
+
+  // HANDLE RESIZE
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 800);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // 1. FETCH DATA
   useEffect(() => {
@@ -338,11 +350,41 @@ export default function App() {
     return dests;
   }
 
+  // --- DYNAMIC STYLES ---
+  const boardSize = isMobile ? "90vw" : "500px";
+  
+  const responsiveStyles = {
+      mainLayout: {
+          display: "flex", 
+          flexDirection: isMobile ? "column" : "row", // Stack on mobile
+          gap: "30px", 
+          alignItems: "center", // Center items in column mode
+          width: "100%", 
+          maxWidth: "900px", 
+          justifyContent: "center"
+      },
+      sidebar: {
+          width: isMobile ? "90vw" : "200px", // Full width on mobile
+          backgroundColor: "#222", 
+          borderRadius: "8px", 
+          padding: "15px",
+          border: "1px solid #333", 
+          height: isMobile ? "auto" : "500px", // Auto height on mobile
+          maxHeight: isMobile ? "300px" : "500px",
+          display: "flex", 
+          flexDirection: "column"
+      },
+      board: {
+          width: boardSize, 
+          height: boardSize // Keep square aspect ratio
+      }
+  };
+
   return (
     <div style={styles.appContainer}>
       <h2 style={styles.header}>♟️ BENNETT'S ENDGAME DOJO</h2>
 
-      <div style={styles.mainLayout}>
+      <div style={responsiveStyles.mainLayout}>
         <div style={styles.gameColumn}>
             
             <div style={styles.infoBar}>
@@ -363,7 +405,7 @@ export default function App() {
                 )}
             </div>
 
-            <div style={styles.boardContainer}>
+            <div style={{...styles.boardContainer, width: boardSize, height: boardSize}}>
                 {/* GAME OVER MODAL */}
                 {gameOver !== null && (
                     <div style={styles.overlay}>
@@ -375,7 +417,8 @@ export default function App() {
                     </div>
                 )}
                 
-                <div ref={boardRef} style={styles.board} />
+                {/* We pass width/height to the wrapper div so Chessground knows its bounds */}
+                <div ref={boardRef} style={{width: "100%", height: "100%"}} />
             </div>
 
             {/* NAV BAR */}
@@ -415,17 +458,17 @@ export default function App() {
             <div style={styles.optionsPanel}>
                 <label style={styles.checkboxLabel}>
                     <input type="checkbox" checked={includeRooks} onChange={(e) => setIncludeRooks(e.target.checked)} />
-                    Include Rook-Only
+                    Rook-Only
                 </label>
 
                 <label style={styles.checkboxLabel}>
                     <input type="checkbox" checked={includeBishops} onChange={(e) => setIncludeBishops(e.target.checked)} />
-                    Include Bishop-Only
+                    Bishop-Only
                 </label>
 
                 <label style={styles.checkboxLabel}>
                     <input type="checkbox" checked={includePawns} onChange={(e) => setIncludePawns(e.target.checked)} />
-                    Include Pawn-Only
+                    Pawn-Only
                 </label>
             </div>
 
@@ -447,7 +490,7 @@ export default function App() {
             </div>
         </div>
 
-        <div style={styles.sidebar}>
+        <div style={responsiveStyles.sidebar}>
             <h3 style={styles.sidebarTitle}>Recent History</h3>
             <div style={styles.historyList}>
                 {sidebarHistory.length === 0 && <span style={{color: "#555", fontStyle: "italic", fontSize: "14px"}}>No games yet</span>}
@@ -487,18 +530,16 @@ const styles = {
   appContainer: {
     display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "20px",
     fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    backgroundColor: "#1a1a1a", color: "#eee", minHeight: "100vh", width: "100vw", boxSizing: "border-box"
+    backgroundColor: "#1a1a1a", color: "#eee", minHeight: "100vh", width: "100vw", boxSizing: "border-box",
+    paddingBottom: "50px" // Add scroll space at bottom
   },
   header: {
-    fontSize: "24px", fontWeight: "800", margin: "0 0 15px 0",
-    letterSpacing: "1px", textTransform: "uppercase", color: "#d4a34b"
-  },
-  mainLayout: {
-      display: "flex", flexDirection: "row", gap: "30px", alignItems: "flex-start",
-      width: "100%", maxWidth: "900px", justifyContent: "center"
+    fontSize: "clamp(20px, 5vw, 24px)", // Responsive font size
+    fontWeight: "800", margin: "0 0 15px 0",
+    letterSpacing: "1px", textTransform: "uppercase", color: "#d4a34b", textAlign: "center"
   },
   gameColumn: {
-      display: "flex", flexDirection: "column", alignItems: "center"
+      display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: "500px"
   },
   navBar: {
       display: "flex", gap: "2px", marginTop: "10px", backgroundColor: "#333", borderRadius: "6px", overflow: "hidden"
@@ -509,10 +550,6 @@ const styles = {
   },
   disabledNav: {
       opacity: 0.3, cursor: "not-allowed"
-  },
-  sidebar: {
-      width: "200px", backgroundColor: "#222", borderRadius: "8px", padding: "15px",
-      border: "1px solid #333", height: "500px", display: "flex", flexDirection: "column"
   },
   sidebarTitle: {
       margin: "0 0 15px 0", fontSize: "16px", color: "#ccc", borderBottom: "1px solid #444", paddingBottom: "10px"
@@ -550,19 +587,18 @@ const styles = {
     position: "relative",
     padding: "10px", backgroundColor: "#262421", borderRadius: "4px", boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
   },
-  board: { width: "500px", height: "500px" },
   overlay: {
       position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
       backgroundColor: "rgba(0,0,0,0.85)", zIndex: 100,
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
       borderRadius: "4px"
   },
-  countdownText: { fontSize: "40px", fontWeight: "bold", color: "white" },
+  countdownText: { fontSize: "40px", fontWeight: "bold", color: "white", textAlign: "center" },
   metadata: {
-      marginTop: "10px", color: "#888", fontStyle: "italic", fontSize: "14px"
+      marginTop: "10px", color: "#888", fontStyle: "italic", fontSize: "14px", textAlign: "center"
   },
   optionsPanel: {
-      marginTop: "15px", display: "flex", gap: "20px", alignItems: "center"
+      marginTop: "15px", display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap", justifyContent: "center"
   },
   checkboxLabel: {
       fontSize: "14px", color: "#ccc", display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", userSelect: "none"
