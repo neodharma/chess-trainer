@@ -55,6 +55,31 @@ export default function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+// KEYBOARD SHORTCUTS
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Ignore if user is typing in the Jump ID input
+      if (e.target.tagName === "INPUT") return;
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        navigateHistory(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        navigateHistory(1);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault(); // Prevent scrolling up
+        navigateHistory("start");
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault(); // Prevent scrolling down
+        navigateHistory("end");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   // 1. FETCH DATA
   useEffect(() => {
     fetch("/scenarios.json")
@@ -171,24 +196,43 @@ export default function App() {
   }
 
   function navigateHistory(direction) {
-      if (!currentScenario) return;
-      const historyLen = gameHistoryRef.current.length;
-      let targetIndex = historyIndex;
+      if (gameHistoryRef.current.length === 0) return;
 
+      const historyLen = gameHistoryRef.current.length;
+      let targetIndex = historyIndexRef.current; // Use Ref to get current position
+
+      // 1. Determine the Basic Step
+      let step = 0;
       if (direction === "start") targetIndex = 0;
       else if (direction === "end") targetIndex = historyLen - 1;
       else {
-          let step = direction;
+          step = direction; // -1 or +1
           targetIndex += step;
-          if (targetIndex % 2 !== 0 && targetIndex > 0 && targetIndex < historyLen - 1) {
-              targetIndex += step;
-          }
       }
 
+      // 2. Bounds Check (Initial)
       if (targetIndex < 0) targetIndex = 0;
       if (targetIndex >= historyLen) targetIndex = historyLen - 1;
 
-      if (targetIndex === historyIndex) return;
+      // 3. Smart Skip Logic (Skip Opponent's moves)
+      // Only skip if we are moving via arrow keys (step !== 0)
+      if (step !== 0 && targetIndex > 0 && targetIndex < historyLen - 1) {
+          const snapshot = gameHistoryRef.current[targetIndex];
+          // Peek at the board state of the target index
+          const fenColor = snapshot.fen.split(' ')[1] === 'w' ? 'white' : 'black';
+          
+          // If the target state is NOT our turn to move, skip it to get to our turn
+          if (fenColor !== playerColorRef.current) {
+               targetIndex += step;
+          }
+      }
+
+      // 4. Final Safety Clamp
+      if (targetIndex < 0) targetIndex = 0;
+      if (targetIndex >= historyLen) targetIndex = historyLen - 1;
+
+      // 5. Execute Update
+      if (targetIndex === historyIndexRef.current) return;
 
       isReplayingRef.current = true;
 
@@ -200,12 +244,10 @@ export default function App() {
       updateBoardVisuals();
       setGameOver(null); 
 
-      setEngineStatus("Analyzing History...");
+      setEngineStatus("Reviewing...");
+      // Optional: Only eval if we stopped on a valid move
       engine.current?.postMessage(`position fen ${tempGame.fen()}`);
       engine.current?.postMessage("go depth 12");
-
-      const turnColor = tempGame.turn() === 'w' ? 'white' : 'black';
-      setTurnInfo(turnColor);
   }
 
   useEffect(() => {
