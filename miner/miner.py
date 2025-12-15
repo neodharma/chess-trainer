@@ -8,14 +8,14 @@ import time
 import sys
 
 # --- CONFIGURATION ---
-# Use your specific path
+# Update this path to your engine
 ENGINE_PATH = r"C:\Users\benmc\Documents\stockfish\stockfish-windows-x86-64-avx2.exe"
 
 # --- CRITERIA ---
 MIN_TOTAL_POINTS = 10
-MAX_TOTAL_POINTS = 20
+MAX_TOTAL_POINTS = 25
 MIN_SIDE_POINTS = 3
-EVAL_WINDOW = 0.6
+# Note: Eval windows are handled in logic below
 
 # --- GLOBAL STATE FOR PROGRESS BAR ---
 g_start_time = 0
@@ -59,16 +59,47 @@ def get_tags_for_board(board):
     if is_pawn_endgame(board): tags.append("pawn_endgame")
     return tags
 
+def check_future_imbalance(board, moves):
+    if len(moves) < 2: return False
+    board.push(moves[0])
+    board.push(moves[1])
+    w, b, _ = get_material_score(board)
+    diff = abs(w - b)
+    board.pop()
+    board.pop()
+    return diff >= 2
+
 # --- ENGINE ANALYSIS ---
 def analyze_position(board, engine, depth=15):
     try:
         info = engine.analyse(board, chess.engine.Limit(depth=depth))
-        score_obj = info["score"].relative
+        
+        # Use info["score"].white() to get ABSOLUTE score (White perspective)
+        # +1.0 = White winning
+        # -1.0 = Black winning
+        score_obj = info["score"].white()
+        
         if score_obj.is_mate(): return None, True, []
         
         score_cp = score_obj.score()
         eval_decimal = score_cp / 100.0
-        if abs(eval_decimal) > EVAL_WINDOW: return None, True, []
+        
+        # --- EVALUATION LOGIC ---
+        
+        # 1. Draw Zone: -0.6 to 0.6
+        is_drawn = -0.6 <= eval_decimal <= 0.6
+        
+        # 2. White Advantage: +1.0 to +1.5 AND it must be White's turn
+        is_white_adv = (1.0 <= eval_decimal <= 1.5) and (board.turn == chess.WHITE)
+        
+        # 3. Black Advantage: -1.5 to -1.0 AND it must be Black's turn
+        # (This is the specific fix: allowing negative scores if Black is to play)
+        is_black_adv = (-1.5 <= eval_decimal <= -1.0) and (board.turn == chess.BLACK)
+
+        if not (is_drawn or is_white_adv or is_black_adv):
+            # Discard if the advantage is too big (>1.5), too small (0.6-1.0),
+            # or if the player to move is the one losing (e.g. White to move, eval -1.5)
+            return None, True, []
         
         pv_line = info.get("pv", [])
         best_moves = pv_line[:2] if len(pv_line) >= 1 else []
@@ -78,48 +109,31 @@ def analyze_position(board, engine, depth=15):
         return None, True, []
 
 # --- CONSOLE UI HELPERS ---
-def format_time(seconds):
-    if seconds < 60: return f"{int(seconds)}s"
-    elif seconds < 3600: return f"{int(seconds // 60)}m {int(seconds % 60)}s"
-    else: return f"{int(seconds // 3600)}h {int((seconds % 3600) // 60)}m"
-
 def draw_progress_bar():
     elapsed = time.time() - g_start_time
     rate = g_games_processed / elapsed if elapsed > 0 else 0
-    remaining = g_total_games - g_games_processed
-    eta = remaining / rate if rate > 0 else 0
-    
     percent = (g_games_processed / g_total_games) * 100 if g_total_games > 0 else 0
+    
     bar_length = 25
     filled_length = int(bar_length * g_games_processed // g_total_games) if g_total_games > 0 else 0
     bar = "█" * filled_length + "-" * (bar_length - filled_length)
     
     display_file = (g_current_file[:15] + '..') if len(g_current_file) > 15 else g_current_file
-    
-    # \r goes to start of line. We print the bar without a newline.
     status = f"\r[{bar}] {percent:.1f}% | {g_games_processed}/{g_total_games} | {rate:.0f} g/s | Found: {g_scenarios_found} | File: {display_file}"
-    
-    # Pad with spaces to clear any previous longer lines
     sys.stdout.write(f"{status:<120}") 
     sys.stdout.flush()
 
 def log_to_console(message):
-    """Clears the progress bar, prints a message, then redraws the bar."""
-    # 1. Clear current line
     sys.stdout.write("\r" + " " * 120 + "\r")
-    # 2. Print message
     print(message)
-    # 3. Redraw bar immediately
     draw_progress_bar()
 
 def count_total_games(pgn_files):
-    print("🔍 Pre-scanning files to count total games (this is fast)...")
+    print("🔍 Pre-scanning files to count total games...")
     total = 0
     for pgn_file in pgn_files:
         with open(pgn_file) as f:
-            count = sum(1 for line in f if line.startswith("[Event "))
-            total += count
-            print(f"   - {pgn_file}: {count} games")
+            total += sum(1 for line in f if line.startswith("[Event "))
     print(f"✅ Total Games Detected: {total}\n")
     return total
 
@@ -133,14 +147,10 @@ def mine_games():
 
     pgn_files = glob.glob("*.pgn")
     if not pgn_files:
-        print("❌ ERROR: No PGN files found in the current directory")
+        print("❌ ERROR: No PGN files found.")
         return
     
     g_total_games = count_total_games(pgn_files)
-    if g_total_games == 0:
-        print("❌ No games found in PGN files.")
-        return
-
     print(f"🚀 Starting Miner...")
     g_start_time = time.time()
     
@@ -154,12 +164,9 @@ def mine_games():
                 while True:
                     game = chess.pgn.read_game(pgn)
                     if game is None: break
-                    
                     g_games_processed += 1
                     
-                    # Update progress bar periodically
-                    if g_games_processed % 50 == 0:
-                        draw_progress_bar()
+                    if g_games_processed % 50 == 0: draw_progress_bar()
 
                     white_player = game.headers.get("White", "Unknown")
                     black_player = game.headers.get("Black", "Unknown")
@@ -173,8 +180,10 @@ def mine_games():
                         
                         # --- FAST FILTERS ---
                         if board.pieces(chess.QUEEN, chess.WHITE) or board.pieces(chess.QUEEN, chess.BLACK): continue
-                        w_score, b_score, total = get_material_score(board)
-                        if not (MIN_TOTAL_POINTS <= total <= MAX_TOTAL_POINTS): continue
+                        
+                        w_score, b_score, total_material = get_material_score(board)
+                        
+                        if not (MIN_TOTAL_POINTS <= total_material <= MAX_TOTAL_POINTS): continue
                         if w_score < MIN_SIDE_POINTS or b_score < MIN_SIDE_POINTS: continue
                         if (len(board.pieces(chess.PAWN, chess.WHITE)) + len(board.pieces(chess.PAWN, chess.BLACK))) < 2: continue
 
@@ -186,6 +195,8 @@ def mine_games():
                             if any(s['fen'] == fen for s in scenarios): continue
 
                             current_tags = get_tags_for_board(board)
+                            has_imbalance = check_future_imbalance(board, best_moves)
+
                             future_tags = []
                             if best_moves:
                                 moves_pushed = 0
@@ -193,21 +204,24 @@ def mine_games():
                                     board.push(next_move)
                                     moves_pushed += 1
                                     future_tags += get_tags_for_board(board)
-                                
                                 for _ in range(moves_pushed):
                                     board.pop()
                             
                             all_tags = list(set(current_tags + future_tags))
+                            eval_tag = round(abs(eval_score), 1)
                             
-                            g_scenarios_found += 1 # Update counter before logging
-                            log_to_console(f"✅ Found #{g_scenarios_found}: {fen} | Tags: {all_tags}")
+                            g_scenarios_found += 1 
+                            log_to_console(f"✅ Found #{g_scenarios_found}: {fen} | Eval: {eval_score:.2f} | Mat: {total_material}")
                             
                             scenarios.append({
                                 "id": g_scenarios_found,
                                 "fen": fen,
-                                "eval": eval_score,
+                                "eval": eval_score, # Stores absolute eval (e.g. -1.45)
+                                "eval_tag": eval_tag,
+                                "material_points": total_material,
+                                "imbalance": has_imbalance,
                                 "turn": "white" if board.turn == chess.WHITE else "black",
-                                "description": f"Balanced Ending ({total} pts)",
+                                "description": f"Ending ({total_material} pts)",
                                 "tags": all_tags,
                                 "players": f"{white_player} vs {black_player}",
                                 "year": year,
@@ -215,13 +229,12 @@ def mine_games():
                             })
                             break 
             
-            # Use our helper for this too so it doesn't break the bar
             log_to_console(f"   ✓ Completed file: {pgn_file}")
         
         engine.quit()
-        sys.stdout.write("\n") # Move to next line cleanly
+        sys.stdout.write("\n")
         with open("scenarios.json", "w") as f: json.dump(scenarios, f, indent=2)
-        print(f"💾 Done! Saved {len(scenarios)} scenarios from {g_total_games} games.")
+        print(f"💾 Done! Saved {len(scenarios)} scenarios.")
 
     except KeyboardInterrupt:
         sys.stdout.write("\n")

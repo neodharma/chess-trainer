@@ -15,15 +15,23 @@ export default function App() {
   const [playerColor, setPlayerColor] = useState("white"); 
   const [turnInfo, setTurnInfo] = useState("white");
   const [gameOver, setGameOver] = useState(null);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   // History System
   const [gameHistory, setGameHistory] = useState([]); 
   const [historyIndex, setHistoryIndex] = useState(0); 
 
-  // Options
-  const [includeRooks, setIncludeRooks] = useState(true);
-  const [includeBishops, setIncludeBishops] = useState(true);
-  const [includePawns, setIncludePawns] = useState(true);
+  // --- FILTERS ---
+  // Values: "excluded", "included", "forced"
+  const [filterRook, setFilterRook] = useState("included");
+  const [filterBishop, setFilterBishop] = useState("included");
+  const [filterPawn, setFilterPawn] = useState("included");
+  const [filterImbalance, setFilterImbalance] = useState("included");
+
+  const [filterEvalMode, setFilterEvalMode] = useState("drawn"); // "drawn", "advantage", "all"
+  const [minMaterial, setMinMaterial] = useState(10);
+  const [maxMaterial, setMaxMaterial] = useState(25);
+
   const [jumpId, setJumpId] = useState("");
   
   // Sidebar
@@ -55,10 +63,10 @@ export default function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-// KEYBOARD SHORTCUTS
+  // KEYBOARD SHORTCUTS
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Ignore if user is typing in the Jump ID input
+      // Ignore if user is typing in inputs
       if (e.target.tagName === "INPUT") return;
 
       if (e.key === "ArrowLeft") {
@@ -68,10 +76,10 @@ export default function App() {
         e.preventDefault();
         navigateHistory(1);
       } else if (e.key === "ArrowUp") {
-        e.preventDefault(); // Prevent scrolling up
+        e.preventDefault(); 
         navigateHistory("start");
       } else if (e.key === "ArrowDown") {
-        e.preventDefault(); // Prevent scrolling down
+        e.preventDefault(); 
         navigateHistory("end");
       }
     };
@@ -199,39 +207,31 @@ export default function App() {
       if (gameHistoryRef.current.length === 0) return;
 
       const historyLen = gameHistoryRef.current.length;
-      let targetIndex = historyIndexRef.current; // Use Ref to get current position
+      let targetIndex = historyIndexRef.current;
 
-      // 1. Determine the Basic Step
       let step = 0;
       if (direction === "start") targetIndex = 0;
       else if (direction === "end") targetIndex = historyLen - 1;
       else {
-          step = direction; // -1 or +1
+          step = direction;
           targetIndex += step;
       }
 
-      // 2. Bounds Check (Initial)
       if (targetIndex < 0) targetIndex = 0;
       if (targetIndex >= historyLen) targetIndex = historyLen - 1;
 
-      // 3. Smart Skip Logic (Skip Opponent's moves)
-      // Only skip if we are moving via arrow keys (step !== 0)
       if (step !== 0 && targetIndex > 0 && targetIndex < historyLen - 1) {
           const snapshot = gameHistoryRef.current[targetIndex];
-          // Peek at the board state of the target index
           const fenColor = snapshot.fen.split(' ')[1] === 'w' ? 'white' : 'black';
           
-          // If the target state is NOT our turn to move, skip it to get to our turn
           if (fenColor !== playerColorRef.current) {
                targetIndex += step;
           }
       }
 
-      // 4. Final Safety Clamp
       if (targetIndex < 0) targetIndex = 0;
       if (targetIndex >= historyLen) targetIndex = historyLen - 1;
 
-      // 5. Execute Update
       if (targetIndex === historyIndexRef.current) return;
 
       isReplayingRef.current = true;
@@ -245,7 +245,6 @@ export default function App() {
       setGameOver(null); 
 
       setEngineStatus("Reviewing...");
-      // Optional: Only eval if we stopped on a valid move
       engine.current?.postMessage(`position fen ${tempGame.fen()}`);
       engine.current?.postMessage("go depth 12");
   }
@@ -303,24 +302,45 @@ export default function App() {
     });
   }
 
+  // Helper to check 3-state logic
+  function checkTriState(value, hasFeature) {
+      if (value === "excluded" && hasFeature) return false;
+      if (value === "forced" && !hasFeature) return false;
+      return true;
+  }
+
   function loadRandomScenario() {
     if (scenarios.length === 0) return;
+    setFeedbackMessage("");
 
-    let pool = scenarios;
+    // --- MAIN FILTER LOGIC ---
+    let pool = scenarios.filter(s => {
+        // 1. Piece Type Filters (Tri-state)
+        if (!checkTriState(filterRook, s.tags?.includes('rook_endgame'))) return false;
+        if (!checkTriState(filterBishop, s.tags?.includes('bishop_endgame'))) return false;
+        if (!checkTriState(filterPawn, s.tags?.includes('pawn_endgame'))) return false;
 
-    if (!includeRooks) {
-        pool = pool.filter(s => !s.tags || !s.tags.includes('rook_endgame'));
-    }
-    if (!includeBishops) {
-        pool = pool.filter(s => !s.tags || !s.tags.includes('bishop_endgame'));
-    }
-    if (!includePawns) {
-        pool = pool.filter(s => !s.tags || !s.tags.includes('pawn_endgame'));
-    }
+        // 2. Material Range
+        const mat = s.material_points !== undefined ? s.material_points : 15; 
+        if (mat < minMaterial || mat > maxMaterial) return false;
+
+        // 3. Imbalance Filter (Tri-state)
+        if (!checkTriState(filterImbalance, !!s.imbalance)) return false;
+
+        // 4. Eval Mode
+        const absEval = Math.abs(s.eval || 0);
+        if (filterEvalMode === "drawn") {
+             if (absEval > 0.6) return false;
+        } else if (filterEvalMode === "advantage") {
+             if (absEval < 1.0) return false;
+        }
+
+        return true;
+    });
 
     if (pool.length === 0) {
-        if (scenarios.length > 0) pool = scenarios; 
-        else return;
+        setFeedbackMessage("No scenarios found matching criteria.");
+        return;
     }
 
     const randomScenario = pool[Math.floor(Math.random() * pool.length)];
@@ -341,6 +361,7 @@ export default function App() {
 
   function loadScenario(scenario) {
     setGameOver(null);
+    setFeedbackMessage(""); // Clear error on success
     setCurrentScenario(scenario);
     setCurrentEval(null);
 
@@ -378,11 +399,6 @@ export default function App() {
     }
   }
 
-  function retryScenario() {
-      if (!currentScenario) return;
-      loadScenario(currentScenario);
-  }
-
   function toDests(chess) {
     const dests = new Map();
     chess.moves({ verbose: true }).forEach((move) => {
@@ -392,38 +408,93 @@ export default function App() {
     return dests;
   }
 
+  // --- DUAL SLIDER HANDLERS ---
+  const handleMinChange = (e) => {
+      const val = Math.min(Number(e.target.value), maxMaterial - 1);
+      setMinMaterial(val);
+  };
+  const handleMaxChange = (e) => {
+      const val = Math.max(Number(e.target.value), minMaterial + 1);
+      setMaxMaterial(val);
+  };
+  
+  const minPercent = ((minMaterial - 10) / (25 - 10)) * 100;
+  const maxPercent = ((maxMaterial - 10) / (25 - 10)) * 100;
+
+  // --- RENDER HELPERS ---
+  const renderTriStateFilter = (label, value, setter) => (
+      <div style={styles.triStateContainer}>
+          <span style={styles.labelTitle}>{label}</span>
+          <div style={styles.triStateGroup}>
+              {['excluded', 'included', 'forced'].map(opt => (
+                  <label key={opt} style={value === opt ? styles.triOptionActive : styles.triOption}>
+                      <input 
+                          type="radio" 
+                          name={label} 
+                          checked={value === opt} 
+                          onChange={() => setter(opt)}
+                          style={{display: "none"}} 
+                      />
+                      {opt.charAt(0).toUpperCase() + opt.slice(1)}
+                  </label>
+              ))}
+          </div>
+      </div>
+  );
+
   // --- DYNAMIC STYLES ---
   const boardSize = isMobile ? "90vw" : "500px";
   
   const responsiveStyles = {
       mainLayout: {
           display: "flex", 
-          flexDirection: isMobile ? "column" : "row", // Stack on mobile
+          flexDirection: isMobile ? "column" : "row",
           gap: "30px", 
-          alignItems: "center", // Center items in column mode
+          alignItems: "center",
           width: "100%", 
           maxWidth: "900px", 
           justifyContent: "center"
       },
       sidebar: {
-          width: isMobile ? "90vw" : "200px", // Full width on mobile
+          width: isMobile ? "90vw" : "200px",
           backgroundColor: "#222", 
           borderRadius: "8px", 
           padding: "15px",
           border: "1px solid #333", 
-          height: isMobile ? "auto" : "500px", // Auto height on mobile
+          height: isMobile ? "auto" : "500px", 
           maxHeight: isMobile ? "300px" : "500px",
           display: "flex", 
           flexDirection: "column"
       },
       board: {
           width: boardSize, 
-          height: boardSize // Keep square aspect ratio
+          height: boardSize
       }
   };
 
   return (
     <div style={styles.appContainer}>
+      {/* CSS Injection to ensure sliders work */}
+      <style>
+        {`
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            pointer-events: all;
+            width: 16px; height: 16px;
+            border-radius: 50%; background: #ccc;
+            cursor: pointer; margin-top: -6px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+        }
+        input[type=range]::-moz-range-thumb {
+            pointer-events: all;
+            width: 16px; height: 16px;
+            border: none; border-radius: 50%;
+            background: #ccc; cursor: pointer;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+        }
+        `}
+      </style>
+
       <h2 style={styles.header}>♟️ BENNETT'S ENDGAME DOJO</h2>
 
       <div style={responsiveStyles.mainLayout}>
@@ -459,7 +530,6 @@ export default function App() {
                     </div>
                 )}
                 
-                {/* We pass width/height to the wrapper div so Chessground knows its bounds */}
                 <div ref={boardRef} style={{width: "100%", height: "100%"}} />
             </div>
 
@@ -498,30 +568,74 @@ export default function App() {
             )}
 
             <div style={styles.optionsPanel}>
-                <label style={styles.checkboxLabel}>
-                    <input type="checkbox" checked={includeRooks} onChange={(e) => setIncludeRooks(e.target.checked)} />
-                    Rook-Only
-                </label>
+                
+                {/* 1. PIECE FILTERS */}
+                <div style={styles.optionsRow}>
+                    {renderTriStateFilter("Rook", filterRook, setFilterRook)}
+                    {renderTriStateFilter("Bishop", filterBishop, setFilterBishop)}
+                </div>
+                <div style={styles.optionsRow}>
+                    {renderTriStateFilter("Pawn", filterPawn, setFilterPawn)}
+                    {renderTriStateFilter("Imbalance", filterImbalance, setFilterImbalance)}
+                </div>
 
-                <label style={styles.checkboxLabel}>
-                    <input type="checkbox" checked={includeBishops} onChange={(e) => setIncludeBishops(e.target.checked)} />
-                    Bishop-Only
-                </label>
+                <div style={styles.divider}></div>
 
-                <label style={styles.checkboxLabel}>
-                    <input type="checkbox" checked={includePawns} onChange={(e) => setIncludePawns(e.target.checked)} />
-                    Pawn-Only
-                </label>
+                {/* 2. EVAL MODE */}
+                <div style={styles.optionsRow}>
+                    <span style={styles.labelTitle}>Eval:</span>
+                    <label style={styles.radioLabel}>
+                        <input type="radio" name="evalMode" checked={filterEvalMode === "drawn"} onChange={() => setFilterEvalMode("drawn")} />
+                        Drawn
+                    </label>
+                    <label style={styles.radioLabel}>
+                        <input type="radio" name="evalMode" checked={filterEvalMode === "advantage"} onChange={() => setFilterEvalMode("advantage")} />
+                        Advantage
+                    </label>
+                    <label style={styles.radioLabel}>
+                        <input type="radio" name="evalMode" checked={filterEvalMode === "all"} onChange={() => setFilterEvalMode("all")} />
+                        All
+                    </label>
+                </div>
+
+                {/* 3. MATERIAL SLIDER */}
+                <div style={styles.optionsRow}>
+                    <span style={styles.labelTitle}>Material ({minMaterial} - {maxMaterial}):</span>
+                    <div style={styles.sliderContainer}>
+                        <div style={styles.sliderTrack}></div>
+                        <div 
+                            style={{
+                                ...styles.sliderRange,
+                                left: `${minPercent}%`,
+                                width: `${maxPercent - minPercent}%`
+                            }}
+                        ></div>
+                        <input 
+                            type="range" min="10" max="25" step="1"
+                            value={minMaterial} onChange={handleMinChange}
+                            style={styles.thumbInput}
+                        />
+                         <input 
+                            type="range" min="10" max="25" step="1"
+                            value={maxMaterial} onChange={handleMaxChange}
+                            style={styles.thumbInput}
+                        />
+                    </div>
+                </div>
+
             </div>
 
             <div style={styles.controls}>
                 <button style={styles.primaryButton} onClick={loadRandomScenario}>
                     Load Random 🎲
                 </button>
-                <button style={styles.secondaryButton} onClick={retryScenario}>
-                    Reset Position ↺
-                </button>
             </div>
+
+            {feedbackMessage && (
+                <div style={{color: "#ff6b6b", marginTop: "10px", fontSize: "14px", fontWeight: "bold"}}>
+                    {feedbackMessage}
+                </div>
+            )}
             
             <div style={styles.engineInfo}>
                 {currentEval !== null && (
@@ -545,7 +659,7 @@ export default function App() {
                         <span style={styles.historyId}>#{item.id}</span>
                         <div style={styles.historyMeta}>
                             <span>{item.players ? item.players.split(" vs ")[0] : "Unknown"}...</span>
-                            <span style={{fontSize: "10px", color: "#666"}}>({item.year || "?"})</span>
+                            <span style={{fontSize: "10px", color: "#666"}}>({item.eval_tag ? item.eval_tag : "?"})</span>
                         </div>
                     </div>
                 ))}
@@ -573,10 +687,10 @@ const styles = {
     display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "20px",
     fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     backgroundColor: "#1a1a1a", color: "#eee", minHeight: "100vh", width: "100vw", boxSizing: "border-box",
-    paddingBottom: "50px" // Add scroll space at bottom
+    paddingBottom: "50px"
   },
   header: {
-    fontSize: "clamp(20px, 5vw, 24px)", // Responsive font size
+    fontSize: "clamp(20px, 5vw, 24px)",
     fontWeight: "800", margin: "0 0 15px 0",
     letterSpacing: "1px", textTransform: "uppercase", color: "#d4a34b", textAlign: "center"
   },
@@ -640,10 +754,54 @@ const styles = {
       marginTop: "10px", color: "#888", fontStyle: "italic", fontSize: "14px", textAlign: "center"
   },
   optionsPanel: {
-      marginTop: "15px", display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap", justifyContent: "center"
+      marginTop: "15px", display: "flex", flexDirection: "column", gap: "15px", 
+      width: "100%", padding: "15px", backgroundColor: "#252525", borderRadius: "8px"
   },
-  checkboxLabel: {
-      fontSize: "14px", color: "#ccc", display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", userSelect: "none"
+  optionsRow: {
+      display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", alignItems: "center"
+  },
+  divider: {
+      height: "1px", backgroundColor: "#444", width: "100%"
+  },
+  radioLabel: {
+      fontSize: "13px", color: "#ccc", display: "flex", alignItems: "center", gap: "4px", cursor: "pointer"
+  },
+  labelTitle: {
+      fontSize: "12px", color: "#888", fontWeight: "bold", textTransform: "uppercase", marginBottom: "4px", display: "block"
+  },
+  // --- TRI-STATE STYLES ---
+  triStateContainer: {
+      display: "flex", flexDirection: "column", alignItems: "center"
+  },
+  triStateGroup: {
+      display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid #444"
+  },
+  triOption: {
+      padding: "4px 8px", fontSize: "11px", backgroundColor: "#333", color: "#888", cursor: "pointer", borderRight: "1px solid #444", userSelect: "none"
+  },
+  triOptionActive: {
+      padding: "4px 8px", fontSize: "11px", backgroundColor: "#d4a34b", color: "#1a1a1a", cursor: "pointer", borderRight: "1px solid #444", fontWeight: "bold", userSelect: "none"
+  },
+  // --- SLIDER STYLES ---
+  sliderContainer: {
+      position: "relative", width: "150px", height: "20px", display: "flex", alignItems: "center"
+  },
+  sliderTrack: {
+      position: "absolute", width: "100%", height: "4px", backgroundColor: "#444", borderRadius: "2px", zIndex: 0
+  },
+  sliderRange: {
+      position: "absolute", height: "4px", backgroundColor: "#d4a34b", borderRadius: "2px", zIndex: 1
+  },
+  thumbInput: {
+      position: "absolute",
+      width: "100%",
+      pointerEvents: "none",
+      appearance: "none",
+      background: "transparent",
+      zIndex: 2,
+      margin: 0,
+      height: "20px",
+      WebkitAppearance: "none",
   },
   controls: { marginTop: "20px", display: "flex", gap: "15px" },
   primaryButton: {
