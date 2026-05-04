@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Miner local artifacts (PGN corpora, venv, temp output)
+miner/*.zip
+miner/*.pgn
+miner/.venv/
+miner/__pycache__/
+miner/.miner-tmp/
+miner/scenarios.json
+miner/mine.log

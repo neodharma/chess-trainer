@@ -37,24 +37,35 @@ export default function App() {
   // Sidebar
   const [sidebarHistory, setSidebarHistory] = useState([]);
 
+  // Engine depth (12 / 18 / 24)
+  const [engineDepth, setEngineDepth] = useState(() => {
+    const saved = parseInt(localStorage.getItem("chess-trainer-depth"), 10);
+    return [12, 18, 24].includes(saved) ? saved : 12;
+  });
+
   // Responsive State
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
-  const chessRef = useRef(new Chess()); 
+  const chessRef = useRef(new Chess());
   const boardRef = useRef(null);
   const apiRef = useRef(null);
   const engine = useRef(null);
 
   // REFS
   const playerColorRef = useRef(playerColor);
-  const historyIndexRef = useRef(historyIndex); 
+  const historyIndexRef = useRef(historyIndex);
   const gameHistoryRef = useRef(gameHistory);
-  
+  const engineDepthRef = useRef(engineDepth);
+
   const isReplayingRef = useRef(false);
 
   useEffect(() => { playerColorRef.current = playerColor; }, [playerColor]);
   useEffect(() => { historyIndexRef.current = historyIndex; }, [historyIndex]);
   useEffect(() => { gameHistoryRef.current = gameHistory; }, [gameHistory]);
+  useEffect(() => {
+    engineDepthRef.current = engineDepth;
+    try { localStorage.setItem("chess-trainer-depth", String(engineDepth)); } catch {}
+  }, [engineDepth]);
 
   // HANDLE RESIZE
   useEffect(() => {
@@ -246,7 +257,7 @@ export default function App() {
 
       setEngineStatus("Reviewing...");
       engine.current?.postMessage(`position fen ${tempGame.fen()}`);
-      engine.current?.postMessage("go depth 12");
+      engine.current?.postMessage(`go depth ${engineDepthRef.current}`);
   }
 
   useEffect(() => {
@@ -269,7 +280,7 @@ export default function App() {
                 if (!chessRef.current.isGameOver()) {
                     setEngineStatus("Thinking...");
                     engine.current?.postMessage(`position fen ${chessRef.current.fen()}`);
-                    engine.current?.postMessage("go depth 12"); 
+                    engine.current?.postMessage(`go depth ${engineDepthRef.current}`); 
                 }
             }
           }
@@ -457,13 +468,13 @@ export default function App() {
       },
       sidebar: {
           width: isMobile ? "90vw" : "200px",
-          backgroundColor: "#222", 
-          borderRadius: "8px", 
+          background: "var(--surface)",
+          borderRadius: "var(--radius)",
           padding: "15px",
-          border: "1px solid #333", 
-          height: isMobile ? "auto" : "500px", 
+          border: "1px solid var(--surface2)",
+          height: isMobile ? "auto" : "500px",
           maxHeight: isMobile ? "300px" : "500px",
-          display: "flex", 
+          display: "flex",
           flexDirection: "column"
       },
       board: {
@@ -481,7 +492,7 @@ export default function App() {
             -webkit-appearance: none;
             pointer-events: all;
             width: 16px; height: 16px;
-            border-radius: 50%; background: #ccc;
+            border-radius: 50%; background: var(--accent);
             cursor: pointer; margin-top: -6px;
             box-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
@@ -489,7 +500,7 @@ export default function App() {
             pointer-events: all;
             width: 16px; height: 16px;
             border: none; border-radius: 50%;
-            background: #ccc; cursor: pointer;
+            background: var(--accent); cursor: pointer;
             box-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
         `}
@@ -514,7 +525,7 @@ export default function App() {
                         </span>
                     </div>
                 ) : (
-                    <p style={{color: "#777"}}>Loading Dojo...</p>
+                    <p style={{color: "var(--text-dim)"}}>Loading Dojo...</p>
                 )}
             </div>
 
@@ -523,7 +534,7 @@ export default function App() {
                 {gameOver !== null && (
                     <div style={styles.overlay}>
                         <div style={styles.countdownText}>{gameOver.title}</div>
-                        <div style={{fontSize: "22px", color: "#ddd", marginTop: "10px"}}>{gameOver.result}</div>
+                        <div style={{fontSize: "22px", color: "var(--text)", marginTop: "10px"}}>{gameOver.result}</div>
                         <button style={styles.primaryButton} onClick={loadRandomScenario}>
                              New Game 🎲
                         </button>
@@ -598,7 +609,29 @@ export default function App() {
                     </label>
                 </div>
 
-                {/* 3. MATERIAL SLIDER */}
+                {/* 3. ENGINE DEPTH */}
+                <div style={styles.optionsRow}>
+                    <span style={styles.labelTitle}>Engine depth:</span>
+                    <div style={styles.triStateGroup}>
+                        {[12, 18, 24].map(d => (
+                            <label
+                                key={d}
+                                style={engineDepth === d ? styles.triOptionActive : styles.triOption}
+                            >
+                                <input
+                                    type="radio"
+                                    name="engineDepth"
+                                    checked={engineDepth === d}
+                                    onChange={() => setEngineDepth(d)}
+                                    style={{ display: "none" }}
+                                />
+                                {d}
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 4. MATERIAL SLIDER */}
                 <div style={styles.optionsRow}>
                     <span style={styles.labelTitle}>Material ({minMaterial} - {maxMaterial}):</span>
                     <div style={styles.sliderContainer}>
@@ -632,14 +665,14 @@ export default function App() {
             </div>
 
             {feedbackMessage && (
-                <div style={{color: "#ff6b6b", marginTop: "10px", fontSize: "14px", fontWeight: "bold"}}>
+                <div style={{color: "var(--bad)", marginTop: "10px", fontSize: "14px", fontWeight: "bold"}}>
                     {feedbackMessage}
                 </div>
             )}
             
             <div style={styles.engineInfo}>
                 {currentEval !== null && (
-                    <span style={{color: currentEval > 0 ? "#90EE90" : "#FF7F7F", fontWeight: "bold"}}>
+                    <span style={{color: currentEval > 0 ? "var(--accent2)" : "var(--bad)", fontWeight: "bold"}}>
                         Eval: {currentEval > 0 ? "+" : ""}{currentEval.toFixed(2)}
                     </span>
                 )}
@@ -649,7 +682,7 @@ export default function App() {
         <div style={responsiveStyles.sidebar}>
             <h3 style={styles.sidebarTitle}>Recent History</h3>
             <div style={styles.historyList}>
-                {sidebarHistory.length === 0 && <span style={{color: "#555", fontStyle: "italic", fontSize: "14px"}}>No games yet</span>}
+                {sidebarHistory.length === 0 && <span style={{color: "var(--text-dim)", fontStyle: "italic", fontSize: "14px"}}>No games yet</span>}
                 {sidebarHistory.map((item) => (
                     <div 
                         key={item.id} 
@@ -659,14 +692,14 @@ export default function App() {
                         <span style={styles.historyId}>#{item.id}</span>
                         <div style={styles.historyMeta}>
                             <span>{item.players ? item.players.split(" vs ")[0] : "Unknown"}...</span>
-                            <span style={{fontSize: "10px", color: "#666"}}>({item.eval_tag ? item.eval_tag : "?"})</span>
+                            <span style={{fontSize: "10px", color: "var(--text-dim)"}}>({item.eval_tag ? item.eval_tag : "?"})</span>
                         </div>
                     </div>
                 ))}
             </div>
 
             <div style={styles.jumpSection}>
-                <span style={{fontSize: "12px", color: "#888", marginBottom: "5px"}}>Jump to ID:</span>
+                <span style={{fontSize: "12px", color: "var(--text-dim)", marginBottom: "5px"}}>Jump to ID:</span>
                 <div style={styles.jumpControls}>
                     <input 
                         style={styles.jumpInput} placeholder="#" 
@@ -685,112 +718,121 @@ export default function App() {
 const styles = {
   appContainer: {
     display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "20px",
-    fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    backgroundColor: "#1a1a1a", color: "#eee", minHeight: "100vh", width: "100vw", boxSizing: "border-box",
+    background: "var(--bg)", color: "var(--text)", minHeight: "100vh", width: "100vw", boxSizing: "border-box",
     paddingBottom: "50px"
   },
   header: {
     fontSize: "clamp(20px, 5vw, 24px)",
-    fontWeight: "800", margin: "0 0 15px 0",
-    letterSpacing: "1px", textTransform: "uppercase", color: "#d4a34b", textAlign: "center"
+    fontWeight: "700", margin: "0 0 15px 0",
+    letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--text)", textAlign: "center"
   },
   gameColumn: {
       display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: "500px"
   },
   navBar: {
-      display: "flex", gap: "2px", marginTop: "10px", backgroundColor: "#333", borderRadius: "6px", overflow: "hidden"
+      display: "flex", gap: "2px", marginTop: "10px", background: "var(--surface)", borderRadius: "6px", overflow: "hidden",
+      border: "1px solid var(--surface2)"
   },
   navButton: {
-      backgroundColor: "transparent", border: "none", color: "#eee", fontSize: "18px", 
-      padding: "5px 15px", cursor: "pointer", transition: "background 0.2s"
+      background: "transparent", border: "none", color: "var(--text)", fontSize: "18px",
+      padding: "5px 15px", cursor: "pointer", transition: "background 0.2s", fontFamily: "inherit"
   },
   disabledNav: {
       opacity: 0.3, cursor: "not-allowed"
   },
   sidebarTitle: {
-      margin: "0 0 15px 0", fontSize: "16px", color: "#ccc", borderBottom: "1px solid #444", paddingBottom: "10px"
+      margin: "0 0 15px 0", fontSize: "0.85rem", color: "var(--text-dim)",
+      borderBottom: "1px solid var(--surface2)", paddingBottom: "10px",
+      textTransform: "uppercase", letterSpacing: "1px"
   },
   historyList: {
-      flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px"
+      flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "6px"
   },
   historyItem: {
-      backgroundColor: "#333", padding: "8px", borderRadius: "4px", cursor: "pointer",
-      borderLeft: "3px solid transparent", transition: "background 0.2s"
+      background: "var(--bg)", padding: "8px", borderRadius: "4px", cursor: "pointer",
+      borderLeft: "3px solid transparent", transition: "background 0.2s, border-color 0.2s"
   },
   historyItemActive: {
-      backgroundColor: "#444", padding: "8px", borderRadius: "4px", cursor: "pointer",
-      borderLeft: "3px solid #d4a34b"
+      background: "var(--surface2)", padding: "8px", borderRadius: "4px", cursor: "pointer",
+      borderLeft: "3px solid var(--accent)"
   },
-  historyId: { fontWeight: "bold", color: "#d4a34b", fontSize: "12px", display: "block" },
-  historyMeta: { fontSize: "12px", color: "#aaa", display: "flex", justifyContent: "space-between" },
+  historyId: { fontWeight: "bold", color: "var(--accent)", fontSize: "12px", display: "block" },
+  historyMeta: { fontSize: "12px", color: "var(--text-dim)", display: "flex", justifyContent: "space-between" },
   jumpSection: {
-      marginTop: "15px", borderTop: "1px solid #444", paddingTop: "15px", display: "flex", flexDirection: "column"
+      marginTop: "15px", borderTop: "1px solid var(--surface2)", paddingTop: "15px", display: "flex", flexDirection: "column"
   },
   infoBar: {
     height: "50px", marginBottom: "5px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%"
   },
   scenarioBox: {
-    display: "flex", gap: "10px", alignItems: "center", backgroundColor: "#333",
-    padding: "8px 16px", borderRadius: "20px", fontSize: "14px", border: "1px solid #444"
+    display: "flex", gap: "10px", alignItems: "center", background: "var(--surface)",
+    padding: "8px 16px", borderRadius: "20px", fontSize: "14px", border: "1px solid var(--surface2)"
   },
-  scenarioId: { fontWeight: "bold", color: "#d4a34b" },
-  initialEval: { color: "#aaa", fontSize: "0.9em" },
+  scenarioId: { fontWeight: "bold", color: "var(--accent)" },
+  initialEval: { color: "var(--text-dim)", fontSize: "0.9em" },
   turnBadge: {
-    backgroundColor: "#222", padding: "2px 8px", borderRadius: "4px", color: "#ccc",
-    fontSize: "12px", fontWeight: "600", border: "1px solid #555"
+    background: "var(--bg)", padding: "2px 8px", borderRadius: "4px", color: "var(--text)",
+    fontSize: "12px", fontWeight: "600", border: "1px solid var(--surface2)"
   },
   boardContainer: {
     position: "relative",
-    padding: "10px", backgroundColor: "#262421", borderRadius: "4px", boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+    padding: "10px", background: "var(--surface)", borderRadius: "var(--radius)",
+    border: "1px solid var(--surface2)",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
   },
   overlay: {
       position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: "rgba(0,0,0,0.85)", zIndex: 100,
+      background: "rgba(15,15,16,0.88)", zIndex: 100,
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-      borderRadius: "4px"
+      borderRadius: "var(--radius)"
   },
-  countdownText: { fontSize: "40px", fontWeight: "bold", color: "white", textAlign: "center" },
+  countdownText: { fontSize: "40px", fontWeight: "bold", color: "var(--text)", textAlign: "center" },
   metadata: {
-      marginTop: "10px", color: "#888", fontStyle: "italic", fontSize: "14px", textAlign: "center"
+      marginTop: "10px", color: "var(--text-dim)", fontStyle: "italic", fontSize: "14px", textAlign: "center"
   },
   optionsPanel: {
-      marginTop: "15px", display: "flex", flexDirection: "column", gap: "15px", 
-      width: "100%", padding: "15px", backgroundColor: "#252525", borderRadius: "8px"
+      marginTop: "15px", display: "flex", flexDirection: "column", gap: "15px",
+      width: "100%", padding: "15px", background: "var(--surface)",
+      border: "1px solid var(--surface2)", borderRadius: "var(--radius)"
   },
   optionsRow: {
       display: "flex", gap: "15px", flexWrap: "wrap", justifyContent: "center", alignItems: "center"
   },
   divider: {
-      height: "1px", backgroundColor: "#444", width: "100%"
+      height: "1px", background: "var(--surface2)", width: "100%"
   },
   radioLabel: {
-      fontSize: "13px", color: "#ccc", display: "flex", alignItems: "center", gap: "4px", cursor: "pointer"
+      fontSize: "13px", color: "var(--text)", display: "flex", alignItems: "center", gap: "4px", cursor: "pointer"
   },
   labelTitle: {
-      fontSize: "12px", color: "#888", fontWeight: "bold", textTransform: "uppercase", marginBottom: "4px", display: "block"
+      fontSize: "11px", color: "var(--text-dim)", fontWeight: "bold", textTransform: "uppercase",
+      letterSpacing: "0.5px", marginBottom: "4px", display: "block"
   },
   // --- TRI-STATE STYLES ---
   triStateContainer: {
       display: "flex", flexDirection: "column", alignItems: "center"
   },
   triStateGroup: {
-      display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid #444"
+      display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid var(--surface2)"
   },
   triOption: {
-      padding: "4px 8px", fontSize: "11px", backgroundColor: "#333", color: "#888", cursor: "pointer", borderRight: "1px solid #444", userSelect: "none"
+      padding: "4px 10px", fontSize: "11px", background: "var(--bg)", color: "var(--text-dim)",
+      cursor: "pointer", borderRight: "1px solid var(--surface2)", userSelect: "none"
   },
   triOptionActive: {
-      padding: "4px 8px", fontSize: "11px", backgroundColor: "#d4a34b", color: "#1a1a1a", cursor: "pointer", borderRight: "1px solid #444", fontWeight: "bold", userSelect: "none"
+      padding: "4px 10px", fontSize: "11px", background: "var(--accent)", color: "var(--bg)",
+      cursor: "pointer", borderRight: "1px solid var(--surface2)", fontWeight: "bold", userSelect: "none"
   },
   // --- SLIDER STYLES ---
   sliderContainer: {
       position: "relative", width: "150px", height: "20px", display: "flex", alignItems: "center"
   },
   sliderTrack: {
-      position: "absolute", width: "100%", height: "4px", backgroundColor: "#444", borderRadius: "2px", zIndex: 0
+      position: "absolute", width: "100%", height: "4px", background: "var(--bg)",
+      border: "1px solid var(--surface2)", borderRadius: "2px", zIndex: 0
   },
   sliderRange: {
-      position: "absolute", height: "4px", backgroundColor: "#d4a34b", borderRadius: "2px", zIndex: 1
+      position: "absolute", height: "4px", background: "var(--accent)", borderRadius: "2px", zIndex: 1
   },
   thumbInput: {
       position: "absolute",
@@ -806,22 +848,28 @@ const styles = {
   controls: { marginTop: "20px", display: "flex", gap: "15px" },
   primaryButton: {
     padding: "12px 24px", fontSize: "15px", fontWeight: "600", cursor: "pointer",
-    backgroundColor: "#d4a34b", color: "#1a1a1a", border: "none", borderRadius: "6px", transition: "background 0.2s"
+    background: "var(--accent)", color: "var(--bg)", border: "none", borderRadius: "6px",
+    transition: "opacity 0.15s", fontFamily: "inherit"
   },
   secondaryButton: {
     padding: "12px 24px", fontSize: "15px", fontWeight: "600", cursor: "pointer",
-    backgroundColor: "transparent", color: "#888", border: "2px solid #444", borderRadius: "6px", transition: "border 0.2s"
+    background: "transparent", color: "var(--text-dim)", border: "1px solid var(--surface2)",
+    borderRadius: "6px", transition: "border-color 0.2s, color 0.2s", fontFamily: "inherit"
   },
   jumpControls: {
       display: "flex", gap: "5px", alignItems: "center"
   },
   jumpInput: {
-      padding: "8px", borderRadius: "4px", border: "1px solid #444", backgroundColor: "#222", color: "white", width: "100%", textAlign: "center"
+      padding: "8px", borderRadius: "4px", border: "1px solid var(--surface2)",
+      background: "var(--bg)", color: "var(--text)", width: "100%", textAlign: "center",
+      fontFamily: "inherit"
   },
   jumpButton: {
-      padding: "8px 12px", borderRadius: "4px", border: "none", backgroundColor: "#444", color: "white", cursor: "pointer", fontSize: "12px"
+      padding: "8px 12px", borderRadius: "4px", border: "1px solid var(--surface2)",
+      background: "var(--surface)", color: "var(--text)", cursor: "pointer", fontSize: "12px",
+      fontFamily: "inherit"
   },
   engineInfo: {
-      marginTop: "20px", fontSize: "14px"
+      marginTop: "20px", fontSize: "14px", color: "var(--text-dim)"
   }
 };
