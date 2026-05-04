@@ -22,11 +22,11 @@ export default function App() {
   const [historyIndex, setHistoryIndex] = useState(0); 
 
   // --- FILTERS ---
-  // Values: "excluded", "included", "forced"
-  const [filterRook, setFilterRook] = useState("included");
-  const [filterBishop, setFilterBishop] = useState("included");
-  const [filterPawn, setFilterPawn] = useState("included");
-  const [filterImbalance, setFilterImbalance] = useState("included");
+  // Piece-type chips: OR semantics within selection; empty set = no constraint.
+  const [selectedPieces, setSelectedPieces] = useState(() => new Set());
+  // Independent boolean axes (AND with the piece-type filter).
+  const [requirePuzzle, setRequirePuzzle] = useState(false);
+  const [requireImbalance, setRequireImbalance] = useState(false);
 
   const [filterEvalMode, setFilterEvalMode] = useState("drawn"); // "drawn", "advantage", "all"
   const [minMaterial, setMinMaterial] = useState(10);
@@ -313,11 +313,13 @@ export default function App() {
     });
   }
 
-  // Helper to check 3-state logic
-  function checkTriState(value, hasFeature) {
-      if (value === "excluded" && hasFeature) return false;
-      if (value === "forced" && !hasFeature) return false;
-      return true;
+  function togglePiece(key) {
+      setSelectedPieces(prev => {
+          const next = new Set(prev);
+          if (next.has(key)) next.delete(key);
+          else next.add(key);
+          return next;
+      });
   }
 
   function loadRandomScenario() {
@@ -326,17 +328,25 @@ export default function App() {
 
     // --- MAIN FILTER LOGIC ---
     let pool = scenarios.filter(s => {
-        // 1. Piece Type Filters (Tri-state)
-        if (!checkTriState(filterRook, s.tags?.includes('rook_endgame'))) return false;
-        if (!checkTriState(filterBishop, s.tags?.includes('bishop_endgame'))) return false;
-        if (!checkTriState(filterPawn, s.tags?.includes('pawn_endgame'))) return false;
+        const tags = s.tags || [];
 
-        // 2. Material Range
-        const mat = s.material_points !== undefined ? s.material_points : 15; 
+        // 1. Piece-type chips: OR within selection. Empty set = no constraint.
+        if (selectedPieces.size > 0) {
+            const matched =
+                (selectedPieces.has('rook')   && tags.includes('rook_endgame'))   ||
+                (selectedPieces.has('bishop') && tags.includes('bishop_endgame')) ||
+                (selectedPieces.has('knight') && tags.includes('knight_endgame')) ||
+                (selectedPieces.has('pawn')   && tags.includes('pawn_endgame'));
+            if (!matched) return false;
+        }
+
+        // 2. Independent toggles (AND with piece selection)
+        if (requirePuzzle && !tags.includes('puzzle')) return false;
+        if (requireImbalance && !s.imbalance) return false;
+
+        // 3. Material Range
+        const mat = s.material_points !== undefined ? s.material_points : 15;
         if (mat < minMaterial || mat > maxMaterial) return false;
-
-        // 3. Imbalance Filter (Tri-state)
-        if (!checkTriState(filterImbalance, !!s.imbalance)) return false;
 
         // 4. Eval Mode
         const absEval = Math.abs(s.eval || 0);
@@ -432,27 +442,6 @@ export default function App() {
   const minPercent = ((minMaterial - 10) / (25 - 10)) * 100;
   const maxPercent = ((maxMaterial - 10) / (25 - 10)) * 100;
 
-  // --- RENDER HELPERS ---
-  const renderTriStateFilter = (label, value, setter) => (
-      <div style={styles.triStateContainer}>
-          <span style={styles.labelTitle}>{label}</span>
-          <div style={styles.triStateGroup}>
-              {['excluded', 'included', 'forced'].map(opt => (
-                  <label key={opt} style={value === opt ? styles.triOptionActive : styles.triOption}>
-                      <input 
-                          type="radio" 
-                          name={label} 
-                          checked={value === opt} 
-                          onChange={() => setter(opt)}
-                          style={{display: "none"}} 
-                      />
-                      {opt.charAt(0).toUpperCase() + opt.slice(1)}
-                  </label>
-              ))}
-          </div>
-      </div>
-  );
-
   // --- DYNAMIC STYLES ---
   const boardSize = isMobile ? "90vw" : "500px";
   
@@ -506,7 +495,7 @@ export default function App() {
         `}
       </style>
 
-      <h2 style={styles.header}>♟️ BENNETT'S ENDGAME DOJO</h2>
+      <h2 style={styles.header}>Bennett's Endgame Dojo</h2>
 
       <div style={responsiveStyles.mainLayout}>
         <div style={styles.gameColumn}>
@@ -518,6 +507,17 @@ export default function App() {
                         {currentScenario.eval !== undefined && (
                         <span style={styles.initialEval}>
                             Init: {currentScenario.eval > 0 ? "+" : ""}{currentScenario.eval}
+                        </span>
+                        )}
+                        {currentEval !== null && (
+                        <span style={{
+                            ...styles.initialEval,
+                            color: currentEval > 0 ? "var(--accent2)"
+                                 : currentEval < 0 ? "var(--bad)"
+                                 : "var(--text)",
+                            fontWeight: "bold"
+                        }}>
+                            Live: {currentEval > 0 ? "+" : ""}{currentEval.toFixed(2)}
                         </span>
                         )}
                         <span style={styles.turnBadge}>
@@ -543,6 +543,15 @@ export default function App() {
                 
                 <div ref={boardRef} style={{width: "100%", height: "100%"}} />
             </div>
+
+            {currentScenario && currentScenario.players && (
+                <div style={styles.metadata}>
+                    {currentScenario.players} ({currentScenario.year || "Unknown"})
+                    {currentScenario.result && currentScenario.result !== "*" && (
+                        <>  ·  Result: <strong>{currentScenario.result}</strong></>
+                    )}
+                </div>
+            )}
 
             {/* NAV BAR */}
             <div style={styles.navBar}>
@@ -572,22 +581,46 @@ export default function App() {
                 >⏭</button>
             </div>
 
-            {currentScenario && currentScenario.players && (
-                <div style={styles.metadata}>
-                    {currentScenario.players} ({currentScenario.year || "Unknown"})
-                </div>
-            )}
-
             <div style={styles.optionsPanel}>
-                
-                {/* 1. PIECE FILTERS */}
+
+                {/* 1. PIECE-TYPE CHIPS — OR within selection; empty = no constraint */}
                 <div style={styles.optionsRow}>
-                    {renderTriStateFilter("Rook", filterRook, setFilterRook)}
-                    {renderTriStateFilter("Bishop", filterBishop, setFilterBishop)}
+                    <span style={styles.labelTitle}>Piece type:</span>
+                    <div style={styles.chipRow}>
+                        {[
+                            {key: 'rook',   label: 'Rook'},
+                            {key: 'bishop', label: 'Bishop'},
+                            {key: 'knight', label: 'Knight'},
+                            {key: 'pawn',   label: 'Pawn'},
+                        ].map(p => (
+                            <button
+                                key={p.key}
+                                type="button"
+                                style={selectedPieces.has(p.key) ? styles.chipActive : styles.chip}
+                                onClick={() => togglePiece(p.key)}
+                            >
+                                {p.label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
+
+                {/* 2. INDEPENDENT TOGGLES (AND with piece selection) */}
                 <div style={styles.optionsRow}>
-                    {renderTriStateFilter("Pawn", filterPawn, setFilterPawn)}
-                    {renderTriStateFilter("Imbalance", filterImbalance, setFilterImbalance)}
+                    <button
+                        type="button"
+                        style={requirePuzzle ? styles.chipActive : styles.chip}
+                        onClick={() => setRequirePuzzle(!requirePuzzle)}
+                    >
+                        Puzzles (WIP)
+                    </button>
+                    <button
+                        type="button"
+                        style={requireImbalance ? styles.chipActive : styles.chip}
+                        onClick={() => setRequireImbalance(!requireImbalance)}
+                    >
+                        Imbalance
+                    </button>
                 </div>
 
                 <div style={styles.divider}></div>
@@ -669,14 +702,6 @@ export default function App() {
                     {feedbackMessage}
                 </div>
             )}
-            
-            <div style={styles.engineInfo}>
-                {currentEval !== null && (
-                    <span style={{color: currentEval > 0 ? "var(--accent2)" : "var(--bad)", fontWeight: "bold"}}>
-                        Eval: {currentEval > 0 ? "+" : ""}{currentEval.toFixed(2)}
-                    </span>
-                )}
-            </div>
         </div>
 
         <div style={responsiveStyles.sidebar}>
@@ -724,7 +749,7 @@ const styles = {
   header: {
     fontSize: "clamp(20px, 5vw, 24px)",
     fontWeight: "700", margin: "0 0 15px 0",
-    letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--text)", textAlign: "center"
+    letterSpacing: "0.5px", color: "var(--text)", textAlign: "center"
   },
   gameColumn: {
       display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: "500px"
@@ -808,7 +833,25 @@ const styles = {
       fontSize: "11px", color: "var(--text-dim)", fontWeight: "bold", textTransform: "uppercase",
       letterSpacing: "0.5px", marginBottom: "4px", display: "block"
   },
-  // --- TRI-STATE STYLES ---
+  // --- CHIP / PILL STYLES ---
+  chipRow: {
+      display: "flex", gap: "6px", flexWrap: "wrap", alignItems: "center"
+  },
+  chip: {
+      padding: "6px 14px", fontSize: "12px",
+      background: "var(--bg)", color: "var(--text-dim)",
+      border: "1px solid var(--surface2)", borderRadius: "999px",
+      cursor: "pointer", userSelect: "none",
+      transition: "background 0.15s, color 0.15s, border-color 0.15s"
+  },
+  chipActive: {
+      padding: "6px 14px", fontSize: "12px",
+      background: "var(--accent)", color: "var(--bg)",
+      border: "1px solid var(--accent)", borderRadius: "999px",
+      cursor: "pointer", userSelect: "none", fontWeight: "bold",
+      transition: "background 0.15s, color 0.15s, border-color 0.15s"
+  },
+  // --- TRI-STATE STYLES (still used by Engine Depth segmented control) ---
   triStateContainer: {
       display: "flex", flexDirection: "column", alignItems: "center"
   },
@@ -868,8 +911,5 @@ const styles = {
       padding: "8px 12px", borderRadius: "4px", border: "1px solid var(--surface2)",
       background: "var(--surface)", color: "var(--text)", cursor: "pointer", fontSize: "12px",
       fontFamily: "inherit"
-  },
-  engineInfo: {
-      marginTop: "20px", fontSize: "14px", color: "var(--text-dim)"
   }
 };

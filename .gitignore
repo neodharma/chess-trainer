@@ -31,3 +31,4 @@ miner/__pycache__/
 miner/.miner-tmp/
 miner/scenarios.json
 miner/mine.log
+public/.miner-tmp/

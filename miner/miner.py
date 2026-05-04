@@ -4,8 +4,10 @@ import chess.pgn
 import chess.engine
 import glob
 import hashlib
+import io
 import json
 import os
+import random
 import re
 import shutil
 import subprocess
@@ -103,43 +105,22 @@ def get_material_score(board):
 # Each tag is mutually exclusive: it requires the relevant piece to be present
 # AND for the other major/minor categories to be absent. A position that doesn't
 # fit any (e.g. K+R+B vs K) gets no piece-type tag.
-def _has_any(board, piece_type):
-    return bool(board.pieces(piece_type, chess.WHITE) or board.pieces(piece_type, chess.BLACK))
-
-
+# Uses python-chess's built-in piece-type bitmasks (board.queens, .rooks, etc.) —
+# these are 64-bit ints, so truthy-checks are a single int comparison.
 def is_pawn_endgame(board):
-    # Kings + pawns only.
-    for piece_type in [chess.KNIGHT, chess.BISHOP, chess.ROOK, chess.QUEEN]:
-        if _has_any(board, piece_type):
-            return False
-    return True
+    return not (board.knights or board.bishops or board.rooks or board.queens)
 
 
 def is_rook_endgame(board):
-    if not _has_any(board, chess.ROOK):
-        return False
-    for piece_type in [chess.KNIGHT, chess.BISHOP, chess.QUEEN]:
-        if _has_any(board, piece_type):
-            return False
-    return True
+    return bool(board.rooks) and not (board.knights or board.bishops or board.queens)
 
 
 def is_bishop_endgame(board):
-    if not _has_any(board, chess.BISHOP):
-        return False
-    for piece_type in [chess.KNIGHT, chess.ROOK, chess.QUEEN]:
-        if _has_any(board, piece_type):
-            return False
-    return True
+    return bool(board.bishops) and not (board.knights or board.rooks or board.queens)
 
 
 def is_knight_endgame(board):
-    if not _has_any(board, chess.KNIGHT):
-        return False
-    for piece_type in [chess.BISHOP, chess.ROOK, chess.QUEEN]:
-        if _has_any(board, piece_type):
-            return False
-    return True
+    return bool(board.knights) and not (board.bishops or board.rooks or board.queens)
 
 
 def get_tags_for_board(board):
@@ -149,17 +130,6 @@ def get_tags_for_board(board):
     if is_bishop_endgame(board): tags.append("bishop_endgame")
     if is_knight_endgame(board): tags.append("knight_endgame")
     return tags
-
-
-def check_future_imbalance(board, moves):
-    if len(moves) < 2: return False
-    board.push(moves[0])
-    board.push(moves[1])
-    w, b, _ = get_material_score(board)
-    diff = abs(w - b)
-    board.pop()
-    board.pop()
-    return diff >= 2
 
 
 # --- DESCRIPTION ---
@@ -202,7 +172,67 @@ def fen_id(fen):
 # position, so the deep pass reuses the shallow pass's work — triage is nearly
 # free for accepted positions, but cuts the deep pass entirely for rejected ones.
 TRIAGE_DEPTH = 10
-TRIAGE_WINDOW = 2.0  # |eval| beyond this at triage depth = skip deep pass
+# |eval| beyond this at triage depth = skip deep pass. Set 0.2 above the
+# widest accept threshold (1.5) — shallow eval is noisy by ~0.2 pawns,
+# so anything beyond 1.7 is very unlikely to fall back into the accept band.
+TRIAGE_WINDOW = 1.7
+
+# --- PUZZLE DETECTION ---
+# A "puzzle" is a drawn position where exactly one legal move keeps the eval
+# in the drawn band [-0.6, 0.6] and every other move gives the opponent at
+# least advantage-magnitude (white-eval ≥ 1.0 in the opponent's favor —
+# includes mate threats and crushing positions). Loose semantics: moves that
+# land in the (0.6, 1.0) "small edge" gap zone disqualify the puzzle.
+DRAWN_LO, DRAWN_HI = -0.6, 0.6
+PUZZLE_OPPONENT_ADV = 1.0
+DEFAULT_PUZZLE_DEPTH = 14
+
+
+def detect_puzzle_move(board, engine, depth):
+    """Return UCI of the unique drawing move, or None if no such move exists.
+    Uses Stockfish multipv=K to evaluate every legal move in one search."""
+    legal = list(board.legal_moves)
+    if len(legal) <= 1:
+        return None  # no choice → not a puzzle
+
+    try:
+        infos = engine.analyse(board, chess.engine.Limit(depth=depth),
+                               multipv=len(legal))
+    except chess.engine.EngineError:
+        return None
+    if isinstance(infos, dict):
+        infos = [infos]
+
+    drawn_move = None
+    for info in infos:
+        pv = info.get("pv", [])
+        if not pv:
+            return None
+        move = pv[0]
+        score = info["score"].white()
+        if score.is_mate():
+            ev = 1000.0 if score.mate() > 0 else -1000.0
+        else:
+            ev = score.score() / 100.0
+
+        if DRAWN_LO <= ev <= DRAWN_HI:
+            if drawn_move is not None:
+                return None  # second drawn move → no unique solution
+            drawn_move = move
+            continue
+
+        # Non-drawn: must be advantage-or-worse for the opponent.
+        # board.turn is the current mover; after `move`, opponent has the move.
+        if board.turn == chess.WHITE:
+            # opponent = black; advantage for black ⇒ ev ≤ -1.0
+            if ev > -PUZZLE_OPPONENT_ADV:
+                return None
+        else:
+            # opponent = white; advantage for white ⇒ ev ≥ 1.0
+            if ev < PUZZLE_OPPONENT_ADV:
+                return None
+
+    return drawn_move.uci() if drawn_move else None
 
 
 def analyze_position(board, engine, depth):
@@ -249,7 +279,7 @@ def draw_progress_bar():
 
     display_file = (g_current_file[:15] + '..') if len(g_current_file) > 15 else g_current_file
     status = (f"\r[{bar}] {percent:.1f}% | {g_games_processed}/{g_total_games} | "
-              f"{rate:.0f} g/s | Found: {g_scenarios_found} | File: {display_file}")
+              f"{rate:.1f} g/s | Found: {g_scenarios_found} | File: {display_file}")
     sys.stdout.write(f"{status:<120}")
     sys.stdout.flush()
 
@@ -264,7 +294,7 @@ def count_total_games(pgn_files):
     print("🔍 Pre-scanning files to count total games...")
     total = 0
     for pgn_file in pgn_files:
-        with open(pgn_file) as f:
+        with open(pgn_file, encoding="latin-1") as f:
             total += sum(1 for line in f if line.startswith("[Event "))
     print(f"✅ Total Games Detected: {total}\n")
     return total
@@ -295,6 +325,19 @@ def parse_args():
                         "Speeds up endgame eval significantly when ≤7 pieces.")
     p.add_argument("--no-syzygy", action="store_true",
                    help="Disable Syzygy TB lookup even if a directory is found.")
+    p.add_argument("--no-puzzles", action="store_true",
+                   help="Disable puzzle detection (default: enabled). Puzzle "
+                        "detection runs multipv eval on every legal move of "
+                        "accepted drawn positions to find scenarios with a "
+                        "unique drawing move; adds ~30-50%% to runtime.")
+    p.add_argument("--puzzle-depth", type=int, default=DEFAULT_PUZZLE_DEPTH,
+                   help=f"Search depth for puzzle multipv eval (default: "
+                        f"{DEFAULT_PUZZLE_DEPTH}). Lower than main depth since "
+                        f"this just classifies moves as drawn/losing.")
+    p.add_argument("--sample", type=int, default=None,
+                   help="Randomly sample this many GAMES from the input PGNs "
+                        "before mining (off by default; useful for fast "
+                        "iteration on a small representative set).")
     return p.parse_args()
 
 
@@ -311,7 +354,7 @@ def collect_game_texts(pgn_files):
     """Read all PGN files and yield raw text per game (split on [Event headers)."""
     games = []
     for path in pgn_files:
-        with open(path) as f:
+        with open(path, encoding="latin-1") as f:
             text = f.read()
         chunks = re.split(r'(?=^\[Event )', text, flags=re.MULTILINE)
         games.extend(c.strip() for c in chunks if c.strip().startswith('[Event '))
@@ -379,6 +422,9 @@ def orchestrate_workers(args, engine_path):
 
     print(f"🔍 Reading and balancing games across {n} chunks...")
     all_games = collect_game_texts(pgn_files)
+    if args.sample and len(all_games) > args.sample:
+        all_games = random.sample(all_games, args.sample)
+        print(f"📋 Sampled {len(all_games)} games for this run")
     total = len(all_games)
     if total == 0:
         print("❌ ERROR: No games found in PGN files.")
@@ -400,7 +446,7 @@ def orchestrate_workers(args, engine_path):
         sub = os.path.join(tmp_dir, f"worker-{i}")
         os.makedirs(sub, exist_ok=True)
         chunk_path = os.path.join(sub, "chunk.pgn")
-        with open(chunk_path, "w") as f:
+        with open(chunk_path, "w", encoding="latin-1") as f:
             f.write("\n\n".join(chunk) + "\n")
         out_path = os.path.join(tmp_dir, f"output-{i}.json")
         log_path = os.path.join(tmp_dir, f"worker-{i}.log")
@@ -432,6 +478,11 @@ def orchestrate_workers(args, engine_path):
             cmd += ["--syzygy-path", syzygy_path]
         elif args.no_syzygy:
             cmd += ["--no-syzygy"]
+        if args.no_puzzles:
+            cmd += ["--no-puzzles"]
+        else:
+            cmd += ["--puzzle-depth", str(args.puzzle_depth)]
+        # Note: --sample is NOT propagated; the orchestrator already sampled.
         log_file = open(log_path, "w")
         proc = subprocess.Popen(cmd, stdout=log_file, stderr=subprocess.STDOUT)
         procs.append((proc, log_file, log_path, i, count, moves))
@@ -496,9 +547,23 @@ def mine_games():
 
     syzygy_path = None if args.no_syzygy else find_syzygy(args.syzygy_path)
 
-    g_total_games = count_total_games(pgn_files)
+    # In --sample mode we materialize all game texts in memory so we can
+    # randomly subsample. Otherwise stream from files for memory efficiency.
+    sampled_texts = None
+    if args.sample:
+        all_texts = collect_game_texts(pgn_files)
+        if len(all_texts) > args.sample:
+            all_texts = random.sample(all_texts, args.sample)
+        sampled_texts = all_texts
+        g_total_games = len(sampled_texts)
+        print(f"📋 Sampled {g_total_games} games for this run\n")
+    else:
+        g_total_games = count_total_games(pgn_files)
+
+    puzzles_enabled = not args.no_puzzles
     print(f"🚀 Starting Miner — engine={engine_path}, depth={args.depth}, "
-          f"threads={args.threads}, hash={args.hash_mb}MB")
+          f"threads={args.threads}, hash={args.hash_mb}MB, "
+          f"puzzles={'on (depth=' + str(args.puzzle_depth) + ')' if puzzles_enabled else 'off'}")
     if syzygy_path:
         n_tb = sum(1 for f in os.listdir(syzygy_path) if f.endswith(".rtbw"))
         print(f"   syzygy: {syzygy_path} ({n_tb} WDL tables)")
@@ -536,99 +601,132 @@ def mine_games():
         except chess.engine.EngineError as e:
             print(f"⚠️  Engine config warning: {e}")
 
-        for pgn_file in pgn_files:
-            g_current_file = os.path.basename(pgn_file)
+        # Build a unified (source_label, game) iterator covering both modes.
+        def games_iter():
+            if sampled_texts is not None:
+                for text in sampled_texts:
+                    g = chess.pgn.read_game(io.StringIO(text))
+                    if g is not None:
+                        yield "(sampled)", g
+                return
+            for pgn_file in pgn_files:
+                with open(pgn_file, encoding="latin-1") as pgn:
+                    while True:
+                        g = chess.pgn.read_game(pgn)
+                        if g is None:
+                            break
+                        yield os.path.basename(pgn_file), g
 
-            with open(pgn_file) as pgn:
-                while True:
-                    game = chess.pgn.read_game(pgn)
-                    if game is None: break
-                    g_games_processed += 1
+        last_label = None
+        for source_label, game in games_iter():
+            if source_label != last_label:
+                if last_label is not None and last_label != "(sampled)":
+                    log_to_console(f"   ✓ Completed file: {last_label}")
+                last_label = source_label
+                g_current_file = source_label
+            g_games_processed += 1
 
-                    if g_games_processed % 50 == 0: draw_progress_bar()
+            if g_games_processed % 50 == 0: draw_progress_bar()
 
-                    white_player = game.headers.get("White", "Unknown")
-                    black_player = game.headers.get("Black", "Unknown")
-                    date = game.headers.get("Date", "????")
-                    year = date.split(".")[0] if "." in date else date
-                    game_result = game.headers.get("Result", "*")
+            white_player = game.headers.get("White", "Unknown")
+            black_player = game.headers.get("Black", "Unknown")
+            date = game.headers.get("Date", "????")
+            year = date.split(".")[0] if "." in date else date
+            game_result = game.headers.get("Result", "*")
 
-                    board = game.board()
+            board = game.board()
 
-                    for move in game.mainline_moves():
-                        board.push(move)
+            for move in game.mainline_moves():
+                board.push(move)
 
-                        # --- FAST FILTERS ---
-                        # Skip queen positions — heavy_piece_endgame removed for speed
-                        if _has_any(board, chess.QUEEN): continue
+                # --- FAST FILTERS ---
+                # Skip queen positions — heavy_piece_endgame removed for speed
+                if board.queens: continue
 
-                        w_score, b_score, total_material = get_material_score(board)
+                w_score, b_score, total_material = get_material_score(board)
 
-                        if not (MIN_TOTAL_POINTS <= total_material <= MAX_TOTAL_POINTS): continue
-                        if w_score < MIN_SIDE_POINTS or b_score < MIN_SIDE_POINTS: continue
-                        if (len(board.pieces(chess.PAWN, chess.WHITE))
-                                + len(board.pieces(chess.PAWN, chess.BLACK))) < 2: continue
+                if not (MIN_TOTAL_POINTS <= total_material <= MAX_TOTAL_POINTS): continue
+                if w_score < MIN_SIDE_POINTS or b_score < MIN_SIDE_POINTS: continue
+                if (len(board.pieces(chess.PAWN, chess.WHITE))
+                        + len(board.pieces(chess.PAWN, chess.BLACK))) < 2: continue
 
-                        # --- DEDUP (cheap reject of already-seen positions, before engine) ---
-                        fen = board.fen()
-                        canon = fen_canonical(fen)
-                        if canon in seen_canon: continue
+                # --- DEDUP (cheap reject of already-seen positions, before engine) ---
+                fen = board.fen()
+                canon = fen_canonical(fen)
+                if canon in seen_canon: continue
 
-                        # --- ENGINE FILTER (two-pass: shallow triage, then deep) ---
-                        eval_score, is_boring, best_moves = analyze_position(
-                            board, engine, depth=args.depth
-                        )
+                # --- ENGINE FILTER (two-pass: shallow triage, then deep) ---
+                eval_score, is_boring, best_moves = analyze_position(
+                    board, engine, depth=args.depth
+                )
 
-                        if is_boring or eval_score is None: continue
+                if is_boring or eval_score is None: continue
 
-                        seen_canon.add(canon)
+                seen_canon.add(canon)
 
-                        current_tags = get_tags_for_board(board)
-                        has_imbalance = check_future_imbalance(board, best_moves)
+                current_tags = get_tags_for_board(board)
 
-                        future_tags = []
-                        if best_moves:
-                            moves_pushed = 0
-                            for next_move in best_moves:
-                                board.push(next_move)
-                                moves_pushed += 1
-                                future_tags += get_tags_for_board(board)
-                            for _ in range(moves_pushed):
-                                board.pop()
+                # Single push/pop pass — collect future tags AND compute
+                # imbalance from the same traversal of best_moves[:2].
+                future_tags = []
+                has_imbalance = False
+                moves_pushed = 0
+                for next_move in best_moves[:2]:
+                    board.push(next_move)
+                    moves_pushed += 1
+                    future_tags += get_tags_for_board(board)
+                if moves_pushed >= 2:
+                    w, b, _ = get_material_score(board)
+                    has_imbalance = abs(w - b) >= 2
+                for _ in range(moves_pushed):
+                    board.pop()
 
-                        all_tags = sorted(set(current_tags + future_tags))
-                        eval_tag = round(abs(eval_score), 1)
-                        sid = fen_id(fen)
+                # Puzzle detection: only meaningful on drawn-eval positions.
+                puzzle_move = None
+                if puzzles_enabled and DRAWN_LO <= eval_score <= DRAWN_HI:
+                    puzzle_move = detect_puzzle_move(board, engine, args.puzzle_depth)
 
-                        g_scenarios_found += 1
-                        log_to_console(
-                            f"✅ Found #{g_scenarios_found} ({sid}): {fen} | "
-                            f"Eval: {eval_score:.2f} | Mat: {total_material}"
-                        )
+                all_tags = list(current_tags + future_tags)
+                if puzzle_move:
+                    all_tags.append("puzzle")
+                all_tags = sorted(set(all_tags))
+                eval_tag = round(abs(eval_score), 1)
+                sid = fen_id(fen)
 
-                        scenarios.append({
-                            "id": sid,
-                            "fen": fen,
-                            "eval": eval_score,
-                            "eval_tag": eval_tag,
-                            "material_points": total_material,
-                            "imbalance": has_imbalance,
-                            "turn": "white" if board.turn == chess.WHITE else "black",
-                            "description": make_description(board, game_result),
-                            "tags": all_tags,
-                            "players": f"{white_player} vs {black_player}",
-                            "year": year,
-                            "result": game_result,
-                            "source_file": os.path.basename(pgn_file),
-                        })
+                g_scenarios_found += 1
+                tag_marker = " 🧩" if puzzle_move else ""
+                log_to_console(
+                    f"✅ Found #{g_scenarios_found} ({sid}){tag_marker}: {fen} | "
+                    f"Eval: {eval_score:.2f} | Mat: {total_material}"
+                )
 
-                        # Periodic checkpoint
-                        if len(scenarios) % CHECKPOINT_EVERY == 0:
-                            write_output(scenarios, args.output)
+                entry = {
+                    "id": sid,
+                    "fen": fen,
+                    "eval": eval_score,
+                    "eval_tag": eval_tag,
+                    "material_points": total_material,
+                    "imbalance": has_imbalance,
+                    "turn": "white" if board.turn == chess.WHITE else "black",
+                    "description": make_description(board, game_result),
+                    "tags": all_tags,
+                    "players": f"{white_player} vs {black_player}",
+                    "year": year,
+                    "result": game_result,
+                    "source_file": source_label,
+                }
+                if puzzle_move:
+                    entry["puzzle_move"] = puzzle_move
+                scenarios.append(entry)
 
-                        break
+                # Periodic checkpoint
+                if len(scenarios) % CHECKPOINT_EVERY == 0:
+                    write_output(scenarios, args.output)
 
-            log_to_console(f"   ✓ Completed file: {os.path.basename(pgn_file)}")
+                break
+
+        if last_label is not None and last_label != "(sampled)":
+            log_to_console(f"   ✓ Completed file: {last_label}")
 
         engine.quit()
         sys.stdout.write("\n")
