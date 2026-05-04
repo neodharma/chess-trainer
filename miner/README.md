@@ -1,7 +1,8 @@
 # miner
 
 Mines endgame scenarios from PGN files using Stockfish, writing results to
-`../public/scenarios.json` for the trainer UI to consume.
+`../public/scenarios.json` for the trainer UI to consume. The mined corpus
+powers the live trainer at the deployed Vercel URL.
 
 ## Setup
 
