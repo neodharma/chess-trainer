@@ -338,7 +338,30 @@ def parse_args():
                    help="Randomly sample this many GAMES from the input PGNs "
                         "before mining (off by default; useful for fast "
                         "iteration on a small representative set).")
+    p.add_argument("--viz", action="store_true",
+                   help="Enable live visualization: workers stream their "
+                        "current FEN to public/viz/worker-N.fen so the "
+                        "viz_server can broadcast over WebSocket.")
+    p.add_argument("--viz-path", default=None,
+                   help="(internal) Per-worker FEN output path; set by the "
+                        "orchestrator when --viz is enabled.")
     return p.parse_args()
+
+
+def write_viz(viz_path, fen, status="playing"):
+    """Write current FEN + status atomically to viz_path. Status values:
+      - 'playing'    — stepping through moves (default)
+      - 'evaluating' — about to run Stockfish on a material-filter candidate
+      - 'found'      — scenario accepted (eval landed in drawn/advantage band)
+      - 'new_game'   — start of a new game (initial position)
+    """
+    if not viz_path:
+        return
+    try:
+        with open(viz_path, "w") as f:
+            json.dump({"fen": fen, "status": status}, f)
+    except OSError:
+        pass
 
 
 def write_output(scenarios, output_path):
@@ -438,6 +461,17 @@ def orchestrate_workers(args, engine_path):
         shutil.rmtree(tmp_dir)
     os.makedirs(tmp_dir, exist_ok=True)
 
+    # Live viz: always write to <project>/public/viz/ regardless of --output,
+    # since viz_server.py watches that fixed path.
+    viz_dir = None
+    if args.viz:
+        viz_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "..", "public", "viz")
+        os.makedirs(viz_dir, exist_ok=True)
+        for stale in glob.glob(os.path.join(viz_dir, "worker-*.fen")):
+            try: os.remove(stale)
+            except OSError: pass
+
     # Write each chunk into its own subdir so worker glob('*.pgn') picks just one
     chunks_info = []
     for i, chunk in enumerate(buckets):
@@ -482,6 +516,8 @@ def orchestrate_workers(args, engine_path):
             cmd += ["--no-puzzles"]
         else:
             cmd += ["--puzzle-depth", str(args.puzzle_depth)]
+        if viz_dir:
+            cmd += ["--viz-path", os.path.join(viz_dir, f"worker-{i}.fen")]
         # Note: --sample is NOT propagated; the orchestrator already sampled.
         log_file = open(log_path, "w")
         proc = subprocess.Popen(cmd, stdout=log_file, stderr=subprocess.STDOUT)
@@ -635,9 +671,11 @@ def mine_games():
             game_result = game.headers.get("Result", "*")
 
             board = game.board()
+            write_viz(args.viz_path, board.fen(), "new_game")
 
             for move in game.mainline_moves():
                 board.push(move)
+                write_viz(args.viz_path, board.fen(), "playing")
 
                 # --- FAST FILTERS ---
                 # Skip queen positions — heavy_piece_endgame removed for speed
@@ -656,6 +694,7 @@ def mine_games():
                 if canon in seen_canon: continue
 
                 # --- ENGINE FILTER (two-pass: shallow triage, then deep) ---
+                write_viz(args.viz_path, fen, "evaluating")
                 eval_score, is_boring, best_moves = analyze_position(
                     board, engine, depth=args.depth
                 )
@@ -699,6 +738,7 @@ def mine_games():
                     f"✅ Found #{g_scenarios_found} ({sid}){tag_marker}: {fen} | "
                     f"Eval: {eval_score:.2f} | Mat: {total_material}"
                 )
+                write_viz(args.viz_path, fen, "found")
 
                 entry = {
                     "id": sid,
