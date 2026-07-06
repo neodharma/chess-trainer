@@ -34,8 +34,16 @@ export default function App() {
 
   const [jumpId, setJumpId] = useState("");
   
-  // Sidebar
-  const [sidebarHistory, setSidebarHistory] = useState([]);
+  // Sidebar (persisted across sessions on this device)
+  const HISTORY_KEY = "chess-trainer-history";
+  const [sidebarHistory, setSidebarHistory] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(HISTORY_KEY));
+      return Array.isArray(saved) ? saved : [];
+    } catch {
+      return [];
+    }
+  });
 
   // Engine depth (12 / 18 / 24)
   const [engineDepth, setEngineDepth] = useState(() => {
@@ -66,6 +74,10 @@ export default function App() {
     engineDepthRef.current = engineDepth;
     try { localStorage.setItem("chess-trainer-depth", String(engineDepth)); } catch {}
   }, [engineDepth]);
+
+  useEffect(() => {
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(sidebarHistory)); } catch {}
+  }, [sidebarHistory]);
 
   // HANDLE RESIZE
   useEffect(() => {
@@ -388,7 +400,7 @@ export default function App() {
 
     setSidebarHistory(prev => {
         const filtered = prev.filter(s => s.id !== scenario.id);
-        return [scenario, ...filtered].slice(0, 10);
+        return [scenario, ...filtered];
     });
 
     const newGame = new Chess(scenario.fen);
@@ -705,7 +717,19 @@ export default function App() {
         </div>
 
         <div style={responsiveStyles.sidebar}>
-            <h3 style={styles.sidebarTitle}>Recent History</h3>
+            <div style={styles.sidebarHeader}>
+                <h3 style={styles.sidebarTitle}>Recent History</h3>
+                {sidebarHistory.length > 0 && (
+                    <button
+                        type="button"
+                        style={styles.clearButton}
+                        onClick={() => setSidebarHistory([])}
+                        title="Clear history"
+                    >
+                        Clear
+                    </button>
+                )}
+            </div>
             <div style={styles.historyList}>
                 {sidebarHistory.length === 0 && <span style={{color: "var(--text-dim)", fontStyle: "italic", fontSize: "14px"}}>No games yet</span>}
                 {sidebarHistory.map((item) => (
@@ -765,10 +789,18 @@ const styles = {
   disabledNav: {
       opacity: 0.3, cursor: "not-allowed"
   },
+  sidebarHeader: {
+      display: "flex", justifyContent: "space-between", alignItems: "center",
+      borderBottom: "1px solid var(--surface2)", paddingBottom: "10px", marginBottom: "15px"
+  },
   sidebarTitle: {
-      margin: "0 0 15px 0", fontSize: "0.85rem", color: "var(--text-dim)",
-      borderBottom: "1px solid var(--surface2)", paddingBottom: "10px",
+      margin: 0, fontSize: "0.85rem", color: "var(--text-dim)",
       textTransform: "uppercase", letterSpacing: "1px"
+  },
+  clearButton: {
+      padding: "3px 8px", borderRadius: "4px", border: "1px solid var(--surface2)",
+      background: "transparent", color: "var(--text-dim)", cursor: "pointer",
+      fontSize: "11px", fontFamily: "inherit"
   },
   historyList: {
       flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "6px"
