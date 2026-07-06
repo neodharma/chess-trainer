@@ -252,7 +252,7 @@ export default function App() {
     return (
       <span
         style={index === game.index ? styles.moveCellActive : styles.moveCell}
-        onClick={() => gameStore.navigate(index)}
+        onClick={() => gameStore.goToPly(index)}
       >
         <span style={styles.moveSanRow}>
           {entry.san}

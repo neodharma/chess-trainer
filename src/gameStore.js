@@ -233,16 +233,29 @@ export function createGameStore({ createEngine, storage = null }) {
     return applied.move;
   }
 
-  // direction: -1 | 1 | "start" | "end" | absolute index
+  // Relative navigation: -1 | 1 | "start" | "end" (keyboard / nav buttons).
   function navigate(direction) {
     const st = state;
     if (st.history.length === 0) return;
     const target = navigationTarget(st.history, st.index, direction, st.playerColor);
-    if (target === st.index) return;
+    goToTarget(target);
+  }
 
-    if (target < st.history.length - 1) {
+  // Absolute navigation: land exactly on the clicked ply (move-log clicks).
+  // Kept separate from navigate() so an index like 1 is never reinterpreted
+  // as a "step forward" — that ambiguity made log clicks dead or teleporting.
+  function goToPly(index) {
+    const st = state;
+    if (st.history.length === 0 || typeof index !== "number") return;
+    goToTarget(Math.max(0, Math.min(st.history.length - 1, index)));
+  }
+
+  function goToTarget(target) {
+    if (target === state.index) return;
+
+    if (target < state.history.length - 1) {
       setState({ index: target, status: "reviewing", currentEval: null });
-      search("review", st.history[target].fen);
+      search("review", state.history[target].fen);
       return;
     }
 
@@ -286,6 +299,7 @@ export function createGameStore({ createEngine, storage = null }) {
     loadScenario,
     playMove,
     navigate,
+    goToPly,
     setDepth,
     dispose() {
       engine.dispose();

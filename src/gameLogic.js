@@ -123,9 +123,11 @@ export function applyMoveToHistory(history, index, { from, to, promotion = "q" }
   };
 }
 
-// Target index for review navigation. Steps of ±1 skip positions where it is
-// the opponent's turn (so single-stepping moves between the player's decision
-// points); "start"/"end"/numeric jumps land exactly.
+// Target index for relative review navigation: steps of ±1 (which skip
+// positions where it is the opponent's turn, so single-stepping moves between
+// the player's decision points) and the "start"/"end" endpoints. Absolute
+// jumps (move-log clicks) do NOT go through this — they must land exactly on
+// the clicked ply, never reinterpreted as a step.
 export function navigationTarget(history, index, direction, playerColor) {
   const len = history.length;
   if (len === 0) return index;
@@ -134,11 +136,9 @@ export function navigationTarget(history, index, direction, playerColor) {
   let step = 0;
   if (direction === "start") target = 0;
   else if (direction === "end") target = len - 1;
-  else if (typeof direction === "number" && Math.abs(direction) === 1) {
+  else if (direction === 1 || direction === -1) {
     step = direction;
     target += step;
-  } else if (typeof direction === "number") {
-    target = direction;
   }
 
   target = Math.max(0, Math.min(len - 1, target));

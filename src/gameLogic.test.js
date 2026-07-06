@@ -152,9 +152,8 @@ describe("navigationTarget", () => {
     expect(navigationTarget(history, 4, 1, "white")).toBe(4);
   });
 
-  it("treats other numbers as absolute indexes", () => {
-    expect(navigationTarget(history, 4, 0, "white")).toBe(0);
-    expect(navigationTarget(history, 0, 3, "white")).toBe(3);
-    expect(navigationTarget(history, 0, 99, "white")).toBe(4);
+  it("ignores non-step numbers (absolute jumps use goToPly, not navigate)", () => {
+    expect(navigationTarget(history, 4, 0, "white")).toBe(4);
+    expect(navigationTarget(history, 2, 3, "white")).toBe(2);
   });
 });

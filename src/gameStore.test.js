@@ -109,7 +109,7 @@ describe("the history-click race (reported bug)", () => {
     const replyCall = t.lastCall();
 
     // User clicks an earlier history entry while the engine is thinking
-    t.store.navigate(0);
+    t.store.goToPly(0);
     let s = t.store.getState();
     expect(s.status).toBe("reviewing");
     expect(s.index).toBe(0);
@@ -128,7 +128,7 @@ describe("the history-click race (reported bug)", () => {
     t.seedAnalysis("d2d4", 30);
     t.store.playMove("e2", "e4");
     const abortedReply = t.lastCall();
-    t.store.navigate(0);                         // abort mid-think
+    t.store.goToPly(0);                         // abort mid-think
     t.fireResultFor(abortedReply, { bestUci: "e7e5", scoreWhite: -20 }); // graded, not applied
 
     t.store.navigate("end");                     // back to the live head
@@ -160,6 +160,52 @@ describe("the history-click race (reported bug)", () => {
   });
 });
 
+describe("move-log clicks (goToPly)", () => {
+  // Regression: a click on log entry index 1 used to go through navigate(1),
+  // which reinterpreted it as "step forward one" — a dead click at the live
+  // head, a teleport elsewhere.
+  it("lands exactly on the clicked ply, even index 1", () => {
+    const t = setup();
+    t.seedAnalysis("d2d4", 30);
+    t.store.playMove("e2", "e4");
+    t.fireResult({ bestUci: "e7e5", scoreWhite: -20 });   // len 3
+    t.seedAnalysis("g1f3", 30);
+    t.store.playMove("g1", "f3");                          // len 4, engineThinking
+
+    t.store.goToPly(1);                                    // click the FIRST move
+    const s = t.store.getState();
+    expect(s.index).toBe(1);
+    expect(s.status).toBe("reviewing");
+    expect(t.lastCall()).toEqual(expect.objectContaining({
+      fen: s.history[1].fen,
+      meta: expect.objectContaining({ purpose: "review" })
+    }));
+  });
+
+  it("clicking the live-head entry reconciles (resumes an interrupted reply)", () => {
+    const t = setup();
+    t.seedAnalysis("d2d4", 30);
+    t.store.playMove("e2", "e4");                          // engineThinking at index 1
+    t.store.goToPly(0);                                    // review the start
+    t.store.goToPly(1);                                    // click the last move entry
+    const s = t.store.getState();
+    expect(s.status).toBe("engineThinking");               // reply re-issued
+    expect(s.index).toBe(1);
+    expect(t.lastCall().meta.purpose).toBe("reply");
+  });
+
+  it("clamps out-of-range indexes and ignores repeats", () => {
+    const t = setup();
+    t.seedAnalysis("d2d4", 30);
+    t.store.playMove("e2", "e4");
+    const callsBefore = t.calls.length;
+    t.store.goToPly(99);                                   // clamped to live head = current
+    t.store.goToPly(1);                                    // already there
+    expect(t.store.getState().index).toBe(1);
+    expect(t.calls.length).toBe(callsBefore);              // no redundant searches
+  });
+});
+
 describe("branching and terminal positions", () => {
   it("truncates and replies on the branch when moving from a review position", () => {
     const t = setup();
@@ -167,7 +213,7 @@ describe("branching and terminal positions", () => {
     t.store.playMove("e2", "e4");
     t.fireResult({ bestUci: "e7e5", scoreWhite: -20 }); // engine replies; history len 3
 
-    t.store.navigate(0);
+    t.store.goToPly(0);
     const move = t.store.playMove("d2", "d4");   // branch from the start
     expect(move.san).toBe("d4");
 
@@ -199,7 +245,7 @@ describe("branching and terminal positions", () => {
     t.seedAnalysis("f7g7", 900);
     t.store.playMove("f7", "g7");
 
-    t.store.navigate(0);
+    t.store.goToPly(0);
     expect(t.store.getState().status).toBe("reviewing");
     expect(t.store.getState().gameOverInfo).toEqual({ title: "Checkmate!", result: "White Wins" });
 
@@ -233,7 +279,7 @@ describe("depth and eval display", () => {
     expect(t.lastCall().depth).toBe(12);
 
     t.store.setDepth(24);
-    t.store.navigate(0);
+    t.store.goToPly(0);
     expect(t.lastCall().depth).toBe(24);
   });
 
@@ -245,7 +291,7 @@ describe("depth and eval display", () => {
     t.seedAnalysis("d2d4", 42);
     t.store.playMove("e2", "e4");
     const replyCall = t.lastCall();
-    t.store.navigate(0);                         // viewing the start again; eval reset
+    t.store.goToPly(0);                         // viewing the start again; eval reset
     expect(t.store.getState().currentEval).toBe(null);
 
     // Info from the aborted reply search (position after e4) must not leak
