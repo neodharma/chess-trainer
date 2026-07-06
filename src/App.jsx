@@ -5,6 +5,55 @@ import "chessground/assets/chessground.base.css";
 import "chessground/assets/chessground.brown.css";
 import "chessground/assets/chessground.cburnett.css";
 
+// UCI "score" → white-absolute centipawns. Mates map near ±100000 so closer
+// mates score higher; callers clamp for display/classification.
+function parseScore(infoLine, sideToMove) {
+  let m = infoLine.match(/score cp (-?\d+)/);
+  let rel;
+  if (m) {
+    rel = parseInt(m[1], 10);
+  } else {
+    m = infoLine.match(/score mate (-?\d+)/);
+    if (!m) return null;
+    const n = parseInt(m[1], 10);
+    rel = n > 0 ? 100000 - n : -100000 - n;
+  }
+  return sideToMove === "w" ? rel : -rel;
+}
+
+function classifyMove({ playedUci, bestUci, evalBeforeWhite, evalAfterWhite, playerIsWhite }) {
+  if (bestUci && playedUci === bestUci) return { tier: "best", cpLoss: 0 };
+  if (evalBeforeWhite == null || evalAfterWhite == null) return { tier: null, cpLoss: null };
+
+  const sign = playerIsWhite ? 1 : -1;
+  const clamp = (v) => Math.max(-1000, Math.min(1000, v));
+  const before = clamp(sign * evalBeforeWhite);
+  const after = clamp(sign * evalAfterWhite);
+  const loss = Math.max(0, before - after);
+
+  // Generous bands: adjacent searches at equal depth commonly disagree by
+  // 20-40cp in endgames, and before/after come from different searches.
+  let tier = loss <= 60 ? "good"
+           : loss <= 125 ? "inaccuracy"
+           : loss <= 275 ? "mistake"
+           : "blunder";
+
+  // Still completely winning (or hopeless) on both sides of the move: eval
+  // swings in decided positions shouldn't read as blunders.
+  if ((before >= 500 && after >= 500) || (before <= -500 && after <= -500)) {
+      if (tier === "mistake" || tier === "blunder") tier = "inaccuracy";
+  }
+  return { tier, cpLoss: loss };
+}
+
+const TIER_LABELS = {
+  best: "Best!", good: "Good", inaccuracy: "Inaccuracy", mistake: "Mistake", blunder: "Blunder"
+};
+const TIER_COLORS = {
+  best: "var(--accent2)", good: "var(--text-dim)", inaccuracy: "var(--accent)",
+  mistake: "var(--bad)", blunder: "var(--bad)"
+};
+
 export default function App() {
   const [engineStatus, setEngineStatus] = useState("Initializing...");
   const [scenarios, setScenarios] = useState([]);
@@ -18,8 +67,11 @@ export default function App() {
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
   // History System
-  const [gameHistory, setGameHistory] = useState([]); 
-  const [historyIndex, setHistoryIndex] = useState(0); 
+  const [gameHistory, setGameHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Move feedback
+  const [showBest, setShowBest] = useState(false);
 
   // --- FILTERS ---
   // Piece-type chips: OR semantics within selection; empty set = no constraint.
@@ -58,6 +110,7 @@ export default function App() {
   const boardRef = useRef(null);
   const apiRef = useRef(null);
   const engine = useRef(null);
+  const moveListRef = useRef(null);
 
   // REFS
   const playerColorRef = useRef(playerColor);
@@ -65,7 +118,15 @@ export default function App() {
   const gameHistoryRef = useRef(gameHistory);
   const engineDepthRef = useRef(engineDepth);
 
-  const isReplayingRef = useRef(false);
+  // Engine search bookkeeping. Stockfish answers strictly in order and emits one
+  // "bestmove" per "go" (a stopped search still emits its own), so a FIFO of
+  // descriptors pushed at go-time and popped at each bestmove attributes every
+  // result exactly — including partial results from aborted searches.
+  const searchQueueRef = useRef([]);
+  const searchCounterRef = useRef(0);
+  const sessionIdRef = useRef(0);          // bumped per scenario; stale results discarded
+  const analysisRef = useRef(null);        // { fen, bestUci, scoreWhite } for a player-turn position
+  const pendingFeedbackRef = useRef(null); // player move awaiting an eval-after to grade
 
   useEffect(() => { playerColorRef.current = playerColor; }, [playerColor]);
   useEffect(() => { historyIndexRef.current = historyIndex; }, [historyIndex]);
@@ -78,6 +139,12 @@ export default function App() {
   useEffect(() => {
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(sidebarHistory)); } catch {}
   }, [sidebarHistory]);
+
+  // Keep the move log scrolled to the latest move
+  useEffect(() => {
+    const el = moveListRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [gameHistory.length]);
 
   // HANDLE RESIZE
   useEffect(() => {
@@ -133,34 +200,54 @@ export default function App() {
       
       engine.current.onmessage = (event) => {
         const message = event.data;
+        const head = searchQueueRef.current[0];
 
-        if (message.startsWith("info") && message.includes("score cp")) {
-          const match = message.match(/score cp (-?\d+)/);
-          if (match) {
-            const rawCp = parseInt(match[1], 10);
-            const turn = chessRef.current.turn(); 
-            const absoluteCp = (turn === 'w') ? rawCp : -rawCp;
-            const evalFloat = absoluteCp / 100.0;
-            setCurrentEval(evalFloat);
+        if (message.startsWith("info") && head) {
+          const score = parseScore(message, head.sideToMove);
+          if (score !== null) head.lastScoreWhite = score;
+          const pv = message.match(/ pv ([a-h][1-8][a-h][1-8][qrbn]?)/);
+          if (pv) head.lastBestUci = pv[1];
+
+          // Live eval display only for the position currently on screen
+          if (score !== null && head.session === sessionIdRef.current) {
+            const viewed = gameHistoryRef.current[historyIndexRef.current];
+            if (viewed && viewed.fen === head.fen) {
+              setCurrentEval(Math.max(-99, Math.min(99, score / 100)));
+            }
           }
+          return;
         }
 
         if (message.startsWith("bestmove")) {
-          if (isReplayingRef.current) {
-              setEngineStatus("Reviewing (Eval Only)");
-              return;
+          const desc = searchQueueRef.current.shift();
+          if (!desc) return;
+          if (desc.session !== sessionIdRef.current) return;
+
+          let bestUci = message.split(" ")[1];
+          if (bestUci === "(none)") bestUci = desc.lastBestUci;
+
+          if (desc.purpose === "analysis" || desc.purpose === "review") {
+            if (bestUci) {
+              analysisRef.current = { fen: desc.fen, bestUci, scoreWhite: desc.lastScoreWhite };
+            }
+            if (desc.purpose === "review") setEngineStatus("Reviewing (Eval Only)");
+            return;
           }
 
-          const bestMove = message.split(" ")[1];
-          const from = bestMove.substring(0, 2);
-          const to = bestMove.substring(2, 4);
-          const promo = bestMove.length > 4 ? bestMove[4] : "q";
+          // purpose === "reply": grade the player's move, then answer it
+          commitFeedback(desc.lastScoreWhite, desc);
 
-          const isLive = historyIndexRef.current === gameHistoryRef.current.length - 1;
-          
-          if (isLive) {
-             handleMove(from, to, promo);
-             setEngineStatus("Your Turn");
+          const isLive = historyIndexRef.current === gameHistoryRef.current.length - 1
+              && gameHistoryRef.current[historyIndexRef.current]?.fen === desc.fen;
+          if (isLive && bestUci) {
+            const from = bestUci.substring(0, 2);
+            const to = bestUci.substring(2, 4);
+            const promo = bestUci.length > 4 ? bestUci[4] : "q";
+            handleMove(from, to, promo, "engine");
+            setEngineStatus("Your Turn");
+            if (!chessRef.current.isGameOver()) {
+              startSearch(chessRef.current.fen(), "analysis");
+            }
           }
         }
       };
@@ -169,6 +256,66 @@ export default function App() {
       engine.current.postMessage("isready");
     }
   }, []);
+
+  function startSearch(fen, purpose, extra = {}) {
+      if (!engine.current) return;
+      // "stop" aborts any running search; its bestmove still arrives and pops
+      // the old queue head, so push-then-go stays aligned.
+      engine.current.postMessage("stop");
+      searchQueueRef.current.push({
+          id: ++searchCounterRef.current,
+          purpose,
+          session: sessionIdRef.current,
+          fen,
+          sideToMove: fen.split(" ")[1],
+          lastScoreWhite: null,
+          lastBestUci: null,
+          ...extra
+      });
+      engine.current.postMessage(`position fen ${fen}`);
+      engine.current.postMessage(`go depth ${engineDepthRef.current}`);
+  }
+
+  // Grade the pending player move. `desc` (a reply-search descriptor) must match
+  // the pending move when provided; synchronous callers (terminal position,
+  // instant "Best!") pass no desc.
+  function commitFeedback(evalAfterWhite, desc = null) {
+      const pending = pendingFeedbackRef.current;
+      if (!pending || pending.session !== sessionIdRef.current) return;
+      if (desc && (desc.snapshotIndex !== pending.snapshotIndex || desc.fenAfter !== pending.fenAfter)) return;
+      pendingFeedbackRef.current = null;
+
+      const { tier, cpLoss } = classifyMove({
+          playedUci: pending.playedUci,
+          bestUci: pending.bestUci,
+          evalBeforeWhite: pending.evalBeforeWhite,
+          evalAfterWhite,
+          playerIsWhite: playerColorRef.current === "white"
+      });
+      if (tier === null) return;
+
+      const feedback = {
+          tier, cpLoss,
+          bestMoveSan: tier === "best" ? null : pending.bestMoveSan,
+          bestMoveUci: pending.bestUci,
+          evalBeforeWhite: pending.evalBeforeWhite,
+          evalAfterWhite
+      };
+
+      const updated = gameHistoryRef.current.map((s, i) =>
+          i === pending.snapshotIndex && s.fen === pending.fenAfter ? { ...s, feedback } : s
+      );
+      gameHistoryRef.current = updated;
+      setGameHistory(updated);
+  }
+
+  function terminalEvalWhite(game) {
+      if (game.isCheckmate()) {
+          // The side to move is the one checkmated
+          return game.turn() === "w" ? -100000 : 100000;
+      }
+      return 0; // any draw
+  }
 
   function checkGameOver(game) {
       if (game.isGameOver()) {
@@ -194,7 +341,7 @@ export default function App() {
       return false;
   }
 
-  function handleMove(from, to, promo = 'q') {
+  function handleMove(from, to, promo = 'q', moveBy = 'player') {
       const game = chessRef.current;
       const currentIndex = historyIndexRef.current;
       const currentHistory = gameHistoryRef.current;
@@ -202,15 +349,25 @@ export default function App() {
       if (currentIndex < currentHistory.length - 1) {
           const truncated = currentHistory.slice(0, currentIndex + 1);
           setGameHistory(truncated);
-          gameHistoryRef.current = truncated; 
+          gameHistoryRef.current = truncated;
       }
 
-      const move = game.move({ from, to, promotion: promo });
+      const fenBefore = game.fen();
+      let move = null;
+      try {
+          move = game.move({ from, to, promotion: promo });
+      } catch { /* chess.js v1 throws on illegal moves */ }
       if (!move) return null;
 
-      isReplayingRef.current = false;
-
-      const newSnapshot = { fen: game.fen(), lastMove: [from, to] };
+      const newSnapshot = {
+          fen: game.fen(),
+          lastMove: [from, to],
+          san: move.san,
+          moveBy,
+          color: move.color,
+          moveNumber: parseInt(fenBefore.split(" ")[5], 10),
+          feedback: null
+      };
       const updatedHistory = [...gameHistoryRef.current, newSnapshot];
       
       setGameHistory(updatedHistory);
@@ -257,19 +414,22 @@ export default function App() {
 
       if (targetIndex === historyIndexRef.current) return;
 
-      isReplayingRef.current = true;
+      jumpToPly(targetIndex);
+  }
 
-      const snapshot = gameHistoryRef.current[targetIndex];
+  function jumpToPly(index) {
+      const snapshot = gameHistoryRef.current[index];
+      if (!snapshot || index === historyIndexRef.current) return;
+
       const tempGame = new Chess(snapshot.fen);
       chessRef.current = tempGame;
-      
-      setHistoryIndex(targetIndex);
+
+      setHistoryIndex(index);
       updateBoardVisuals();
-      setGameOver(null); 
+      setGameOver(null);
 
       setEngineStatus("Reviewing...");
-      engine.current?.postMessage(`position fen ${tempGame.fen()}`);
-      engine.current?.postMessage(`go depth ${engineDepthRef.current}`);
+      startSearch(snapshot.fen, "review");
   }
 
   useEffect(() => {
@@ -283,22 +443,83 @@ export default function App() {
           dests: toDests(chessRef.current),
           events: {
             after: (orig, dest) => {
-                const move = handleMove(orig, dest, 'q');
+                const fenBefore = chessRef.current.fen();
+
+                // Capture the analysis of the pre-move position before it can be
+                // overwritten: completed cache first, else the in-flight search's partials.
+                let analysis = analysisRef.current?.fen === fenBefore ? analysisRef.current : null;
+                const inFlight = searchQueueRef.current[0];
+                if (!analysis && inFlight && inFlight.fen === fenBefore && inFlight.lastBestUci
+                    && (inFlight.purpose === "analysis" || inFlight.purpose === "review")) {
+                    analysis = { fen: fenBefore, bestUci: inFlight.lastBestUci, scoreWhite: inFlight.lastScoreWhite };
+                }
+
+                const playerTurnChar = playerColorRef.current === "white" ? "w" : "b";
+                const isPlayerMove = fenBefore.split(" ")[1] === playerTurnChar;
+
+                const move = handleMove(orig, dest, 'q', isPlayerMove ? 'player' : 'engine');
                 if (!move) {
                     apiRef.current.set({ fen: chessRef.current.fen() });
                     return;
                 }
-                
+
+                const fenAfter = chessRef.current.fen();
+
+                if (isPlayerMove) {
+                    const playedUci = move.from + move.to + (move.promotion || "");
+
+                    // SAN for the best move, from the pre-move position, resolved now
+                    let bestMoveSan = null;
+                    if (analysis?.bestUci && analysis.bestUci !== playedUci) {
+                        try {
+                            const t = new Chess(fenBefore);
+                            const m = t.move({
+                                from: analysis.bestUci.substring(0, 2),
+                                to: analysis.bestUci.substring(2, 4),
+                                promotion: analysis.bestUci[4]
+                            });
+                            bestMoveSan = m ? m.san : null;
+                        } catch { /* engine line illegal per chess.js: leave null */ }
+                    }
+
+                    pendingFeedbackRef.current = {
+                        snapshotIndex: historyIndexRef.current,
+                        fenAfter,
+                        session: sessionIdRef.current,
+                        playedUci,
+                        bestUci: analysis?.bestUci ?? null,
+                        bestMoveSan,
+                        evalBeforeWhite: analysis?.scoreWhite ?? null
+                    };
+
+                    if (chessRef.current.isGameOver()) {
+                        commitFeedback(terminalEvalWhite(chessRef.current));
+                        return;
+                    }
+
+                    if (analysis?.bestUci && playedUci === analysis.bestUci) {
+                        commitFeedback(null); // "Best!" needs no eval-after
+                    }
+                }
+
                 if (!chessRef.current.isGameOver()) {
                     setEngineStatus("Thinking...");
-                    engine.current?.postMessage(`position fen ${chessRef.current.fen()}`);
-                    engine.current?.postMessage(`go depth ${engineDepthRef.current}`); 
+                    startSearch(fenAfter, "reply", {
+                        snapshotIndex: historyIndexRef.current,
+                        fenAfter
+                    });
                 }
             }
           }
         }
       };
       apiRef.current = Chessground(boardRef.current, config);
+
+      // Dev-only E2E hook: drive moves through the same path as board input
+      // (chessground drops synthetic mouse events unless trusted).
+      if (import.meta.env.DEV) {
+        window.__testMove = (orig, dest) => config.movable.events.after(orig, dest);
+      }
     }
   }, []);
 
@@ -411,24 +632,33 @@ export default function App() {
     gameHistoryRef.current = [startSnapshot];
     setHistoryIndex(0);
     historyIndexRef.current = 0;
-    
-    isReplayingRef.current = false; 
+
+    // Invalidate any in-flight searches and grading from the previous scenario
+    sessionIdRef.current += 1;
+    analysisRef.current = null;
+    pendingFeedbackRef.current = null;
 
     const sideToMove = newGame.turn() === 'w' ? 'white' : 'black';
     setPlayerColor(sideToMove);
+    playerColorRef.current = sideToMove;
     setTurnInfo(sideToMove);
 
     setEngineStatus("Ready");
     engine.current?.postMessage("stop");
-    
+
     if (apiRef.current) {
         apiRef.current.set({
             fen: scenario.fen,
-            orientation: sideToMove, 
+            orientation: sideToMove,
             turnColor: sideToMove,
             lastMove: null,
             movable: { color: sideToMove, dests: toDests(newGame) }
         });
+    }
+
+    // Pre-analyze the starting position: best move for the player + live eval
+    if (!newGame.isGameOver()) {
+        startSearch(scenario.fen, "analysis");
     }
   }
 
@@ -463,9 +693,20 @@ export default function App() {
           flexDirection: isMobile ? "column" : "row",
           gap: "30px", 
           alignItems: "center",
-          width: "100%", 
-          maxWidth: "900px", 
+          width: "100%",
+          maxWidth: "1150px",
           justifyContent: "center"
+      },
+      moveLog: {
+          width: isMobile ? "90vw" : "220px",
+          background: "var(--surface)",
+          borderRadius: "var(--radius)",
+          padding: "15px",
+          border: "1px solid var(--surface2)",
+          height: isMobile ? "auto" : "500px",
+          maxHeight: isMobile ? "260px" : "500px",
+          display: "flex",
+          flexDirection: "column"
       },
       sidebar: {
           width: isMobile ? "90vw" : "200px",
@@ -479,9 +720,48 @@ export default function App() {
           flexDirection: "column"
       },
       board: {
-          width: boardSize, 
+          width: boardSize,
           height: boardSize
       }
+  };
+
+  // Pair move snapshots into "1. Kd4 Kf6" rows (index 0 is the start position)
+  const moveRows = [];
+  gameHistory.forEach((entry, index) => {
+      if (!entry.san) return;
+      const last = moveRows[moveRows.length - 1];
+      if (entry.color === "w") {
+          moveRows.push({ num: entry.moveNumber, white: { entry, index }, black: null });
+      } else if (last && last.white && !last.black) {
+          last.black = { entry, index };
+      } else {
+          moveRows.push({ num: entry.moveNumber, white: null, black: { entry, index } });
+      }
+  });
+
+  const renderMoveCell = (cell, isWhiteCell) => {
+      // Black-first rows show "…" in the white slot; an unplayed black slot stays blank
+      if (!cell) return <span style={styles.moveCell}>{isWhiteCell ? "…" : ""}</span>;
+      const { entry, index } = cell;
+      const fb = entry.moveBy === "player" ? entry.feedback : null;
+      return (
+          <span
+              style={index === historyIndex ? styles.moveCellActive : styles.moveCell}
+              onClick={() => jumpToPly(index)}
+          >
+              <span style={styles.moveSanRow}>
+                  {entry.san}
+                  {fb?.tier && (
+                      <span style={{ ...styles.feedbackBadge, color: TIER_COLORS[fb.tier] }}>
+                          {TIER_LABELS[fb.tier]}
+                      </span>
+                  )}
+              </span>
+              {showBest && fb?.bestMoveSan && (
+                  <span style={styles.bestHint}>best: {fb.bestMoveSan}</span>
+              )}
+          </span>
+      );
   };
 
   return (
@@ -716,6 +996,32 @@ export default function App() {
             )}
         </div>
 
+        <div style={responsiveStyles.moveLog}>
+            <div style={styles.sidebarHeader}>
+                <h3 style={styles.sidebarTitle}>Moves</h3>
+                <button
+                    type="button"
+                    style={showBest ? styles.showBestActive : styles.clearButton}
+                    onClick={() => setShowBest(v => !v)}
+                    title="Reveal the engine's best move for moves that weren't best"
+                >
+                    Show best
+                </button>
+            </div>
+            <div ref={moveListRef} style={styles.moveLogList}>
+                {moveRows.length === 0 && (
+                    <span style={{color: "var(--text-dim)", fontStyle: "italic", fontSize: "14px"}}>No moves yet</span>
+                )}
+                {moveRows.map((row, i) => (
+                    <div key={i} style={styles.moveRow}>
+                        <span style={styles.moveNum}>{row.num}.</span>
+                        {renderMoveCell(row.white, true)}
+                        {renderMoveCell(row.black, false)}
+                    </div>
+                ))}
+            </div>
+        </div>
+
         <div style={responsiveStyles.sidebar}>
             <div style={styles.sidebarHeader}>
                 <h3 style={styles.sidebarTitle}>Recent History</h3>
@@ -801,6 +1107,40 @@ const styles = {
       padding: "3px 8px", borderRadius: "4px", border: "1px solid var(--surface2)",
       background: "transparent", color: "var(--text-dim)", cursor: "pointer",
       fontSize: "11px", fontFamily: "inherit"
+  },
+  showBestActive: {
+      padding: "3px 8px", borderRadius: "4px", border: "1px solid var(--accent)",
+      background: "var(--accent)", color: "var(--bg)", cursor: "pointer",
+      fontSize: "11px", fontFamily: "inherit", fontWeight: "bold"
+  },
+  // --- MOVE LOG ---
+  moveLogList: {
+      flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "2px"
+  },
+  moveRow: {
+      display: "flex", alignItems: "flex-start", gap: "4px", fontSize: "13px"
+  },
+  moveNum: {
+      color: "var(--text-dim)", width: "24px", flexShrink: 0, textAlign: "right",
+      paddingTop: "3px", fontSize: "12px"
+  },
+  moveCell: {
+      flex: 1, padding: "3px 6px", borderRadius: "4px", cursor: "pointer",
+      display: "flex", flexDirection: "column", color: "var(--text)"
+  },
+  moveCellActive: {
+      flex: 1, padding: "3px 6px", borderRadius: "4px", cursor: "pointer",
+      display: "flex", flexDirection: "column", color: "var(--text)",
+      background: "var(--surface2)"
+  },
+  moveSanRow: {
+      display: "flex", alignItems: "center", gap: "5px"
+  },
+  feedbackBadge: {
+      fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.3px"
+  },
+  bestHint: {
+      fontSize: "11px", color: "var(--accent2)", fontStyle: "italic"
   },
   historyList: {
       flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "6px"
